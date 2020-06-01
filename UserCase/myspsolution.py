@@ -9,6 +9,139 @@ from scipy.stats import ks_2samp
 from scipy.stats import ttest_ind
 import os
 
+def userCase(m,p):
+    sound = p + "/" + m
+    sourcerun = "myspsolution.praat"
+    path = p + "/"
+    # mysp.mysppaus(p,c)
+    try:
+        objects = run_file(sourcerun, -20, 2, 0.3, "yes", sound, path, 80, 400, 0.01, capture_output=True)
+        #print(objects[0])  # This will print the info from the sound object, and objects[0] is a parselmouth.Sound object
+        z1 = str(objects[
+                     1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
+        z2 = z1.strip().split()
+        z3 = int(z2[1])  # will be the integer number 10
+        z4 = float(z2[3])  # will be the floating point number 8.3
+        print("number_of_pauses=", z3)
+    except:
+        z3 = 0
+        print("Try again the sound of the audio was not clear")
+
+    #mysp.myspsyl(p,c)
+    try:
+#        objects= run_file(sourcerun, -20, 2, 0.3, "yes",sound,path, 80, 400, 0.01, capture_output=True)
+#        print (objects[0]) # This will print the info from the sound object, and objects[0] is a parselmouth.Sound object
+        z1=str( objects[1]) # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
+        z2=z1.strip().split()
+        z3=int(z2[0]) # will be the integer number 10
+        z4=float(z2[3]) # will be the floating point number 8.3
+        print ("number_ of_syllables=",z3)
+    except:
+        z3=0
+        print ("Try again the sound of the audio was not clear")
+
+    #mysp.myspsr(p, c)
+    try:
+        #print(objects[0])  # This will print the info from the sound object, and objects[0] is a parselmouth.Sound object
+        z1 = str(objects[
+                     1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
+        z2 = z1.strip().split()
+        z3 = int(z2[2])  # will be the integer number 10
+        z4 = float(z2[3])  # will be the floating point number 8.3
+        print("rate_of_speech=", z3, "# syllables/sec original duration")
+    except:
+        z3 = 0
+        print("Try again the sound of the audio was not clear")
+
+    #mysp.myspbala(p,c)
+    try:
+        #print(objects[0])  # This will print the info from the sound object, and objects[0] is a parselmouth.Sound object
+        z1 = str(objects[
+                     1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
+        z2 = z1.strip().split()
+        z3 = int(z2[3])  # will be the integer number 10
+        z4 = float(z2[6])  # will be the floating point number 8.3
+        print("balance=", z4, "# ratio (speaking duration)/(original duration)")
+    except:
+        z4 = 0
+        print("Try again the sound of the audio was not clear")
+
+    #mysp.myspf0mean(p,c)
+    try:
+        #print (objects[0]) # This will print the info from the sound object, and objects[0] is a parselmouth.Sound object
+        z1=str( objects[1]) # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
+        z2=z1.strip().split()
+        z3=int(z2[3]) # will be the integer number 10
+        z4=float(z2[7]) # will be the floating point number 8.3
+        print ("f0_mean=",z4,"# Hz global mean of fundamental frequency distribution")
+    except:
+        z4=0
+        print ("Try again the sound of the audio was not clear")
+
+    #mysp.myspgend(p,c)
+    try:
+        #print (objects[0]) # This will print the info from the sound object, and objects[0] is a parselmouth.Sound object
+        z1=str( objects[1]) # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
+        z2=z1.strip().split()
+        z3=float(z2[8]) # will be the integer number 10
+        z4=float(z2[7]) # will be the floating point number 8.3
+        if z4<=114:
+            g=101
+            j=3.4
+        elif z4>114 and z4<=135:
+            g=128
+            j=4.35
+        elif z4>135 and z4<=163:
+            g=142
+            j=4.85
+        elif z4>163 and z4<=197:
+            g=182
+            j=2.7
+        elif z4>197 and z4<=226:
+            g=213
+            j=4.5
+        elif z4>226:
+            g=239
+            j=5.3
+        else:
+            print("Voice not recognized")
+            exit()
+        def teset(a,b,c,d):
+            d1=np.random.wald(a, 1, 1000)
+            d2=np.random.wald(b,1,1000)
+            d3=ks_2samp(d1, d2)
+            c1=np.random.normal(a,c,1000)
+            c2=np.random.normal(b,d,1000)
+            c3=ttest_ind(c1,c2)
+            y=([d3[0],d3[1],abs(c3[0]),c3[1]])
+            return y
+        nn=0
+        mm=teset(g,j,z4,z3)
+        while (mm[3]>0.05 and mm[0]>0.04 or nn<5):
+            mm=teset(g,j,z4,z3)
+            nn=nn+1
+        nnn=nn
+        if mm[3]<=0.09:
+            mmm=mm[3]
+        else:
+            mmm=0.35
+        if z4>97 and z4<=114:
+            print("a Male, mood of speech: Showing no emotion, normal")
+        elif z4>114 and z4<=135:
+            print("a Male, mood of speech: Reading")
+        elif z4>135 and z4<=163:
+            print("a Male, mood of speech: speaking passionately")
+        elif z4>163 and z4<=197:
+            print("a female, mood of speech: Showing no emotion, normal")
+        elif z4>197 and z4<=226:
+            print("a female, mood of speech: Reading")
+        elif z4>226 and z4<=245:
+            print("a female, mood of speech: speaking passionately")
+        else:
+            print("Voice not recognized")
+    except:
+        print ("Try again the sound of the audio was not clear")
+
 def myspsyl(m,p):
     sound=p+"/"+m
     sourcerun="myspsolution.praat"
