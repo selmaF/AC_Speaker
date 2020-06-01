@@ -1,6 +1,6 @@
 import myspsolution as mysp
 import pickle
-
+import sys
 # bis jetzt liest jede funktione das Audio File neu ein, alalysiert es und schließt es wieder
 # das ist zwar super ineffizient aber bis Mittwoch/UserCase wohl egal
 
@@ -24,7 +24,7 @@ def find_frames(audio_frame):
 
 if __name__ == '__main__':
     first_audio = sys.argv[1]       # die wav dateien sollten 44.100 Hz und 16 bit resolution besitzen
-    audio_files_path = sys.argv[2]
+    audio_files_path = "data/myprosody/audioFiles"
     mysp.mysppaus(first_audio, audio_files_path)
     mysp.myspsr(first_audio, audio_files_path)
     mysp.myspbala(first_audio, audio_files_path)
