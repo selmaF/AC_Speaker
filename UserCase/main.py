@@ -15,7 +15,7 @@ current_ratio = 0
 def find_frames(section_name, audio_frame, audio_files_path, data_whole_file):           # TODO: am besten den Audioabschnitt durch das Tool analysieren und die Werte in Variablen abspeichern. Wenn das bis morgen nicht fertig ist, dann nehmen wir die fake Werte.
 
     analyser_section = a.UserCaseAnalyser(section_name, audio_frame, audio_files_path)
-    analyser_section.analyseWholeFile()
+    analyser_section.analyse()
     data_section = analyser_section.getResults()
 
     length_section = data_section["length_in_sec"]
@@ -28,10 +28,10 @@ def find_frames(section_name, audio_frame, audio_files_path, data_whole_file):  
     pauses_length_section = (float(number_of_pauses_section)/float(length_section))
     pauses_length_whole = float(data_whole_file["pauses"])/ float(data_whole_file["length_in_sec"])
     print("\n")
-    print("Auffällig an " + section_name + ": ")
-    if pauses_length_section > pauses_length_whole:
+    print("Auffällig an " + section_name + " mit der Länge " + str(length_section) + " sec: ")
+    if pauses_length_section > pauses_length_whole + 0.1:
         print("In " + section_name + " haben Sie mit " + str(number_of_pauses_section) + " Pausen mehr Pausen als im Durchschnitt gemacht")
-    if pauses_length_section < pauses_length_whole:
+    if pauses_length_section + 0.1 < pauses_length_whole:
         print("In " + section_name + " haben Sie mit " + str(number_of_pauses_section) + " Pausen weniger Pausen als im Durchschnitt gemacht")
     if current_rate_of_speech > rate_of_speech_section:
         print("In " + section_name + " war Ihre Rede mit " + str(rate_of_speech_section) + " Silben pro Sekunde langsamer als im Durchscnitt")
@@ -46,7 +46,7 @@ def find_frames(section_name, audio_frame, audio_files_path, data_whole_file):  
 
 def split_audio_file(audio_file, audio_file_path, last_second):
     speech = AudioSegment.from_wav(audio_files_path + "/" + audio_file)
-    section_size = 15
+    section_size = 20
     for number_section, section in enumerate(range(0, last_second, section_size)):
         section_speech = []
         section_start = section*1000
