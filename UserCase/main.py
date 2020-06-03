@@ -57,6 +57,9 @@ def split_audio_file(audio_file, audio_file_path, last_second):
     return number_of_sections
 
 if __name__ == '__main__':
+    
+    #TODO: read video file, extract audio (Jakob)
+    
     try:
         first_audio = sys.argv[1]       # die wav dateien sollten 44.100 Hz und 16 bit resolution besitzen
     except IndexError:
