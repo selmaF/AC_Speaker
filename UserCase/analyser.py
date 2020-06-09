@@ -1,14 +1,13 @@
 import parselmouth
-from parselmouth.praat import call, run_file
-import pandas as pd
+from parselmouth.praat import run_file
 import numpy as np
-from scipy.stats import binom
 from scipy.stats import ks_2samp
 from scipy.stats import ttest_ind
 import scipy.io.wavfile as wav
 import seaborn as sns
 import matplotlib.pyplot as plt
 import math
+
 
 class AudioAnalyser:
 
@@ -43,7 +42,7 @@ class UserCaseAnalyser(AudioAnalyser):
     def analyseWholeFile(self):
         self.analyse()
         self.printResults()
-        #self.testPlot()
+        # self.testPlot()
 
     def setStandard(self):
         # write data in txt-file
@@ -51,7 +50,7 @@ class UserCaseAnalyser(AudioAnalyser):
             f = open('standard.txt', 'w')
             f.write(self.name + '\n')
             for key in self.userCaseValues.keys():
-                f.write("%s, %s\n" % (key,self.userCaseValues[key]))
+                f.write("%s, %s\n" % (key, self.userCaseValues[key]))
             pass
 
         else:
@@ -66,7 +65,7 @@ class UserCaseAnalyser(AudioAnalyser):
         pauses = str(self.userCaseValues["pauses"])
         print("\n")
         print(self.name)
-        print("Bei einer Gesamtlänge von " + length + " Sekunden wurden " + pauses + " Pausen gemacht",)
+        print("Bei einer Gesamtlänge von " + length + " Sekunden wurden " + pauses + " Pausen gemacht")
         print("Die durchschnittlich gesprochenen Silben pro Sekunde betragen " + str(self.userCaseValues["rate_of_speech"]))
         print("Das Verhältnis von geprochener Zeit zu der Gesamtzeit ist " + str(self.userCaseValues["balance"]))
         print("Die semantische Analyse ergab:  " + self.userCaseValues["mood"])
@@ -78,7 +77,7 @@ class UserCaseAnalyser(AudioAnalyser):
         snd = parselmouth.Sound(self.audio_files_path + "/" + self.audio_file)
         plotter = Plotter(snd)
         plotter.draw_intensity()
- #       plotter.draw_spectrogram()
+        # plotter.draw_spectrogram()
 
     def runPraatFile(self):
         # added from myspsolution.py
@@ -88,7 +87,7 @@ class UserCaseAnalyser(AudioAnalyser):
 
         return run_file(sourcerun, -20, 2, 0.3, "yes", sound, path, 80, 400, 0.01, capture_output=True)
 
-    def analyse(self, section = 'whole'):
+    def analyse(self, section="whole"):
 
         # added from myspsolution.py
         sound = self.audio_files_path + "/" + self.audio_file
@@ -97,7 +96,7 @@ class UserCaseAnalyser(AudioAnalyser):
         try:
             (source_rate, source_sig) = wav.read(sound)
             duration_seconds = len(source_sig) / float(source_rate)
-            #print("Länge des Audiofiles= ", duration_seconds)
+            # print("Länge des Audiofiles= ", duration_seconds)
             self.userCaseValues["length_in_sec"] = math.ceil(duration_seconds)
         except:
             z3 = 0
@@ -105,31 +104,27 @@ class UserCaseAnalyser(AudioAnalyser):
 
         # mysp.mysppaus(p,c)
         try:
+            # count number of pauses
             objects = self.runPraatFile()
             # print(objects[0])  # This will print the info from the sound object, and objects[0] is a parselmouth.Sound object
             z1 = str(objects[
                          1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
             z2 = z1.strip().split()
             z3 = int(z2[1])  # will be the integer number 10
-            z4 = float(z2[3])  # will be the floating point number 8.3
-            #print("number_of_pauses=", z3)
+            # print("number_of_pauses=", z3)
             self.userCaseValues["pauses"] = z3
         except:
-            z3 = 0
             print("Try again the sound of the audio was not clear")
 
         # mysp.myspsr(p, c)
         try:
             # print(objects[0])  # This will print the info from the sound object, and objects[0] is a parselmouth.Sound object
-            z1 = str(objects[
-                         1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
+            z1 = str(objects[1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
             z2 = z1.strip().split()
             z3 = int(z2[2])  # will be the integer number 10
-            z4 = float(z2[3])  # will be the floating point number 8.3
-            #print("rate_of_speech=", z3, "# syllables/sec original duration")
+            # print("rate_of_speech=", z3, "# syllables/sec original duration")
             self.userCaseValues["rate_of_speech"] = z3
         except:
-            z3 = 0
             print("Try again the sound of the audio was not clear")
 
         # mysp.myspbala(p,c)
@@ -138,14 +133,11 @@ class UserCaseAnalyser(AudioAnalyser):
             z1 = str(objects[
                          1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
             z2 = z1.strip().split()
-            z3 = int(z2[3])  # will be the integer number 10
             z4 = float(z2[6])  # will be the floating point number 8.3
-            #print("balance=", z4, "# ratio (speaking duration)/(original duration)")
+            # print("balance=", z4, "# ratio (speaking duration)/(original duration)")
             self.userCaseValues["balance"] = z4
         except:
-            z4 = 0
             print("Try again the sound of the audio was not clear")
-
 
         # mysp.myspgend(p,c)
         try:
@@ -158,16 +150,16 @@ class UserCaseAnalyser(AudioAnalyser):
             if z4 <= 114:
                 g = 101
                 j = 3.4
-            elif z4 > 114 and z4 <= 135:
+            elif 114 < z4 <= 135:
                 g = 128
                 j = 4.35
-            elif z4 > 135 and z4 <= 163:
+            elif 135 < z4 <= 163:
                 g = 142
                 j = 4.85
-            elif z4 > 163 and z4 <= 197:
+            elif 163 < z4 <= 197:
                 g = 182
                 j = 2.7
-            elif z4 > 197 and z4 <= 226:
+            elif 197 < z4 <= 226:
                 g = 213
                 j = 4.5
             elif z4 > 226:
@@ -189,7 +181,7 @@ class UserCaseAnalyser(AudioAnalyser):
 
             nn = 0
             mm = teset(g, j, z4, z3)
-            while (mm[3] > 0.05 and mm[0] > 0.04 or nn < 5):
+            while mm[3] > 0.05 and mm[0] > 0.04 or nn < 5:
                 mm = teset(g, j, z4, z3)
                 nn = nn + 1
             nnn = nn
@@ -197,23 +189,23 @@ class UserCaseAnalyser(AudioAnalyser):
                 mmm = mm[3]
             else:
                 mmm = 0.35
-            if z4 > 97 and z4 <= 114:
-                #print("a Male, mood of speech: Showing no emotion, normal")
+            if 97 < z4 <= 114:
+                # print("a Male, mood of speech: Showing no emotion, normal")
                 self.userCaseValues["mood"] = "showing no emotion"
-            elif z4 > 114 and z4 <= 135:
-                #print("a Male, mood of speech: Reading")
+            elif 114 < z4 <= 135:
+                # print("a Male, mood of speech: Reading")
                 self.userCaseValues["mood"] = "reading"
-            elif z4 > 135 and z4 <= 163:
-                #print("a Male, mood of speech: speaking passionately")
+            elif 135 < z4 <= 163:
+                # print("a Male, mood of speech: speaking passionately")
                 self.userCaseValues["mood"] = "speaking passionately"
-            elif z4 > 163 and z4 <= 197:
-                #print("a female, mood of speech: Showing no emotion, normal")
+            elif 163 < z4 <= 197:
+                # print("a female, mood of speech: Showing no emotion, normal")
                 self.userCaseValues["mood"] = "showing no emotion"
-            elif z4 > 197 and z4 <= 226:
-                #print("a female, mood of speech: Reading")
+            elif 197 < z4 <= 226:
+                # print("a female, mood of speech: Reading")
                 self.userCaseValues["mood"] = "reading"
-            elif z4 > 226 and z4 <= 245:
-                #print("a female, mood of speech: speaking passionately")
+            elif 226 < z4 <= 245:
+                # print("a female, mood of speech: speaking passionately")
                 self.userCaseValues["mood"] = "speaking passionately"
             else:
                 print("Voice not recognized")
@@ -221,7 +213,8 @@ class UserCaseAnalyser(AudioAnalyser):
         except:
             print("Try again the sound of the audio was not clear")
 
-class Plotter():
+
+class Plotter:
     # snd entspricht Ausgabe von parselmouth.Sound(path to wav-file)
     def __init__(self, snd):
         self.snd = snd
@@ -236,6 +229,7 @@ class Plotter():
         plt.xlabel("time [s]")
         plt.ylabel("frequency [Hz]")
         plt.show()
+
     def draw_intensity(self):
         plt.figure()
         plt.plot(self.intensity.xs(), self.intensity.values.T, linewidth=3, color='w')
