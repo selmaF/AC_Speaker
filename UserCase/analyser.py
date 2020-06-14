@@ -7,6 +7,7 @@ import scipy.io.wavfile as wav
 import seaborn as sns
 import matplotlib.pyplot as plt
 import math
+import statistics
 
 
 class AudioAnalyser:
@@ -212,6 +213,20 @@ class UserCaseAnalyser(AudioAnalyser):
                 self.userCaseValues["mood"] = "Voice not recognized"
         except:
             print("Try again the sound of the audio was not clear")
+
+    def compute_pause_length(self, path_to_textGrid):
+        pauses_intervall = []
+        length_of_pause = []
+        with open(path_to_textGrid) as textGrid:
+            lines = textGrid.readlines()
+            for i, line in enumerate(lines):
+                words = line.split()
+                if "silent" in words:
+                    pauses_intervall.append((lines[i-2].split()[-1], lines[i-1].split()[-1]))   # append beginning and end of the pause
+                    length_of_pause.append(int(lines[i-1].split()[-1]) - int(lines[i-2].split()[-1]))   # append length of the pause
+
+        mean_of_pauses = statistics.mean(length_of_pause)
+        return mean_of_pauses
 
 
 class Plotter:
