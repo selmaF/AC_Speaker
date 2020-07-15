@@ -14,3 +14,4 @@ Tool for UserCase:
 
 		'scipy>=1.1.0',
 
+Link zum akustischen Model: https://goofy.zamia.org/zamia-speech/asr-models/kaldi-generic-de-tdnn_f-r20190328.tar.xz
