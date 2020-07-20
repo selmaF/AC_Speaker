@@ -46,11 +46,11 @@ def find_frames(section_name, audio_frame, audio_files_path, data_whole_file):
     if mood_section != data_whole_file["mood"]:
         print("Die semantische Analyse von " + section_name + " unterscheidet sich mit \"" + mood_section + "\" von der der gesammten Rede")
 
+
 def split_audio_file(audio_file, last_second):
     speech = AudioSegment.from_wav(audio_files_path + "/" + audio_file + ".wav")
     section_size = 15
     for number_section, section in enumerate(range(0, last_second, section_size)):
-        section_speech = []
         section_start = section*1000
         section_end = (section+section_size)*1000-1
         section_speech = speech[section_start:section_end]
@@ -81,6 +81,6 @@ if __name__ == '__main__':
     #if save_as_gold == "j":
     #    analyzer.setStandard()
 
-    number_of_sections = split_audio_file(first_audio, data_whole["length_in_sec"])
-    for i in range(number_of_sections):
-        find_frames("Abschnitt " + str(i), "Abschnitt" + str(i), audio_files_path, data_whole)
+    # number_of_sections = split_audio_file(first_audio, data_whole["length_in_sec"])
+    # for i in range(number_of_sections):
+    #     find_frames("Abschnitt " + str(i), "Abschnitt" + str(i), audio_files_path, data_whole)

@@ -5,10 +5,9 @@ import os
 from scipy.stats import ks_2samp
 from scipy.stats import ttest_ind
 import scipy.io.wavfile as wav
-import seaborn as sns
-import matplotlib.pyplot as plt
 import math
 import statistics
+
 
 class AudioAnalyzer:
 
@@ -38,8 +37,7 @@ class AudioAnalyzer:
             return self.analyzed_values
         else:
             print("Noch keine Analyseergebnisse vorhanden")
-            raise(ImportError)
-
+            raise ImportError
 
     def printResults(self):
         if self.analysis_done:
@@ -92,13 +90,28 @@ class AudioAnalyzer:
         # todo nicht allgemeine Lautstärke analysieren, sondern nur die in der gesprochenen Zeit
         # nehme abschnitte sounding aus TextGrid und analysiere Lautstärke und mean
         snd = parselmouth.Sound(self.audio_files_path + "/" + self.audio_file)
-        intensity = snd.to_intensity()
+        intensity = snd.to_intensity(minimum_pitch=0.2)
         intensity_points = intensity.values.T
         spoken_intensity = intensity_points[intensity_points > 25]
         mean = np.mean(spoken_intensity)
         return mean
 
-    def analyze_num_pauses(self, parsel_object):
+    @staticmethod
+    def analyze_filled_pauses(snd, timestamps):
+        # TODO: test the function (Daria)
+        pauses_number = 0
+        for timestamp in timestamps:
+            snd_part = snd.extract_part(from_time=timestamp[0], to_time=timestamp[1])
+            intensity = snd_part.to_intensity(minimum_pitch=0.2)
+            intensity_points = intensity.values.T
+            spoken_intensity = intensity_points[intensity_points > 25]
+            mean = np.mean(spoken_intensity)
+            if mean > 50:
+                pauses_number += 1
+        return pauses_number
+
+    @staticmethod
+    def analyze_num_pauses(parsel_object):
         # mysp.mysppaus(p,c)
         # count number of pauses
         z1 = str(parsel_object[1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
@@ -106,7 +119,8 @@ class AudioAnalyzer:
         z3 = int(z2[1])  # will be the integer number 10
         return z3
 
-    def compute_pause_length(self, path_to_textGrid):
+    @staticmethod
+    def compute_pause_length(path_to_textGrid):
         pauses_intervall = []
         length_of_pause = []
         with open(path_to_textGrid) as textGrid:
@@ -122,7 +136,8 @@ class AudioAnalyzer:
         mean_of_pauses = statistics.mean(length_of_pause)
         return mean_of_pauses
 
-    def analyze_rate_of_speech(self, parsel_object):
+    @staticmethod
+    def analyze_rate_of_speech(parsel_object):
         # mysp.myspsr(p, c)
 
         z1 = str(parsel_object[1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
@@ -131,7 +146,8 @@ class AudioAnalyzer:
         # print("rate_of_speech=", z3, "# syllables/sec original duration")
         return z3
 
-    def analyze_balance(self, parsel_object):
+    @staticmethod
+    def analyze_balance(parsel_object):
         # mysp.myspbala(p,c)
 
         z1 = str(parsel_object[1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
@@ -139,7 +155,8 @@ class AudioAnalyzer:
         z4 = float(z2[6])  # will be the floating point number 8.3
         return z4
 
-    def analyze_mood(self, parsel_object):
+    @staticmethod
+    def analyze_mood(parsel_object):
         # mysp.myspgend(p,c)
 
         z1 = str(parsel_object[1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
