@@ -7,6 +7,7 @@ from scipy.stats import ttest_ind
 import scipy.io.wavfile as wav
 import math
 import statistics
+import recognizer
 
 
 class AudioAnalyzer:
@@ -97,12 +98,12 @@ class AudioAnalyzer:
         return mean
 
     @staticmethod
-    def analyze_filled_pauses(snd, timestamps):
-        # TODO: test the function (Daria)
+    def analyze_filled_pauses(sound, timestamps):
+        snd = parselmouth.Sound(sound)
         pauses_number = 0
         for timestamp in timestamps:
             snd_part = snd.extract_part(from_time=timestamp[0], to_time=timestamp[1])
-            intensity = snd_part.to_intensity(minimum_pitch=0.2)
+            intensity = snd_part.to_intensity()
             intensity_points = intensity.values.T
             spoken_intensity = intensity_points[intensity_points > 25]
             mean = np.mean(spoken_intensity)
@@ -220,3 +221,4 @@ class AudioAnalyzer:
         else:
             print("Voice not recognized")
             return "Voice not recognized"
+

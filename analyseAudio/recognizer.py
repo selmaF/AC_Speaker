@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 from vosk import Model, KaldiRecognizer
 import os
 import wave
@@ -52,22 +51,17 @@ def read_file(file_path):
                     words.append(word)
                 elif '"end"' in line:
                     end_time = line.split()[-1].rstrip(",")
-                    end_timestamps.append(float(end_time))
+                    end_timestamps.append(round(float(end_time), 2))
                 elif '"start"' in line:
                     start_time = line.split()[-1].rstrip(",")
-                    start_timestamps.append(float(start_time))
+                    start_timestamps.append(round(float(start_time), 2))
     return words, end_timestamps, start_timestamps
 
 
 def detect_filled_pauses(end_timestamps, start_timestamps):
     pause_time = []
-    for i, end_time, start_time in enumerate(zip(end_timestamps, start_timestamps)):
-        if i != len(end_timestamps):         # avoid error "index out of range"
+    for i, (end_time, start_time) in enumerate(zip(end_timestamps, start_timestamps)):
+        if i+1 < len(end_timestamps):         # avoid error "index out of range"
             if end_time != start_timestamps[i+1]:
                 pause_time.append((end_time, start_timestamps[i+1]))
-
-
-path_to_file = recognize_speech("D:\\LMU\\affective_computing\\test.wav", "D:\\LMU\\affective_computing\\models\\kaldi-generic-de-tdnn_f-r20190328")
-rec_words, end_timing, start_timing = read_file(path_to_file)
-
-count_fillers("D:\\LMU\\affective_computing\\Fuellwoerter.txt", rec_words)
+    return pause_time
