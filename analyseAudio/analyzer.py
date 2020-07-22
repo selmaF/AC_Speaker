@@ -19,6 +19,7 @@ class AudioAnalyzer:
         self.audio_files_path = audio_files_path
         self.analyzed_values = {}
         self.analysis_done = False
+        self.path_to_model = "model"
 
     def setStandard(self):
         # write data in txt-file
@@ -52,6 +53,9 @@ class AudioAnalyzer:
             print("Die durchschnittlich gesprochenen Silben pro Sekunde betragen " + str(self.analyzed_values["rate_of_speech"]))
             print("Das Verhältnis von geprochener Zeit zu der Gesamtzeit ist " + str(self.analyzed_values["balance"]))
             print("Die semantische Analyse ergab:  " + self.analyzed_values["mood"])
+            print("Filler rate: " + str(self.analyzed_values["filler_rate"]))
+            print("meist gebrauchte Füllwörter: " + str(self.analyzed_values["most_used_fillers"]))
+            print("Anzahl von gefüllten Pausen: " + str(self.analyzed_values["filled_pauses"]))
         else:
             print("noch keine Werte analysiert")
 
@@ -73,9 +77,20 @@ class AudioAnalyzer:
             self.analyzed_values["rate_of_speech"] = self.analyze_rate_of_speech(object)
             self.analyzed_values["balance"] = self.analyze_balance(object)
             self.analyzed_values["mood"] = self.analyze_mood(object)
+
+
             self.analysis_done = True
         except:
             print("couldn't read file")
+
+    def analyze_recognizer(self):
+        path_to_rec_text = recognizer.recognize_speech(self.audio_files_path + "/" + self.audio_file, self.path_to_model)
+        words, end_timestamps, start_timestamps = recognizer.read_file(path_to_rec_text)
+        timestamps = recognizer.detect_filled_pauses(end_timestamps, start_timestamps)
+        self.analyze_filled_pauses(self.audio_files_path + "/" + self.audio_file, timestamps)
+        filler_rate, most_used_fillers = recognizer.count_fillers("Fuellwoerter.txt", words)
+        self.analyzed_values["filler_rate"] = filler_rate
+        self.analyzed_values["most_used_fillers"] = most_used_fillers
 
     def analyze_length(self):
         # length of the .wav file nach https://stackoverflow.com/questions/40651891/get-length-of-wav-file-in-samples-with-python
@@ -97,8 +112,7 @@ class AudioAnalyzer:
         mean = np.mean(spoken_intensity)
         return mean
 
-    @staticmethod
-    def analyze_filled_pauses(sound, timestamps):
+    def analyze_filled_pauses(self, sound, timestamps):
         snd = parselmouth.Sound(sound)
         pauses_number = 0
         for timestamp in timestamps:
@@ -109,7 +123,7 @@ class AudioAnalyzer:
             mean = np.mean(spoken_intensity)
             if mean > 50:
                 pauses_number += 1
-        return pauses_number
+        self.analyzed_values["filled_pauses"] = pauses_number
 
     @staticmethod
     def analyze_num_pauses(parsel_object):

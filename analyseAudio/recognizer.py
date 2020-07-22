@@ -4,6 +4,7 @@ import os
 import wave
 
 
+
 def recognize_speech(audio_path, ac_model_path):
     model = Model(ac_model_path)
     wf = wave.open(audio_path, "rb")
@@ -24,7 +25,6 @@ def recognize_speech(audio_path, ac_model_path):
 def count_fillers(path_to_filler_file, words):
     filler_counter = {}
     filler_words = []
-    words_number = []
     with open(path_to_filler_file, encoding="utf-8", mode="r") as fp:
         fil_words = fp.read()
         for fil_word in fil_words.split():
@@ -34,8 +34,9 @@ def count_fillers(path_to_filler_file, words):
                 if word not in filler_counter:
                     filler_counter[word] = 0
                 filler_counter[word] += 1
-    rate = sum(filler_counter.values()) / len(words_number) * 100
-    sorted_counter = {k: v for k, v in sorted(filler_counter.items(), key=lambda item: item[1], reverse=True)}
+    rate = sum(filler_counter.values()) / len(words) * 100
+    sorted_counter = {k: v for k, v in sorted(filler_counter.items(), key=lambda item: item[1], reverse=True)[:5]}
+
     return rate, sorted_counter
 
 
@@ -43,7 +44,7 @@ def read_file(file_path):
     words = []
     end_timestamps = []
     start_timestamps = []
-    with open(file_path, encoding="utf-8", mode="r") as file:
+    with open(file_path, encoding="utf-8", mode="r", errors='ignore') as file:
         for rec_sentence in file.readlines():
             for line in rec_sentence.splitlines():
                 if '"word"' in line:
@@ -65,3 +66,5 @@ def detect_filled_pauses(end_timestamps, start_timestamps):
             if end_time != start_timestamps[i+1]:
                 pause_time.append((end_time, start_timestamps[i+1]))
     return pause_time
+
+

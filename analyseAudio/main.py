@@ -66,11 +66,13 @@ if __name__ == '__main__':
     try:
         first_audio = sys.argv[1]       # die wav Dateien sollten 44.100 Hz und 16 bit resolution besitzen
     except IndexError:
-        first_audio = "redeTed"     # TODO: show error message (Daria)
-    audio_files_path = "data/audioFiles"
+        first_audio = "langsam_denkend"
+    audio_files_path = "audio"
 
     analyzer = a.AudioAnalyzer(first_audio, audio_files_path)
     analyzer.analyzeWavFile()
+    analyzer.analyze_recognizer()
+
     try:
         analyzer.printResults()
         data_whole = analyzer.getResults()
