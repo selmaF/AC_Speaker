@@ -52,9 +52,13 @@ def read_file(file_path):
                     words.append(word)
                 elif '"end"' in line:
                     end_time = line.split()[-1].rstrip(",")
+                    if ',' in end_time:
+                        end_time = end_time.replace(',','.')
                     end_timestamps.append(round(float(end_time), 2))
                 elif '"start"' in line:
                     start_time = line.split()[-1].rstrip(",")
+                    if ',' in start_time:
+                        start_time = start_time.replace(',','.')
                     start_timestamps.append(round(float(start_time), 2))
     return words, end_timestamps, start_timestamps
 

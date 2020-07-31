@@ -6,16 +6,21 @@
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtGui import QImage
 import statistics_window
 import sys
+import threading
 
 class Ui_MainWindow(object):
+
+
     def open_statistic_window(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = statistics_window.Ui_statistics_window()
-        self.ui.setupUi(self.window)
-        self.window.show()
+        self.ui.setupUi()
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(702, 369)
@@ -58,11 +63,10 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Reden analyiseren"))
         self.savedButton.setText(_translate("MainWindow", "Analysiere gespeichertes Video"))
         self.recordButton.setText(_translate("MainWindow", "Nehme Video zum Analysieren auf"))
         self.compareButton.setText(_translate("MainWindow", "Vergleiche ältere Ergebnisse"))
-
 
 if __name__ == "__main__":
 

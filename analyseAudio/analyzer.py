@@ -8,6 +8,7 @@ import sys
 import subprocess
 from pydub import AudioSegment
 
+
 import statistics
 import recognizer
 
@@ -118,9 +119,10 @@ class AudioAnalyzer:
         # todo nicht allgemeine Lautstärke analysieren, sondern nur die in der gesprochenen Zeit
         # nehme abschnitte sounding aus TextGrid und analysiere Lautstärke und mean
         snd = parselmouth.Sound(self.audio_files_path + "/" + self.audio_file)
-        intensity = snd.to_intensity(minimum_pitch=0.2)
+        intensity = snd.to_intensity(minimum_pitch=50)
         intensity_points = intensity.values.T
-        spoken_intensity = intensity_points[intensity_points > 25]
+        mean_all = np.mean(intensity_points)
+        spoken_intensity = intensity_points[intensity_points > (mean_all - 25)]
         mean = np.mean(spoken_intensity)
         return mean
 
@@ -128,13 +130,15 @@ class AudioAnalyzer:
         snd = parselmouth.Sound(sound)
         pauses_number = 0
         for timestamp in timestamps:
-            snd_part = snd.extract_part(from_time=timestamp[0], to_time=timestamp[1])
-            intensity = snd_part.to_intensity()
-            intensity_points = intensity.values.T
-            spoken_intensity = intensity_points[intensity_points > 25]
-            mean = np.mean(spoken_intensity)
-            if mean > 50:
-                pauses_number += 1
+            minimum_pause_length = 0.2
+            if (timestamp[1] - timestamp[0]) > minimum_pause_length:
+                snd_part = snd.extract_part(from_time=timestamp[0], to_time=timestamp[1])
+                intensity = snd_part.to_intensity(minimum_pitch=50)
+                intensity_points = intensity.values.T
+                spoken_intensity = intensity_points[intensity_points > 25]
+                mean = np.mean(spoken_intensity)
+                if mean > 50:
+                    pauses_number += 1
         self.analyzed_values["filled_pauses"] = pauses_number
 
     @staticmethod
@@ -207,76 +211,3 @@ class AudioAnalyzer:
             print("Voice not recognized")
             return "Voice not recognized"
 
-def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last_second):
-    speech = AudioSegment.from_wav(audio_files_path + "/" + audio_file + ".wav")
-    section_size = 15 # todo wo kann man diesen Parameter einstellen? In der GUI?
-    for number_section, section in enumerate(range(0, last_second, section_size)):
-        section_speech = []
-        section_start = section*1000
-        section_end = (section+section_size)*1000-1
-        section_speech = speech[section_start:section_end]
-        section_speech.export((section_folder + "/" + audio_file + "_section" + str(number_section+1) + ".wav"),
-                              format="wav", bitrate="44.1k")
-    return number_section+1
-
-def extract_audio_file(video_file_path, video_file_name):
-    # read video file, create audio file stub
-    video_file = video_file_path + "/"+ video_file_name + ".mp4"
-    first_audio = "{}_audio".format(video_file)
-
-    # extract audio track and save it with the marker "_audio"
-    command = "ffmpeg -i " + video_file + " -ab 160k -ac 2 -ar 44100 -vn {}.wav".format(first_audio)
-    subprocess.call(command, shell=True)
-    return str(video_file + "_audio.wav")
-
-def analyze_whole_and_sections(audio_file_name, audio_files_path):
-
-    #audio_file_name = "SusanDavid_2017W_kurz"  # TODO: show error message (Daria)
-    #audio_files_path = "data/audioFiles"
-    results_path = "data/results"
-
-    # analyze whole File
-    analyzer = AudioAnalyzer(audio_file_name, audio_files_path)
-    analyzer.analyzeWavFile()
-
-    try:
-        # analyzer.printResults()
-        analyzer.saveResults(results_path)
-        data_whole = analyzer.getResults()
-    except ImportError:
-        print("Analyse noch nicht durchgeführt")
-
-    # save_as_gold = input("\n Wollen Sie die Werte als Goldstandard speichern? Geben Sie ein j wenn ja " + "\n")
-    # if save_as_gold == "j":
-    #    analyzer.setStandard("data")
-
-    # split sections and save to data/audioFiles/sections:
-    # 1. delete old sections
-    section_folder = audio_files_path + "/sections"
-    try:
-        os.mkdir(section_folder, mode=0o777)
-    except FileExistsError:
-        print("Old sections will be deleted")
-        delete_folder_content(section_folder)
-    # 2. save new sections
-    number_of_sections = split_and_save_audio_file(audio_file_name, audio_files_path, section_folder,
-                                                   data_whole["length_in_sec"])
-    sections_results = []
-    for i in range(number_of_sections):
-        analyzer_section = AudioAnalyzer(audio_file_name + "_section" + str(i + 1), section_folder)
-        analyzer_section.analyzeWavFile()
-        sections_results.append(analyzer_section.getResults())
-        # find_frames(audio_file_name + "_section" + str(i+1), section_folder, data_whole)
-    return data_whole, sections_results
-
-def delete_folder_content(path_to_folder):
-
-    for filename in os.listdir(path_to_folder):
-        file_path = os.path.join(path_to_folder, filename)
-        try:
-            if os.path.isfile(file_path) or os.path.islink(file_path):
-                os.unlink(file_path)
-            elif os.path.isdir(file_path):
-                shutil.rmtree(file_path)
-        except Exception as e:
-            print('Failed to delete %s. Reason: %s' % (file_path, e))
