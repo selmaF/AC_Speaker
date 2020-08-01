@@ -1,0 +1,8 @@
+EstelleGibson_2019X_VO_Intro
+length_in_sec, 499
+mean_intensity, 67.75328202457005
+pauses, 189
+mean_of_pauses, 0.6529767275331172
+rate_of_speech, 4
+balance, 0.8
+mood, showing no emotion

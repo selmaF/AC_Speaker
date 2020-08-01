@@ -1,0 +1,11 @@
+affectus_laut_leise
+length_in_sec, 52
+mean_intensity, 58.26096419320172
+pauses, 24
+mean_of_pauses, 1.05165641723356
+rate_of_speech, 2
+balance, 0.5
+mood, reading
+filled_pauses, 9
+filler_rate, 6.521739130434782
+most_used_fillers, {'zwar': 1, 'im': 1, 'und': 1}

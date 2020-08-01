@@ -1,0 +1,8 @@
+adamson_short
+length_in_sec, 78
+mean_intensity, 76.89866439670381
+pauses, 20
+mean_of_pauses, 0.5287423211708918
+rate_of_speech, 4
+balance, 0.9
+mood, showing no emotion

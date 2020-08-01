@@ -1,0 +1,9 @@
+SusanDavid_2017W_VO_Intro
+length_in_sec, 390
+mean_intensity, 59.67922876799448
+pauses, 130
+mean_of_pauses, 1.0413538461538467
+rate_of_speech, 3
+balance, 0.7
+pauses_per_sec, 0.3333333333333333
+mood, reading

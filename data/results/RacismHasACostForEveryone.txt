@@ -1,0 +1,9 @@
+RacismHasACostForEveryone
+length_in_sec, 234
+mean_intensity, 60.662821320137176
+pauses, 78
+mean_of_pauses, 0.9839958379976441
+rate_of_speech, 3
+balance, 0.7
+pauses_per_sec, 0.3333333333333333
+mood, showing no emotion

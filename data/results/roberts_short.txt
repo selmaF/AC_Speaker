@@ -1,0 +1,11 @@
+roberts_short
+length_in_sec, 369
+mean_intensity, 71.80548526522294
+pauses, 119
+mean_of_pauses, 0.7408403361344541
+rate_of_speech, 4
+balance, 0.8
+mood, speaking passionately
+filled_pauses, 41
+filler_rate, 8.870967741935484
+most_used_fillers, {'schon': 3, 'da': 3, 'der': 2, 'dann': 2, 'mal': 1}

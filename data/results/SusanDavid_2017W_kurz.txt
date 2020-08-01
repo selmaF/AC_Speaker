@@ -1,0 +1,8 @@
+SusanDavid_2017W_kurz
+length_in_sec, 260
+mean_intensity, 62.43459321350981
+pauses, 85
+mean_of_pauses, 1.0540041702504759
+rate_of_speech, 3
+balance, 0.6
+mood, reading

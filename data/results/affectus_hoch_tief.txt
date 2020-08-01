@@ -1,0 +1,11 @@
+affectus_hoch_tief
+length_in_sec, 50
+mean_intensity, 52.70212826217757
+pauses, 25
+mean_of_pauses, 0.8543101343101345
+rate_of_speech, 3
+balance, 0.5
+mood, reading
+filled_pauses, 3
+filler_rate, 6.976744186046512
+most_used_fillers, {'und': 3}

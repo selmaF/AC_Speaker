@@ -1,0 +1,11 @@
+test_pausen_gefuellt
+length_in_sec, 52
+mean_intensity, 55.18822343929489
+pauses, 24
+mean_of_pauses, 1.0199169719169723
+rate_of_speech, 2
+balance, 0.5
+mood, showing no emotion
+filled_pauses, 5
+filler_rate, 11.538461538461538
+most_used_fillers, {'im': 1, 'nicht': 1, 'ein': 1}

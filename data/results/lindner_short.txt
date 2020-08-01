@@ -1,0 +1,11 @@
+lindner_short
+length_in_sec, 97
+mean_intensity, 60.12251480684548
+pauses, 20
+mean_of_pauses, 0.8086650469711685
+rate_of_speech, 4
+balance, 0.8
+mood, showing no emotion
+filled_pauses, 11
+filler_rate, 14.166666666666666
+most_used_fillers, {'ein': 8, 'und': 2, 'wenngleich': 1, 'in': 1, 'etwas': 1}
