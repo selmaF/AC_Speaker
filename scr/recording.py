@@ -1,5 +1,11 @@
+import argparse
+import queue
+import sys
+
 import cv2
 import sounddevice as sd
+import soundfile as sf
+import msvcrt
 from scipy.io.wavfile import write
 
 
@@ -24,9 +30,38 @@ def record_video(filename):
 
 
 def record_audio(filename):
-    fs = 44100  # Sample rate
-    seconds = 3  # Duration of recording
+    q = queue.Queue()
+    parser = argparse.ArgumentParser(add_help=False)
 
-    myrecording = sd.rec(int(seconds * fs), samplerate=fs, channels=2)
-    sd.wait()  # Wait until recording is finished
-    write(filename, fs, myrecording)  # Save as WAV file
+    def callback(indata, frames, time, status):
+        """This is called (from a separate thread) for each audio block."""
+        if status:
+            print(status, file=sys.stderr)
+        q.put(indata.copy())
+
+    try:
+
+        # Make sure the file is opened before recording anything:
+        with sf.SoundFile(filename, mode='x', samplerate=44100,
+                          channels=2) as file:
+            with sd.InputStream(samplerate=44100,
+                                channels=2, callback=callback):
+                print("Recording...")
+                while True:
+                    if msvcrt.kbhit():
+                        key_stroke = msvcrt.getch()
+                        if key_stroke.decode("utf-8") == "q":
+                            parser.exit(0)
+                    file.write(q.get())
+
+    except KeyboardInterrupt:
+        print('\nRecording finished')
+        parser.exit(0)
+    except Exception as e:
+        parser.exit(type(e).__name__ + ': ' + str(e))
+
+
+def start(filename):
+
+    record_audio(filename + ".wav")
+    record_video(filename + ".mp4")
