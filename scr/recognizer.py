@@ -4,7 +4,6 @@ import os
 import wave
 
 
-
 def recognize_speech(audio_path, ac_model_path):
     model = Model(ac_model_path)
     wf = wave.open(audio_path, "rb")
@@ -53,12 +52,12 @@ def read_file(file_path):
                 elif '"end"' in line:
                     end_time = line.split()[-1].rstrip(",")
                     if ',' in end_time:
-                        end_time = end_time.replace(',','.')
+                        end_time = end_time.replace(',', '.')
                     end_timestamps.append(round(float(end_time), 2))
                 elif '"start"' in line:
                     start_time = line.split()[-1].rstrip(",")
                     if ',' in start_time:
-                        start_time = start_time.replace(',','.')
+                        start_time = start_time.replace(',', '.')
                     start_timestamps.append(round(float(start_time), 2))
     return words, end_timestamps, start_timestamps
 

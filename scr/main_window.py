@@ -7,7 +7,6 @@ import sys
 
 class Ui_MainWindow(object):
 
-
     def open_statistic_window(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = statistics_window.Ui_statistics_window()
@@ -59,6 +58,7 @@ class Ui_MainWindow(object):
         self.savedButton.setText(_translate("MainWindow", "Analysiere gespeichertes Video"))
         self.recordButton.setText(_translate("MainWindow", "Nehme Video zum Analysieren auf"))
         self.compareButton.setText(_translate("MainWindow", "Vergleiche ältere Ergebnisse"))
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

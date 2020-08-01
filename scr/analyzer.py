@@ -31,11 +31,9 @@ class AudioAnalyzer:
             f.write(self.name + '\n')
             for key in self.analyzed_values.keys():
                 f.write("%s, %s\n" % (key, self.analyzed_values[key]))
-            pass
 
         else:
-            print("noch keine Werte analysiert")
-        return
+            print("Noch keine Werte analysiert")
 
     def getResults(self):
         if self.analysis_done:
@@ -51,8 +49,7 @@ class AudioAnalyzer:
             for key in self.analyzed_values.keys():
                 f.write("%s, %s\n" % (key, self.analyzed_values[key]))
         else:
-            print("noch keine Werte analysiert, daher gibt es keine Werte zu speichern")
-        return
+            print("Noch keine Werte analysiert, daher gibt es keine Werte zu speichern")
 
     def saveAsStandard(self, path):
         if self.analysis_done:
@@ -61,8 +58,7 @@ class AudioAnalyzer:
             for key in self.analyzed_values.keys():
                 f.write("%s, %s\n" % (key, self.analyzed_values[key]))
         else:
-            print("noch keine Werte analysiert, daher gibt es keine Werte als Standard zu speichern")
-        return
+            print("Noch keine Werte analysiert, daher gibt es keine Werte als Standard zu speichern")
 
     def printResults(self):
         if self.analysis_done:
@@ -77,10 +73,10 @@ class AudioAnalyzer:
             print("Das Verhältnis von geprochener Zeit zu der Gesamtzeit ist " + str(self.analyzed_values["balance"]))
             print("Die semantische Analyse ergab:  " + self.analyzed_values["mood"])
             print("Filler rate: " + str(self.analyzed_values["filler_rate"]))
-            print("meist gebrauchte Füllwörter: " + str(self.analyzed_values["most_used_fillers"]))
+            print("Meist gebrauchte Füllwörter: " + str(self.analyzed_values["most_used_fillers"]))
             print("Anzahl von gefüllten Pausen: " + str(self.analyzed_values["filled_pauses"]))
         else:
-            print("noch keine Werte analysiert")
+            print("Keine Werte analysiert")
 
     def runMyspsolutionPraatFile(self):
         # added from myspsolution.py
@@ -92,7 +88,7 @@ class AudioAnalyzer:
 
     def analyzeWavFile(self):
         try:
-            print("starte Analyse von " + self.name)
+            print("Starte Analyse von " + self.name)
             object = self.runMyspsolutionPraatFile()
             self.analyzed_values["length_in_sec"] = self.analyze_length()
             self.analyzed_values["mean_intensity"] = self.analyze_intensity()
@@ -105,7 +101,6 @@ class AudioAnalyzer:
             self.analysis_done = True
         except:
             print("analyzeWavFile hat nicht vollständig funktioniert")
-
 
     def analyze_recognizer(self):
         path_to_rec_text = recognizer.recognize_speech(self.audio_files_path + "/" + self.audio_file, self.path_to_model)
@@ -219,4 +214,3 @@ class AudioAnalyzer:
         else:
             print("Voice not recognized")
             return "Voice not recognized"
-

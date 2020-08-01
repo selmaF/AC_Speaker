@@ -153,7 +153,7 @@ class Ui_statistics_window(QtWidgets.QDialog):
         #                          (0, max(mean_pauses_sections)), True)
 
     def show_pause_len_statistic(self):
-        self.textStatistic.setText("Die durchschnittliche Längen der stillen Pausen: " + "%.2f secs"
+        self.textStatistic.setText("Die durchschnittliche Länge der stillen Pausen: " + "%.2f secs"
                                    % (self.whole["mean_of_pauses"]))
         mean_pauses_sections = []
         sections = []
@@ -209,7 +209,7 @@ class Ui_statistics_window(QtWidgets.QDialog):
 
     def show_fillers_statistic(self):
         self.textStatistic.setText(
-            "Das Verhältnis der Füllwörter zum Rest:  " + str(self.whole["filler_rate"]))
+            "Das Verhältnis der Füllwörter zu anderen Wörtern:  " + str(self.whole["filler_rate"]))
         self.textStatistic.setText(
             "Die Anzahl der gefüllten Pausen: " + str(self.whole["filled_pauses"])
         )

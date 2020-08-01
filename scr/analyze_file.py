@@ -1,41 +1,46 @@
-import analyzer as a
-
-from pydub import AudioSegment
-import os, shutil
+import os
+import shutil
 import subprocess
 
 from PyQt5 import QtWidgets
+from pydub import AudioSegment
+
+import analyzer as a
 
 
-# open file and analyze whole file plus sections
 def open_and_analyse_file():
+    """
+    Open file and analyze whole file plus sections
+    :return:
+    """
     name, path_to_files = open_file()
     results = analyze_whole_and_sections(name, path_to_files)
     return results, name
 
-#choose file to analyze
+
 def open_file():
+    """
+    Choose file to analyze
+    :return: file name and file path
+    """
     path = QtWidgets.QFileDialog.getOpenFileName(directory="../data/audioFiles")
     file = path[0].split("/")[-1]
     name = file.split(".")[0]
     file_extension = file.split(".")[1]
-    #todo verbinde audio und video-analyse
+    # todo verbinde audio und video-analyse
     if file_extension == "wav":
-        #audioanlyse soll durchgeführt werden
+        # do audio analysis
         pass
-    elif file_extension == "avi":
+    elif file_extension == "avi" or file_extension == "mp4":
+        # exctract audio from video
         extract_audio_file(path[0])
-        #audio wird von video extrahiert
-        pass
     else:
         print("Format nicht analysierbar")
-        return
     path_to_files = path[0].split("/" + name)[0]
     return name, path_to_files
 
 
-
-def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last_second, section_size = 15):
+def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last_second, section_size=15):
     speech = AudioSegment.from_wav(audio_files_path + "/" + audio_file + ".wav")
     number_section = 0
     # todo slice bei einer stillen Pause
@@ -43,27 +48,27 @@ def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last
         section_speech = []
         section_start = section*1000
         section_end = (section+section_size)*1000-1
-        # if rest is smaller 7 sec add it to last section
         if section_end > (last_second - 7)*1000:
             section_end = last_second*1000
         section_speech = speech[section_start:section_end]
 
-        #if section_speech.len() < 7:
-        #    number_section-1
-        #    break
         section_speech.export((section_folder + "/" + audio_file + "_section" + str(number_section+1) + ".wav"),
                               format="wav", bitrate="44.1k")
     return number_section+1
 
+
 def extract_audio_file(video_file):
-    # read video file, create audio file stub
-    #video_file = video_file_path + "/"+ video_file_name + ".mp4"
+    """
+    Read video file, create audio file stub
+    :param video_file: path to video file
+    :return: extracted audio file
+    """
     first_audio = "{}_audio".format(video_file)
 
-    # extract audio track and save it with the marker "_audio"
     command = "ffmpeg -i " + video_file + " -ab 160k -ac 2 -ar 44100 -vn {}.wav".format(first_audio)
     subprocess.call(command, shell=True)
     return str(video_file + "_audio.wav")
+
 
 def analyze_whole_and_sections(audio_file_name, audio_files_path):
 
@@ -75,7 +80,6 @@ def analyze_whole_and_sections(audio_file_name, audio_files_path):
     analyzer.analyze_recognizer()
 
     try:
-        # analyzer.printResults()
         analyzer.saveResults(results_path)
         data_whole = analyzer.getResults()
     except ImportError:
@@ -102,6 +106,7 @@ def analyze_whole_and_sections(audio_file_name, audio_files_path):
         analyzer_section.analyzeWavFile()
         sections_results.append(analyzer_section.getResults())
     return data_whole, sections_results
+
 
 def delete_folder_content(path_to_folder):
 
