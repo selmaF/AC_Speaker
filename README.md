@@ -1,6 +1,9 @@
 # AC_Speaker
 Daria, Maike and Jakob
 
+Neue Ordnerstruktur: Das Model muss jetzt in den Hauptordner, also auf dieselbe Ebene wie der scr Ordner
+
+
 Tools:
  Shahabks /my-voice-analysis   (Verändert nach den Issues auf Github)
  
