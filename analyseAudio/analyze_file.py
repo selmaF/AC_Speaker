@@ -1,18 +1,31 @@
+import analyzer as a
+
 from pydub import AudioSegment
-import os
+import os, shutil
 import subprocess
 
-import analyzer as a
 from PyQt5 import QtWidgets
 
+
+# open file and analyze whole file plus sections
+def open_and_analyse_file():
+    name, path_to_files = open_file()
+    results = analyze_whole_and_sections(name, path_to_files)
+    return results, name
+
+#choose file to analyze
 def open_file():
     path = QtWidgets.QFileDialog.getOpenFileName(directory="data/audioFiles")
     file = path[0].split("/")[-1]
     name = file.split(".")[0]
     file_extension = file.split(".")[1]
+    #todo verbinde audio und video-analyse
     if file_extension == "wav":
+        #audioanlyse soll durchgeführt werden
         pass
     elif file_extension == "avi":
+        extract_audio_file(path[0])
+        #audio wird von video extrahiert
         pass
     else:
         print("Format nicht analysierbar")
@@ -21,15 +34,11 @@ def open_file():
     return name, path_to_files
 
 
-def open_and_analyse_file():
-    name, path_to_files = open_file()
-    print("starte Analyse von " + name)
-    results = analyze_whole_and_sections(name, path_to_files)
-    return results
 
-def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last_second):
+def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last_second, section_size = 15):
     speech = AudioSegment.from_wav(audio_files_path + "/" + audio_file + ".wav")
-    section_size = 15 # todo wo kann man diesen Parameter einstellen? In der GUI?
+    number_section = 0
+    # todo slice bei einer stillen Pause
     for number_section, section in enumerate(range(0, last_second, section_size)):
         section_speech = []
         section_start = section*1000
@@ -39,9 +48,9 @@ def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last
                               format="wav", bitrate="44.1k")
     return number_section+1
 
-def extract_audio_file(video_file_path, video_file_name):
+def extract_audio_file(video_file):
     # read video file, create audio file stub
-    video_file = video_file_path + "/"+ video_file_name + ".mp4"
+    #video_file = video_file_path + "/"+ video_file_name + ".mp4"
     first_audio = "{}_audio".format(video_file)
 
     # extract audio track and save it with the marker "_audio"
@@ -51,8 +60,6 @@ def extract_audio_file(video_file_path, video_file_name):
 
 def analyze_whole_and_sections(audio_file_name, audio_files_path):
 
-    #audio_file_name = "SusanDavid_2017W_kurz"  # TODO: show error message (Daria)
-    #audio_files_path = "data/audioFiles"
     results_path = "data/results"
 
     # analyze whole File
@@ -65,7 +72,7 @@ def analyze_whole_and_sections(audio_file_name, audio_files_path):
         analyzer.saveResults(results_path)
         data_whole = analyzer.getResults()
     except ImportError:
-        print("Analyse noch nicht durchgeführt")
+        print("die Ergebnisse der Analyse konnten nicht abgerufen werden")
 
     # save_as_gold = input("\n Wollen Sie die Werte als Goldstandard speichern? Geben Sie ein j wenn ja " + "\n")
     # if save_as_gold == "j":
@@ -87,7 +94,6 @@ def analyze_whole_and_sections(audio_file_name, audio_files_path):
         analyzer_section = a.AudioAnalyzer(audio_file_name + "_section" + str(i + 1), section_folder)
         analyzer_section.analyzeWavFile()
         sections_results.append(analyzer_section.getResults())
-        # find_frames(audio_file_name + "_section" + str(i+1), section_folder, data_whole)
     return data_whole, sections_results
 
 def delete_folder_content(path_to_folder):

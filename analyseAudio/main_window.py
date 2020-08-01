@@ -1,17 +1,9 @@
-# -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'mainwindow.ui'
-#
-# Created by: PyQt5 UI code generator 5.9.2
-#
-# WARNING! All changes made in this file will be lost!
-
-
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtGui import QImage
 import statistics_window
+
+from PyQt5 import QtCore, QtWidgets
 import sys
-import threading
+
 
 class Ui_MainWindow(object):
 
@@ -69,7 +61,6 @@ class Ui_MainWindow(object):
         self.compareButton.setText(_translate("MainWindow", "Vergleiche ältere Ergebnisse"))
 
 if __name__ == "__main__":
-
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()

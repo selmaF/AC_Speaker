@@ -54,6 +54,16 @@ class AudioAnalyzer:
             print("noch keine Werte analysiert, daher gibt es keine Werte zu speichern")
         return
 
+    def saveAsStandard(self, path):
+        if self.analysis_done:
+            f = open(path + "/" + "standard.txt", 'w')
+            f.write(self.name + '\n')
+            for key in self.analyzed_values.keys():
+                f.write("%s, %s\n" % (key, self.analyzed_values[key]))
+        else:
+            print("noch keine Werte analysiert, daher gibt es keine Werte als Standard zu speichern")
+        return
+
     def printResults(self):
         if self.analysis_done:
             length = str(self.analyzed_values["length_in_sec"])
@@ -82,6 +92,7 @@ class AudioAnalyzer:
 
     def analyzeWavFile(self):
         try:
+            print("starte Analyse von " + self.name)
             object = self.runMyspsolutionPraatFile()
             self.analyzed_values["length_in_sec"] = self.analyze_length()
             self.analyzed_values["mean_intensity"] = self.analyze_intensity()
@@ -91,10 +102,10 @@ class AudioAnalyzer:
             self.analyzed_values["balance"] = self.analyze_balance(object)
             self.analyzed_values["mood"] = self.analyze_mood(object)
 
-
             self.analysis_done = True
         except:
-            print("couldn't read file")
+            print("analyzeWavFile hat nicht vollständig funktioniert")
+
 
     def analyze_recognizer(self):
         path_to_rec_text = recognizer.recognize_speech(self.audio_files_path + "/" + self.audio_file, self.path_to_model)
@@ -116,8 +127,6 @@ class AudioAnalyzer:
             print("Couldn't find path to file")
 
     def analyze_intensity(self):
-        # todo nicht allgemeine Lautstärke analysieren, sondern nur die in der gesprochenen Zeit
-        # nehme abschnitte sounding aus TextGrid und analysiere Lautstärke und mean
         snd = parselmouth.Sound(self.audio_files_path + "/" + self.audio_file)
         intensity = snd.to_intensity(minimum_pitch=50)
         intensity_points = intensity.values.T
@@ -129,16 +138,17 @@ class AudioAnalyzer:
     def analyze_filled_pauses(self, sound, timestamps):
         snd = parselmouth.Sound(sound)
         pauses_number = 0
+        time_filled_pauses = []
         for timestamp in timestamps:
             minimum_pause_length = 0.2
             if (timestamp[1] - timestamp[0]) > minimum_pause_length:
                 snd_part = snd.extract_part(from_time=timestamp[0], to_time=timestamp[1])
                 intensity = snd_part.to_intensity(minimum_pitch=50)
                 intensity_points = intensity.values.T
-                spoken_intensity = intensity_points[intensity_points > 25]
-                mean = np.mean(spoken_intensity)
+                mean = np.mean(intensity_points)
                 if mean > 50:
                     pauses_number += 1
+                    time_filled_pauses.append((timestamp[0],timestamp[1]))
         self.analyzed_values["filled_pauses"] = pauses_number
 
     @staticmethod
@@ -169,12 +179,11 @@ class AudioAnalyzer:
 
     @staticmethod
     def analyze_rate_of_speech(parsel_object):
-        # mysp.myspsr(p, c)
 
-        z1 = str(parsel_object[1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
+        z1 = str(parsel_object[1])
         z2 = z1.strip().split()
-        z3 = int(z2[2])  # will be the integer number 10
-        # print("rate_of_speech=", z3, "# syllables/sec original duration")
+        z3 = z2[2]
+        # syllables/sec original duration
         return z3
 
     @staticmethod
