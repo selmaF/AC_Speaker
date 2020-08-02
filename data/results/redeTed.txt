@@ -1,9 +1,11 @@
 redeTed
 length_in_sec, 116
-mean_intensity, 60.18234886818337
+mean_intensity, 61.29930241924891
 pauses, 44
 mean_of_pauses, 0.7476363636363645
 rate_of_speech, 4
 balance, 0.7
-pauses_per_sec, 0.3793103448275862
 mood, speaking passionately
+filled_pauses, 2
+filler_rate, 21.180555555555554
+most_used_fillers, {'der': 9, 'bei': 7, 'in': 4, 'oder': 4, 'und': 4}

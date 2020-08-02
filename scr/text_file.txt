@@ -1,919 +1,741 @@
 {
-  "text" : ""
-}{
   "result" : [{
-      "conf" : 0,999976,
-      "end" : 5,910000,
-      "start" : 5,040000,
-      "word" : "kirche"
-    }],
-  "text" : "kirche"
-}{
-  "result" : [{
-      "conf" : 0,999983,
-      "end" : 8,520000,
-      "start" : 7,350000,
-      "word" : "sicher"
+      "conf" : 0,999538,
+      "end" : 1,379828,
+      "start" : 0,000000,
+      "word" : "hm"
     }, {
-      "conf" : 0,999983,
-      "end" : 12,390000,
-      "start" : 8,520000,
-      "word" : "kann"
+      "conf" : 0,999674,
+      "end" : 1,499885,
+      "start" : 1,379828,
+      "word" : "hm"
+    }, {
+      "conf" : 0,711405,
+      "end" : 2,220000,
+      "start" : 1,499885,
+      "word" : "ein"
+    }, {
+      "conf" : 0,999996,
+      "end" : 2,820000,
+      "start" : 2,228658,
+      "word" : "ba"
+    }, {
+      "conf" : 0,999997,
+      "end" : 2,820000,
+      "start" : 2,820000,
+      "word" : "hm"
+    }, {
+      "conf" : 1,000000,
+      "end" : 4,380000,
+      "start" : 2,820003,
+      "word" : "muss"
     }],
-  "text" : "sicher kann"
-}{
-  "text" : ""
-}{
-  "text" : ""
-}{
-  "text" : ""
-}{
-  "result" : [{
-      "conf" : 0,940695,
-      "end" : 29,250000,
-      "start" : 27,510000,
-      "word" : "maschine"
-    }],
-  "text" : "maschine"
-}{
-  "result" : [{
-      "conf" : 0,947388,
-      "end" : 31,710000,
-      "start" : 30,240000,
-      "word" : "zwischen"
-    }],
-  "text" : "zwischen"
+  "text" : "hm hm ein ba hm muss"
 }{
   "result" : [{
       "conf" : 1,000000,
-      "end" : 32,760000,
-      "start" : 31,710000,
-      "word" : "stärken"
+      "end" : 5,460000,
+      "start" : 5,460000,
+      "word" : "feiert"
     }],
-  "text" : "stärken"
-}{
-  "text" : ""
+  "text" : "feiert"
 }{
   "result" : [{
       "conf" : 1,000000,
-      "end" : 40,410000,
-      "start" : 38,430000,
+      "end" : 8,460000,
+      "start" : 7,140000,
       "word" : "ich"
     }, {
       "conf" : 1,000000,
-      "end" : 41,160000,
-      "start" : 40,410000,
-      "word" : "sprang"
+      "end" : 9,420000,
+      "start" : 8,460000,
+      "word" : "spreche"
     }],
-  "text" : "ich sprang"
+  "text" : "ich spreche"
 }{
   "result" : [{
-      "conf" : 0,998645,
-      "end" : 48,090000,
-      "start" : 42,210000,
-      "word" : "kernwaffe"
+      "conf" : 0,410561,
+      "end" : 9,450000,
+      "start" : 9,450000,
+      "word" : "ein"
     }],
-  "text" : "kernwaffe"
+  "text" : "ein"
 }{
   "result" : [{
-      "conf" : 1,000000,
-      "end" : 53,129967,
-      "start" : 48,094530,
-      "word" : "haben"
+      "conf" : 0,999934,
+      "end" : 13,560000,
+      "start" : 10,920000,
+      "word" : "hm"
+    }, {
+      "conf" : 0,999934,
+      "end" : 15,330000,
+      "start" : 13,560000,
+      "word" : "hm"
     }],
-  "text" : "haben"
+  "text" : "hm hm"
 }{
   "result" : [{
-      "conf" : 0,995661,
-      "end" : 57,107351,
-      "start" : 53,970000,
-      "word" : "das"
+      "conf" : 0,695891,
+      "end" : 16,350000,
+      "start" : 15,330000,
+      "word" : "in"
+    }, {
+      "conf" : 0,694362,
+      "end" : 16,770000,
+      "start" : 16,350000,
+      "word" : "diesem"
+    }, {
+      "conf" : 0,694362,
+      "end" : 17,118743,
+      "start" : 16,770000,
+      "word" : "fall"
     }, {
       "conf" : 1,000000,
-      "end" : 57,360000,
-      "start" : 57,107351,
-      "word" : "haben"
-    }, {
-      "conf" : 1,000000,
-      "end" : 57,600000,
-      "start" : 57,360000,
-      "word" : "sie"
-    }, {
-      "conf" : 0,999986,
-      "end" : 58,950000,
-      "start" : 57,600000,
-      "word" : "wissen"
-    }],
-  "text" : "das haben sie wissen"
-}{
-  "result" : [{
-      "conf" : 0,999991,
-      "end" : 61,680000,
-      "start" : 60,060000,
-      "word" : "tatsache"
-    }, {
-      "conf" : 0,999109,
-      "end" : 63,180000,
-      "start" : 61,680000,
-      "word" : "sei"
-    }],
-  "text" : "tatsache sei"
-}{
-  "result" : [{
-      "conf" : 1,000000,
-      "end" : 63,210000,
-      "start" : 63,210000,
-      "word" : "da"
-    }],
-  "text" : "da"
-}{
-  "result" : [{
-      "conf" : 0,999953,
-      "end" : 68,280000,
-      "start" : 67,830000,
-      "word" : "ferner"
-    }, {
-      "conf" : 0,999953,
-      "end" : 68,940000,
-      "start" : 68,280000,
-      "word" : "schmoren"
-    }],
-  "text" : "ferner schmoren"
-}{
-  "result" : [{
-      "conf" : 0,990132,
-      "end" : 73,020000,
-      "start" : 70,350000,
-      "word" : "münchen"
-    }, {
-      "conf" : 0,529401,
-      "end" : 75,180000,
-      "start" : 73,020000,
-      "word" : "liebt"
-    }],
-  "text" : "münchen liebt"
-}{
-  "result" : [{
-      "conf" : 1,000000,
-      "end" : 81,300000,
-      "start" : 75,390000,
-      "word" : "china"
-    }, {
-      "conf" : 1,000000,
-      "end" : 82,740000,
-      "start" : 81,300000,
-      "word" : "stammtisch"
-    }],
-  "text" : "china stammtisch"
-}{
-  "result" : [{
-      "conf" : 0,980979,
-      "end" : 87,780000,
-      "start" : 82,740000,
-      "word" : "ew"
-    }],
-  "text" : "ew"
-}{
-  "result" : [{
-      "conf" : 0,821418,
-      "end" : 91,020168,
-      "start" : 87,792524,
-      "word" : "dürfen"
-    }],
-  "text" : "dürfen"
-}{
-  "result" : [{
-      "conf" : 0,980253,
-      "end" : 92,910000,
-      "start" : 91,770000,
-      "word" : "durch"
-    }],
-  "text" : "durch"
-}{
-  "result" : [{
-      "conf" : 0,999986,
-      "end" : 97,980000,
-      "start" : 94,080000,
-      "word" : "sein"
-    }, {
-      "conf" : 1,000000,
-      "end" : 99,540000,
-      "start" : 97,980000,
-      "word" : "wird"
-    }],
-  "text" : "sein wird"
-}{
-  "result" : [{
-      "conf" : 0,999933,
-      "end" : 102,720000,
-      "start" : 99,540000,
-      "word" : "masche"
-    }],
-  "text" : "masche"
-}{
-  "result" : [{
-      "conf" : 0,720778,
-      "end" : 107,310000,
-      "start" : 103,530000,
-      "word" : "schade"
-    }, {
-      "conf" : 0,995667,
-      "end" : 108,780000,
-      "start" : 107,317859,
-      "word" : "lassen"
-    }],
-  "text" : "schade lassen"
-}{
-  "result" : [{
-      "conf" : 0,987922,
-      "end" : 110,280000,
-      "start" : 108,780000,
-      "word" : "sein"
-    }],
-  "text" : "sein"
-}{
-  "result" : [{
-      "conf" : 0,517640,
-      "end" : 115,770000,
-      "start" : 113,820000,
-      "word" : "borten"
+      "end" : 18,000802,
+      "start" : 17,118743,
+      "word" : "ein"
     }, {
       "conf" : 0,999999,
-      "end" : 116,190000,
-      "start" : 115,770000,
-      "word" : "schäden"
+      "end" : 18,330000,
+      "start" : 18,000802,
+      "word" : "netz"
     }, {
-      "conf" : 0,999999,
-      "end" : 116,610000,
-      "start" : 116,190000,
-      "word" : "durch"
+      "conf" : 1,000000,
+      "end" : 20,160000,
+      "start" : 18,330000,
+      "word" : "hält"
+    }],
+  "text" : "in diesem fall ein netz hält"
+}{
+  "result" : [{
+      "conf" : 0,998727,
+      "end" : 20,160000,
+      "start" : 20,160000,
+      "word" : "ich"
     }, {
-      "conf" : 0,988909,
-      "end" : 116,610000,
-      "start" : 116,610000,
+      "conf" : 1,000000,
+      "end" : 21,000000,
+      "start" : 20,160049,
+      "word" : "nenne"
+    }, {
+      "conf" : 1,000000,
+      "end" : 21,600000,
+      "start" : 21,000000,
+      "word" : "ich"
+    }, {
+      "conf" : 1,000000,
+      "end" : 22,590000,
+      "start" : 21,600000,
+      "word" : "nennen"
+    }, {
+      "conf" : 1,000000,
+      "end" : 23,610000,
+      "start" : 22,590000,
+      "word" : "sind"
+    }, {
+      "conf" : 1,000000,
+      "end" : 24,330000,
+      "start" : 23,610000,
+      "word" : "fehlen"
+    }],
+  "text" : "ich nenne ich nennen sind fehlen"
+}{
+  "result" : [{
+      "conf" : 0,968401,
+      "end" : 27,420000,
+      "start" : 25,410000,
+      "word" : "mund"
+    }, {
+      "conf" : 0,968401,
+      "end" : 28,770000,
+      "start" : 27,420000,
+      "word" : "wählen"
+    }],
+  "text" : "mund wählen"
+}{
+  "result" : [{
+      "conf" : 0,996568,
+      "end" : 29,789487,
+      "start" : 29,190000,
+      "word" : "dies"
+    }, {
+      "conf" : 0,999737,
+      "end" : 30,930000,
+      "start" : 29,789487,
+      "word" : "gefährdet"
+    }, {
+      "conf" : 0,999737,
+      "end" : 31,590000,
+      "start" : 30,930000,
+      "word" : "schien"
+    }, {
+      "conf" : 0,999622,
+      "end" : 32,340000,
+      "start" : 31,590000,
+      "word" : "räten"
+    }, {
+      "conf" : 0,999410,
+      "end" : 32,999996,
+      "start" : 32,340000,
+      "word" : "gespräch"
+    }, {
+      "conf" : 0,999812,
+      "end" : 35,280000,
+      "start" : 32,999996,
       "word" : "menschen"
     }],
-  "text" : "borten schäden durch menschen"
+  "text" : "dies gefährdet schien räten gespräch menschen"
+}{
+  "result" : [{
+      "conf" : 0,999999,
+      "end" : 35,790300,
+      "start" : 35,280121,
+      "word" : "die"
+    }, {
+      "conf" : 0,998456,
+      "end" : 36,930000,
+      "start" : 35,790300,
+      "word" : "höhe"
+    }],
+  "text" : "die höhe"
 }{
   "result" : [{
       "conf" : 1,000000,
-      "end" : 118,800000,
-      "start" : 118,230000,
+      "end" : 37,560000,
+      "start" : 36,960000,
+      "word" : "schnell"
+    }, {
+      "conf" : 1,000000,
+      "end" : 38,970000,
+      "start" : 37,560000,
+      "word" : "elf"
+    }],
+  "text" : "schnell elf"
+}{
+  "result" : [{
+      "conf" : 1,000000,
+      "end" : 40,110000,
+      "start" : 39,270000,
+      "word" : "ein"
+    }],
+  "text" : "ein"
+}{
+  "result" : [{
+      "conf" : 0,610030,
+      "end" : 41,730000,
+      "start" : 41,160000,
+      "word" : "wird"
+    }],
+  "text" : "wird"
+}{
+  "result" : [{
+      "conf" : 1,000000,
+      "end" : 54,810000,
+      "start" : 46,200000,
+      "word" : "nspc"
+    }],
+  "text" : "nspc"
+}{
+  "result" : [{
+      "conf" : 0,989784,
+      "end" : 58,890000,
+      "start" : 56,280000,
+      "word" : "fällt"
+    }],
+  "text" : "fällt"
+}{
+  "result" : [{
+      "conf" : 1,000000,
+      "end" : 62,130000,
+      "start" : 60,690000,
+      "word" : "fünf"
+    }, {
+      "conf" : 1,000000,
+      "end" : 63,600000,
+      "start" : 62,130000,
+      "word" : "märchenstadt"
+    }, {
+      "conf" : 0,640409,
+      "end" : 66,150000,
+      "start" : 63,600000,
+      "word" : "öhrchen"
+    }],
+  "text" : "fünf märchenstadt öhrchen"
+}{
+  "result" : [{
+      "conf" : 0,956917,
+      "end" : 68,100000,
+      "start" : 66,150000,
+      "word" : "wenngleich"
+    }, {
+      "conf" : 0,956917,
+      "end" : 68,640000,
+      "start" : 68,100000,
       "word" : "wir"
     }, {
-      "conf" : 1,000000,
-      "end" : 120,120000,
-      "start" : 118,800000,
-      "word" : "spielen"
+      "conf" : 0,681361,
+      "end" : 69,750000,
+      "start" : 68,640000,
+      "word" : "tun"
     }],
-  "text" : "wir spielen"
+  "text" : "wenngleich wir tun"
 }{
   "result" : [{
       "conf" : 1,000000,
-      "end" : 121,860000,
-      "start" : 120,120000,
-      "word" : "oben"
+      "end" : 70,530000,
+      "start" : 69,930000,
+      "word" : "ein"
     }, {
       "conf" : 1,000000,
-      "end" : 122,250000,
-      "start" : 121,860000,
+      "end" : 71,100000,
+      "start" : 70,530000,
+      "word" : "briten"
+    }, {
+      "conf" : 1,000000,
+      "end" : 72,450000,
+      "start" : 71,100000,
+      "word" : "ein"
+    }],
+  "text" : "ein briten ein"
+}{
+  "result" : [{
+      "conf" : 0,999998,
+      "end" : 74,280000,
+      "start" : 72,450000,
+      "word" : "in"
+    }, {
+      "conf" : 0,999775,
+      "end" : 75,450000,
+      "start" : 74,280000,
+      "word" : "genf"
+    }, {
+      "conf" : 1,000000,
+      "end" : 76,020000,
+      "start" : 75,450000,
+      "word" : "fünf"
+    }, {
+      "conf" : 0,998866,
+      "end" : 76,800000,
+      "start" : 76,020000,
+      "word" : "milch"
+    }],
+  "text" : "in genf fünf milch"
+}{
+  "result" : [{
+      "conf" : 1,000000,
+      "end" : 78,540000,
+      "start" : 77,910000,
+      "word" : "t"
+    }],
+  "text" : "t"
+}{
+  "result" : [{
+      "conf" : 1,000000,
+      "end" : 82,920000,
+      "start" : 79,800000,
+      "word" : "marsches"
+    }],
+  "text" : "marsches"
+}{
+  "result" : [{
+      "conf" : 0,999990,
+      "end" : 87,420000,
+      "start" : 84,840000,
+      "word" : "fertig"
+    }, {
+      "conf" : 0,999998,
+      "end" : 88,140000,
+      "start" : 87,420000,
+      "word" : "krebs"
+    }],
+  "text" : "fertig krebs"
+}{
+  "result" : [{
+      "conf" : 1,000000,
+      "end" : 91,650000,
+      "start" : 89,460000,
+      "word" : "hm"
+    }],
+  "text" : "hm"
+}{
+  "result" : [{
+      "conf" : 0,983752,
+      "end" : 97,020000,
+      "start" : 91,980000,
+      "word" : "statt"
+    }],
+  "text" : "statt"
+}{
+  "result" : [{
+      "conf" : 0,999998,
+      "end" : 100,380000,
+      "start" : 97,023457,
+      "word" : "erscheint"
+    }, {
+      "conf" : 0,996890,
+      "end" : 100,710000,
+      "start" : 100,380000,
+      "word" : "etwas"
+    }, {
+      "conf" : 0,977691,
+      "end" : 102,900000,
+      "start" : 100,710000,
+      "word" : "schärfere"
+    }, {
+      "conf" : 0,766861,
+      "end" : 103,380000,
+      "start" : 102,900000,
+      "word" : "urteil"
+    }, {
+      "conf" : 0,766859,
+      "end" : 104,070000,
+      "start" : 103,380000,
+      "word" : "mut"
+    }],
+  "text" : "erscheint etwas schärfere urteil mut"
+}{
+  "result" : [{
+      "conf" : 1,000000,
+      "end" : 107,100000,
+      "start" : 105,000000,
+      "word" : "fleischer"
+    }],
+  "text" : "fleischer"
+}{
+  "result" : [{
+      "conf" : 0,798078,
+      "end" : 111,930000,
+      "start" : 107,100000,
+      "word" : "schon"
+    }],
+  "text" : "schon"
+}{
+  "result" : [{
+      "conf" : 0,992846,
+      "end" : 112,800000,
+      "start" : 112,140000,
+      "word" : "freiheit"
+    }, {
+      "conf" : 0,749849,
+      "end" : 114,240000,
+      "start" : 112,800000,
+      "word" : "unterscheiden"
+    }],
+  "text" : "freiheit unterscheiden"
+}{
+  "result" : [{
+      "conf" : 0,975049,
+      "end" : 114,686418,
+      "start" : 114,240000,
+      "word" : "wird"
+    }, {
+      "conf" : 0,999942,
+      "end" : 115,352402,
+      "start" : 114,686418,
+      "word" : "dürfen"
+    }],
+  "text" : "wird dürfen"
+}{
+  "result" : [{
+      "conf" : 0,647749,
+      "end" : 119,277458,
+      "start" : 116,340000,
+      "word" : "mischen"
+    }, {
+      "conf" : 0,999849,
+      "end" : 121,380000,
+      "start" : 119,277458,
+      "word" : "öffnen"
+    }],
+  "text" : "mischen öffnen"
+}{
+  "result" : [{
+      "conf" : 0,542261,
+      "end" : 123,479810,
+      "start" : 121,380000,
+      "word" : "recht"
+    }, {
+      "conf" : 0,542526,
+      "end" : 123,480073,
+      "start" : 123,479810,
+      "word" : "wenn"
+    }, {
+      "conf" : 0,542257,
+      "end" : 123,840000,
+      "start" : 123,480073,
+      "word" : "er"
+    }, {
+      "conf" : 0,999989,
+      "end" : 126,210000,
+      "start" : 124,100903,
+      "word" : "wählte"
+    }],
+  "text" : "recht wenn er wählte"
+}{
+  "result" : [{
+      "conf" : 1,000000,
+      "end" : 129,360000,
+      "start" : 126,210000,
+      "word" : "schön"
+    }],
+  "text" : "schön"
+}{
+  "result" : [{
+      "conf" : 0,630147,
+      "end" : 130,650000,
+      "start" : 129,360000,
+      "word" : "nö"
+    }],
+  "text" : "nö"
+}{
+  "result" : [{
+      "conf" : 0,837583,
+      "end" : 132,763857,
+      "start" : 132,510000,
+      "word" : "hm"
+    }, {
+      "conf" : 0,907078,
+      "end" : 132,835400,
+      "start" : 132,763857,
+      "word" : "hm"
+    }],
+  "text" : "hm hm"
+}{
+  "result" : [{
+      "conf" : 0,998915,
+      "end" : 135,450469,
+      "start" : 134,324048,
+      "word" : "unterstützen"
+    }, {
+      "conf" : 1,000000,
+      "end" : 137,040000,
+      "start" : 135,451406,
+      "word" : "würden"
+    }, {
+      "conf" : 1,000000,
+      "end" : 137,730000,
+      "start" : 137,040000,
+      "word" : "fördernd"
+    }, {
+      "conf" : 1,000000,
+      "end" : 138,210000,
+      "start" : 137,730000,
+      "word" : "wirken"
+    }, {
+      "conf" : 0,621999,
+      "end" : 138,750000,
+      "start" : 138,210000,
+      "word" : "spiel"
+    }, {
+      "conf" : 0,985973,
+      "end" : 139,619136,
+      "start" : 138,811553,
       "word" : "schon"
     }, {
-      "conf" : 1,000000,
-      "end" : 123,000000,
-      "start" : 122,250000,
-      "word" : "verschwunden"
-    }],
-  "text" : "oben schon verschwunden"
-}{
-  "result" : [{
-      "conf" : 0,997034,
-      "end" : 125,999531,
-      "start" : 123,900000,
-      "word" : "österreich"
-    }, {
-      "conf" : 1,000000,
-      "end" : 126,330000,
-      "start" : 125,999531,
-      "word" : "hat"
-    }, {
-      "conf" : 0,939693,
-      "end" : 127,110000,
-      "start" : 126,330000,
-      "word" : "schufen"
-    }],
-  "text" : "österreich hat schufen"
-}{
-  "result" : [{
-      "conf" : 0,999970,
-      "end" : 130,620000,
-      "start" : 128,100000,
-      "word" : "folgen"
-    }, {
-      "conf" : 0,995442,
-      "end" : 131,010000,
-      "start" : 130,620000,
+      "conf" : 0,999997,
+      "end" : 140,280000,
+      "start" : 139,619561,
       "word" : "hatte"
-    }, {
-      "conf" : 1,000000,
-      "end" : 131,700000,
-      "start" : 131,010000,
-      "word" : "schließlich"
-    }, {
-      "conf" : 1,000000,
-      "end" : 131,760000,
-      "start" : 131,700000,
-      "word" : "vor"
-    }, {
-      "conf" : 1,000000,
-      "end" : 132,660000,
-      "start" : 131,760000,
-      "word" : "münchner"
-    }, {
-      "conf" : 0,663875,
-      "end" : 134,820000,
-      "start" : 132,660000,
-      "word" : "löschen"
     }],
-  "text" : "folgen hatte schließlich vor münchner löschen"
-}{
-  "result" : [{
-      "conf" : 0,762753,
-      "end" : 139,860000,
-      "start" : 134,820000,
-      "word" : "neustadt"
-    }],
-  "text" : "neustadt"
+  "text" : "unterstützen würden fördernd wirken spiel schon hatte"
 }{
   "result" : [{
       "conf" : 1,000000,
-      "end" : 141,540000,
-      "start" : 139,860000,
-      "word" : "fronten"
+      "end" : 142,800000,
+      "start" : 141,330000,
+      "word" : "deutsche"
+    }, {
+      "conf" : 1,000000,
+      "end" : 143,340000,
+      "start" : 142,800000,
+      "word" : "bank"
+    }, {
+      "conf" : 0,540210,
+      "end" : 144,000000,
+      "start" : 143,340000,
+      "word" : "zwischen"
+    }, {
+      "conf" : 0,699412,
+      "end" : 144,496172,
+      "start" : 144,034087,
+      "word" : "menschen"
+    }, {
+      "conf" : 0,996179,
+      "end" : 146,520000,
+      "start" : 144,496172,
+      "word" : "pärchen"
     }],
-  "text" : "fronten"
-}{
-  "text" : ""
+  "text" : "deutsche bank zwischen menschen pärchen"
 }{
   "result" : [{
-      "conf" : 0,979286,
-      "end" : 150,360000,
-      "start" : 146,580000,
-      "word" : "jacques"
+      "conf" : 0,999355,
+      "end" : 150,330000,
+      "start" : 147,840000,
+      "word" : "nischen"
+    }, {
+      "conf" : 0,881114,
+      "end" : 151,350000,
+      "start" : 150,330000,
+      "word" : "kämpft"
+    }, {
+      "conf" : 1,000000,
+      "end" : 152,370000,
+      "start" : 151,400200,
+      "word" : "öffentlichen"
+    }, {
+      "conf" : 0,999533,
+      "end" : 153,030000,
+      "start" : 152,370000,
+      "word" : "herrschen"
     }],
-  "text" : "jacques"
+  "text" : "nischen kämpft öffentlichen herrschen"
 }{
   "result" : [{
-      "conf" : 0,985461,
-      "end" : 155,400000,
-      "start" : 150,360000,
-      "word" : "stehen"
+      "conf" : 1,000000,
+      "end" : 157,140000,
+      "start" : 153,510000,
+      "word" : "shell"
+    }, {
+      "conf" : 0,512711,
+      "end" : 157,950000,
+      "start" : 157,140000,
+      "word" : "elften"
+    }, {
+      "conf" : 0,512683,
+      "end" : 158,340000,
+      "start" : 157,950000,
+      "word" : "stich"
+    }, {
+      "conf" : 1,000000,
+      "end" : 159,240000,
+      "start" : 158,530049,
+      "word" : "catch"
     }],
-  "text" : "stehen"
+  "text" : "shell elften stich catch"
 }{
   "result" : [{
       "conf" : 0,999985,
-      "end" : 158,880000,
-      "start" : 155,400000,
-      "word" : "münchen"
+      "end" : 162,150000,
+      "start" : 160,440000,
+      "word" : "verschärfend"
     }, {
-      "conf" : 0,999511,
-      "end" : 161,070000,
-      "start" : 158,880000,
-      "word" : "telefon"
-    }],
-  "text" : "münchen telefon"
-}{
-  "result" : [{
-      "conf" : 0,882037,
-      "end" : 165,479971,
-      "start" : 161,274434,
-      "word" : "schäden"
+      "conf" : 0,999815,
+      "end" : 163,800000,
+      "start" : 162,150000,
+      "word" : "kommt"
     }, {
-      "conf" : 0,882088,
-      "end" : 166,440000,
-      "start" : 165,479971,
-      "word" : "sind"
+      "conf" : 0,999829,
+      "end" : 163,800000,
+      "start" : 163,800000,
+      "word" : "putsch"
     }],
-  "text" : "schäden sind"
-}{
-  "result" : [{
-      "conf" : 0,981565,
-      "end" : 168,420000,
-      "start" : 166,950000,
-      "word" : "kann"
-    }],
-  "text" : "kann"
-}{
-  "result" : [{
-      "conf" : 0,999975,
-      "end" : 171,120000,
-      "start" : 168,420000,
-      "word" : "melzer"
-    }, {
-      "conf" : 0,999975,
-      "end" : 171,180000,
-      "start" : 171,120000,
-      "word" : "schaut"
-    }],
-  "text" : "melzer schaut"
+  "text" : "verschärfend kommt putsch"
 }{
   "result" : [{
       "conf" : 1,000000,
-      "end" : 174,540000,
-      "start" : 173,460000,
-      "word" : "ozon"
-    }, {
-      "conf" : 1,000000,
-      "end" : 176,610000,
-      "start" : 174,540000,
-      "word" : "füllen"
-    }],
-  "text" : "ozon füllen"
-}{
-  "result" : [{
-      "conf" : 0,883123,
-      "end" : 178,140000,
-      "start" : 176,610000,
-      "word" : "björn"
-    }, {
-      "conf" : 0,883123,
-      "end" : 180,810000,
-      "start" : 178,140000,
-      "word" : "engholm"
-    }],
-  "text" : "björn engholm"
-}{
-  "result" : [{
-      "conf" : 0,773085,
-      "end" : 183,264741,
-      "start" : 180,810000,
-      "word" : "freunden"
-    }, {
-      "conf" : 1,000000,
-      "end" : 183,990000,
-      "start" : 183,264741,
-      "word" : "burschen"
-    }, {
-      "conf" : 0,999826,
-      "end" : 185,430000,
-      "start" : 183,990000,
-      "word" : "grund"
-    }, {
-      "conf" : 0,905953,
-      "end" : 186,030000,
-      "start" : 185,430000,
-      "word" : "gab"
-    }],
-  "text" : "freunden burschen grund gab"
-}{
-  "result" : [{
-      "conf" : 0,932399,
-      "end" : 187,350000,
-      "start" : 186,270000,
-      "word" : "da"
-    }, {
-      "conf" : 0,932399,
-      "end" : 187,860000,
-      "start" : 187,350000,
-      "word" : "vinci"
-    }, {
-      "conf" : 0,932400,
-      "end" : 188,370000,
-      "start" : 187,860000,
-      "word" : "spüren"
-    }, {
-      "conf" : 0,999651,
-      "end" : 188,880000,
-      "start" : 188,380137,
-      "word" : "gesprochen"
-    }],
-  "text" : "da vinci spüren gesprochen"
-}{
-  "result" : [{
-      "conf" : 1,000000,
-      "end" : 190,440000,
-      "start" : 190,260000,
-      "word" : "die"
-    }, {
-      "conf" : 1,000000,
-      "end" : 191,220000,
-      "start" : 190,440000,
-      "word" : "schadstoffe"
-    }, {
-      "conf" : 1,000000,
-      "end" : 193,050000,
-      "start" : 191,220000,
-      "word" : "not"
-    }, {
-      "conf" : 0,974226,
-      "end" : 193,260000,
-      "start" : 193,050000,
-      "word" : "auf"
-    }, {
-      "conf" : 0,970846,
-      "end" : 193,410000,
-      "start" : 193,260000,
-      "word" : "die"
-    }, {
-      "conf" : 1,000000,
-      "end" : 194,111602,
-      "start" : 193,415112,
-      "word" : "wir"
-    }, {
-      "conf" : 1,000000,
-      "end" : 194,550000,
-      "start" : 194,111602,
-      "word" : "morgen"
-    }, {
-      "conf" : 1,000000,
-      "end" : 194,940000,
-      "start" : 194,550000,
-      "word" : "über"
-    }, {
-      "conf" : 0,993572,
-      "end" : 195,570000,
-      "start" : 194,940000,
-      "word" : "partner"
-    }],
-  "text" : "die schadstoffe not auf die wir morgen über partner"
-}{
-  "result" : [{
-      "conf" : 0,999999,
-      "end" : 197,190000,
-      "start" : 196,140000,
-      "word" : "schulen"
-    }, {
-      "conf" : 0,989760,
-      "end" : 197,430000,
-      "start" : 197,190000,
-      "word" : "und"
-    }, {
-      "conf" : 1,000000,
-      "end" : 197,790000,
-      "start" : 197,430308,
-      "word" : "schon"
-    }, {
-      "conf" : 0,894293,
-      "end" : 199,500000,
-      "start" : 197,790000,
-      "word" : "früh"
-    }],
-  "text" : "schulen und schon früh"
-}{
-  "result" : [{
-      "conf" : 0,999907,
-      "end" : 199,860000,
-      "start" : 199,500000,
-      "word" : "bush"
-    }, {
-      "conf" : 1,000000,
-      "end" : 200,250000,
-      "start" : 199,860000,
-      "word" : "prager"
-    }, {
-      "conf" : 1,000000,
-      "end" : 200,670000,
-      "start" : 200,250000,
-      "word" : "burg"
-    }],
-  "text" : "bush prager burg"
-}{
-  "result" : [{
-      "conf" : 0,954480,
-      "end" : 203,040000,
-      "start" : 202,650000,
-      "word" : "durch"
-    }, {
-      "conf" : 0,954478,
-      "end" : 203,040000,
-      "start" : 203,040000,
+      "end" : 165,930000,
+      "start" : 165,270000,
       "word" : "ein"
-    }, {
-      "conf" : 0,954478,
-      "end" : 203,940000,
-      "start" : 203,040000,
-      "word" : "bester"
-    }, {
-      "conf" : 0,954472,
-      "end" : 204,750000,
-      "start" : 203,940000,
-      "word" : "ordnung"
     }],
-  "text" : "durch ein bester ordnung"
-}{
-  "result" : [{
-      "conf" : 0,907336,
-      "end" : 208,959038,
-      "start" : 205,499473,
-      "word" : "strafe"
-    }],
-  "text" : "strafe"
-}{
-  "result" : [{
-      "conf" : 0,999999,
-      "end" : 210,270000,
-      "start" : 209,790000,
-      "word" : "vorschlag"
-    }, {
-      "conf" : 0,999957,
-      "end" : 210,990000,
-      "start" : 210,270000,
-      "word" : "hatten"
-    }],
-  "text" : "vorschlag hatten"
-}{
-  "result" : [{
-      "conf" : 0,998160,
-      "end" : 217,272100,
-      "start" : 212,444180,
-      "word" : "münchen"
-    }, {
-      "conf" : 1,000000,
-      "end" : 219,445972,
-      "start" : 217,272100,
-      "word" : "münchen"
-    }],
-  "text" : "münchen münchen"
-}{
-  "text" : ""
-}{
-  "result" : [{
-      "conf" : 0,700380,
-      "end" : 225,480000,
-      "start" : 224,910000,
-      "word" : "deutsch"
-    }],
-  "text" : "deutsch"
-}{
-  "result" : [{
-      "conf" : 0,999177,
-      "end" : 226,680000,
-      "start" : 226,590000,
-      "word" : "wir"
-    }, {
-      "conf" : 0,995689,
-      "end" : 227,430000,
-      "start" : 226,680000,
-      "word" : "schlagen"
-    }, {
-      "conf" : 0,999999,
-      "end" : 231,090000,
-      "start" : 227,433940,
-      "word" : "folgende"
-    }, {
-      "conf" : 0,999792,
-      "end" : 231,630000,
-      "start" : 231,090000,
-      "word" : "bonn"
-    }],
-  "text" : "wir schlagen folgende bonn"
-}{
-  "result" : [{
-      "conf" : 0,999239,
-      "end" : 234,000000,
-      "start" : 232,260000,
-      "word" : "harsche"
-    }],
-  "text" : "harsche"
-}{
-  "result" : [{
-      "conf" : 0,816236,
-      "end" : 236,010000,
-      "start" : 235,410000,
-      "word" : "dichter"
-    }, {
-      "conf" : 0,816236,
-      "end" : 237,540937,
-      "start" : 236,010000,
-      "word" : "abend"
-    }, {
-      "conf" : 0,999999,
-      "end" : 238,080000,
-      "start" : 237,540937,
-      "word" : "ist"
-    }],
-  "text" : "dichter abend ist"
-}{
-  "result" : [{
-      "conf" : 0,997881,
-      "end" : 240,540000,
-      "start" : 239,190000,
-      "word" : "manchmal"
-    }, {
-      "conf" : 0,997881,
-      "end" : 241,470000,
-      "start" : 240,540000,
-      "word" : "sinds"
-    }, {
-      "conf" : 0,997881,
-      "end" : 242,640000,
-      "start" : 241,470000,
-      "word" : "eh"
-    }],
-  "text" : "manchmal sinds eh"
-}{
-  "result" : [{
-      "conf" : 0,999984,
-      "end" : 246,240000,
-      "start" : 243,390000,
-      "word" : "was"
-    }, {
-      "conf" : 0,908160,
-      "end" : 246,420000,
-      "start" : 246,240000,
-      "word" : "den"
-    }, {
-      "conf" : 0,498985,
-      "end" : 246,931523,
-      "start" : 246,420000,
-      "word" : "schutz"
-    }, {
-      "conf" : 0,460773,
-      "end" : 248,751709,
-      "start" : 246,931523,
-      "word" : "zu"
-    }],
-  "text" : "was den schutz zu"
-}{
-  "result" : [{
-      "conf" : 0,991167,
-      "end" : 252,420000,
-      "start" : 248,850000,
-      "word" : "muss"
-    }],
-  "text" : "muss"
+  "text" : "ein"
 }{
   "result" : [{
       "conf" : 1,000000,
-      "end" : 256,200000,
-      "start" : 253,890000,
-      "word" : "oh"
+      "end" : 168,840000,
+      "start" : 167,371011,
+      "word" : "das"
     }, {
-      "conf" : 1,000000,
-      "end" : 256,380000,
-      "start" : 256,200000,
-      "word" : "wie"
-    }, {
-      "conf" : 1,000000,
-      "end" : 259,080000,
-      "start" : 256,380000,
-      "word" : "schön"
-    }, {
-      "conf" : 0,999983,
-      "end" : 260,700000,
-      "start" : 259,080000,
-      "word" : "durchführen"
+      "conf" : 0,840371,
+      "end" : 170,040000,
+      "start" : 168,840000,
+      "word" : "scheint"
     }],
-  "text" : "oh wie schön durchführen"
+  "text" : "das scheint"
 }{
   "result" : [{
-      "conf" : 0,928487,
-      "end" : 263,249326,
-      "start" : 262,710000,
-      "word" : "wir"
-    }, {
-      "conf" : 0,939413,
-      "end" : 267,750000,
-      "start" : 263,249326,
-      "word" : "möchten"
+      "conf" : 0,999712,
+      "end" : 172,890000,
+      "start" : 171,150000,
+      "word" : "schall"
     }],
-  "text" : "wir möchten"
+  "text" : "schall"
 }{
   "result" : [{
-      "conf" : 1,000000,
-      "end" : 269,490000,
-      "start" : 267,750000,
+      "conf" : 0,999953,
+      "end" : 173,970000,
+      "start" : 173,040000,
+      "word" : "unterschätze"
+    }, {
+      "conf" : 0,991408,
+      "end" : 175,500029,
+      "start" : 173,971685,
+      "word" : "kein"
+    }, {
+      "conf" : 0,916530,
+      "end" : 177,030000,
+      "start" : 175,500308,
+      "word" : "schwerer"
+    }, {
+      "conf" : 0,928400,
+      "end" : 177,330000,
+      "start" : 177,031919,
+      "word" : "schlag"
+    }, {
+      "conf" : 0,924303,
+      "end" : 178,470000,
+      "start" : 177,330000,
+      "word" : "stellen"
+    }],
+  "text" : "unterschätze kein schwerer schlag stellen"
+}{
+  "result" : [{
+      "conf" : 0,693394,
+      "end" : 179,974541,
+      "start" : 179,340000,
       "word" : "b5"
     }, {
-      "conf" : 0,999944,
-      "end" : 269,880000,
-      "start" : 269,490000,
-      "word" : "der"
-    }, {
-      "conf" : 0,999944,
-      "end" : 270,690000,
-      "start" : 269,880000,
-      "word" : "brenner"
-    }],
-  "text" : "b5 der brenner"
-}{
-  "result" : [{
-      "conf" : 0,998093,
-      "end" : 271,950000,
-      "start" : 270,690000,
-      "word" : "berechtigte"
-    }, {
-      "conf" : 0,998093,
-      "end" : 272,580000,
-      "start" : 271,950000,
-      "word" : "wunsch"
-    }, {
       "conf" : 0,999996,
-      "end" : 273,271494,
-      "start" : 272,580176,
-      "word" : "des"
+      "end" : 183,870000,
+      "start" : 179,974541,
+      "word" : "schön"
+    }, {
+      "conf" : 1,000000,
+      "end" : 184,590000,
+      "start" : 183,870000,
+      "word" : "spät"
     }],
-  "text" : "berechtigte wunsch des"
+  "text" : "b5 schön spät"
 }{
   "result" : [{
       "conf" : 1,000000,
-      "end" : 275,310000,
-      "start" : 274,050000,
-      "word" : "warschau"
-    }],
-  "text" : "warschau"
-}{
-  "result" : [{
-      "conf" : 0,999997,
-      "end" : 275,310000,
-      "start" : 275,310000,
-      "word" : "wir"
-    }, {
-      "conf" : 0,614088,
-      "end" : 278,310000,
-      "start" : 275,310000,
-      "word" : "stimmen"
-    }],
-  "text" : "wir stimmen"
-}{
-  "result" : [{
-      "conf" : 1,000000,
-      "end" : 282,360000,
-      "start" : 279,930000,
-      "word" : "münchen"
+      "end" : 187,050029,
+      "start" : 186,060044,
+      "word" : "schäfer"
     }, {
       "conf" : 1,000000,
-      "end" : 283,950000,
-      "start" : 282,360000,
-      "word" : "fünf"
-    }],
-  "text" : "münchen fünf"
-}{
-  "result" : [{
-      "conf" : 0,873838,
-      "end" : 285,180000,
-      "start" : 285,180000,
-      "word" : "wir"
+      "end" : 187,770000,
+      "start" : 187,050029,
+      "word" : "ein"
     }, {
       "conf" : 1,000000,
-      "end" : 287,700000,
-      "start" : 285,281484,
-      "word" : "möchten"
-    }],
-  "text" : "wir möchten"
-}{
-  "result" : [{
-      "conf" : 0,998297,
-      "end" : 292,740000,
-      "start" : 287,700000,
-      "word" : "schaden"
-    }],
-  "text" : "schaden"
-}{
-  "result" : [{
-      "conf" : 1,000000,
-      "end" : 294,000000,
-      "start" : 292,740000,
-      "word" : "jeanne"
+      "end" : 188,190000,
+      "start" : 187,770000,
+      "word" : "den"
     }, {
       "conf" : 1,000000,
-      "end" : 294,690000,
-      "start" : 294,000000,
-      "word" : "warschau"
+      "end" : 188,940000,
+      "start" : 188,190000,
+      "word" : "und"
     }, {
-      "conf" : 1,000000,
-      "end" : 295,470000,
-      "start" : 294,690000,
-      "word" : "schon"
+      "conf" : 0,991955,
+      "end" : 189,329414,
+      "start" : 188,940000,
+      "word" : "für"
     }, {
-      "conf" : 0,927946,
-      "end" : 297,150000,
-      "start" : 295,470000,
-      "word" : "charlie"
+      "conf" : 0,999806,
+      "end" : 191,010000,
+      "start" : 189,329414,
+      "word" : "hilfen"
     }],
-  "text" : "jeanne warschau schon charlie"
-}{
-  "result" : [{
-      "conf" : 1,000000,
-      "end" : 297,390000,
-      "start" : 297,150000,
-      "word" : "john"
-    }, {
-      "conf" : 0,988978,
-      "end" : 297,990000,
-      "start" : 297,390000,
-      "word" : "charlie"
-    }, {
-      "conf" : 0,986554,
-      "end" : 298,290000,
-      "start" : 297,990000,
-      "word" : "ihr"
-    }, {
-      "conf" : 0,998222,
-      "end" : 299,760000,
-      "start" : 298,291377,
-      "word" : "nein"
-    }],
-  "text" : "john charlie ihr nein"
+  "text" : "schäfer ein den und für hilfen"
 }

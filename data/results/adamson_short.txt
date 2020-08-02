@@ -6,3 +6,6 @@ mean_of_pauses, 0.5287423211708918
 rate_of_speech, 4
 balance, 0.9
 mood, showing no emotion
+filled_pauses, 12
+filler_rate, 29.545454545454547
+most_used_fillers, {'schon': 6, 'nicht': 4, 'und': 4, 'der': 2, 'nach': 2}
