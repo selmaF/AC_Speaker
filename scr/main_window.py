@@ -19,16 +19,15 @@ class Ui_MainWindow(object):
         self.uiRec = recording.recording_window()
         self.uiRec.initUI()
 
-
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(702, 200)
+        MainWindow.resize(702, 200)     # Größe vom Fenster
 
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(90, 40, 481, 101))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(90, 40, 481, 101))   #
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -80,7 +79,6 @@ class Ui_MainWindow(object):
         self.savedButton.setText(_translate("MainWindow", "Analysiere gespeichertes Video"))
         self.recordButton.setText(_translate("MainWindow", "Nehme Video zum Analysieren auf"))
         self.label_sec_per_section.setText(_translate("MainWindow", "Sekunden pro Abschnitt"))
-
 
 
 if __name__ == "__main__":

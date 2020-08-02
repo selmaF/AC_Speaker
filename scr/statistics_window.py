@@ -57,8 +57,8 @@ class Ui_statistics_window(QtWidgets.QDialog):
         # save results of the analysis of the sections
         self.sections = results[1]
 
-        #read standard.txt and save results
-        self.standard = af.get_results_from_text_file()
+        # read standard.txt and save results
+   #     self.standard = af.get_results_from_text_file()
 
         self.setWindowTitle("Analysis")
         self.setObjectName("statistics_window")

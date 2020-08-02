@@ -43,9 +43,9 @@ def record_audio(filename):
 
         # Make sure the file is opened before recording anything:
         with sf.SoundFile(filename, mode='x', samplerate=44100,
-                          channels=2) as file:
+                          channels=1) as file:
             with sd.InputStream(samplerate=44100,
-                                channels=2, callback=callback):
+                                channels=1, callback=callback):
                 print("Recording...")
                 while True:
                     if msvcrt.kbhit():

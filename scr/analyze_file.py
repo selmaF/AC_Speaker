@@ -129,26 +129,17 @@ def delete_folder_content(path_to_folder):
         except Exception as e:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
 
+
 def get_results_from_text_file(nameTextFile="standard.txt"):
     results_path = "../data/results"
     f = open((results_path + '/' + nameTextFile), 'r')
-    read_results = {}
-    read_results["name"] = f.readline()
+    read_results = {"name": f.readline()}
     for line in f.readlines():
         key = line.split(',')[0]
         value = line.split(',')[1]
         read_results[key] = value
     print(read_results)
     return read_results
-
-
-
-
-
-
-
-
-
 
 
 def convert_stereo_to_mono(audiofile):
