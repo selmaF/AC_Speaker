@@ -33,22 +33,13 @@ class recording_window(QtWidgets.QWidget):
         self.play_button.setObjectName("play_button")
         self.verticalLayout.addWidget(self.play_button)
 
-        self.stop_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.stop_button.setObjectName("stop_button")
-        self.verticalLayout.addWidget(self.stop_button)
-
         self.label = QtWidgets.QLabel(self.verticalLayoutWidget)
         self.label.setObjectName("recording_status")
         self.verticalLayout.addWidget((self.label))
 
-        self.quit_button = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.quit_button.setObjectName("quit_button")
-        self.verticalLayout.addWidget(self.quit_button)
-
 
         self.play_button.clicked.connect(self.start)
-        self.stop_button.clicked.connect(self.stop)
-        self.quit_button.clicked.connect(self.close)
+
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
@@ -69,17 +60,10 @@ class recording_window(QtWidgets.QWidget):
         self.recording_started = True
         audio_thread = threading.Thread(target=record_audio)
         audio_thread.start()
-        #video_thread = threading.Thread(target=record_video)
-        #video_thread.start()
         record_video()
+        self.label.setText("Aufnahme beendet ...")
 
 
-
-    def stop(self):
-        if self.recording_started:
-            self.label.setText("Aufnahme wird gestoppt \nund gespeichert")
-        else:
-            self.label.setText("Aufnahme noch nicht \ngestartet")
 
 
 def record_audio(filename="test2.wav"):
@@ -139,9 +123,6 @@ def start(self):
     #video_thread = threading.Thread(target=record_video)
     #video_thread.start()
     record_video()
-
-#start("test2")
-
 
 
 def start_gui_recording():
