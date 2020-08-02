@@ -4,9 +4,6 @@ import numpy as np
 import os
 import scipy.io.wavfile as wav
 import math
-import sys
-import subprocess
-from pydub import AudioSegment
 
 
 import statistics
@@ -25,13 +22,15 @@ class AudioAnalyzer:
         self.path_to_model = "../model"
 
     def setStandard(self):
-        # write data in txt-file
+        """
+        Write data in txt-file
+        :return: None
+        """
         if self.analysis_done:
             f = open('standard.txt', 'w')
             f.write(self.name + '\n')
             for key in self.analyzed_values.keys():
                 f.write("%s, %s\n" % (key, self.analyzed_values[key]))
-
         else:
             print("Noch keine Werte analysiert")
 
@@ -87,6 +86,10 @@ class AudioAnalyzer:
         return run_file(sourcerun, -20, 2, 0.3, "yes", sound, path, 80, 400, 0.01, capture_output=True)
 
     def analyzeWavFile(self):
+        """
+        Analyze a wav file and store results in a dictionary
+        :return: None
+        """
         try:
             print("Starte Analyse von " + self.name)
             object = self.runMyspsolutionPraatFile()
@@ -196,7 +199,6 @@ class AudioAnalyzer:
 
         z1 = str(parsel_object[1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
         z2 = z1.strip().split()
-        z3 = float(z2[8])  # will be the integer number 10
         z4 = float(z2[7])  # will be the floating point number 8.3
 
         if 97 < z4 <= 114:
@@ -214,3 +216,36 @@ class AudioAnalyzer:
         else:
             print("Voice not recognized")
             return "Voice not recognized"
+
+    @staticmethod
+    def load_old_results(file_path):
+        old_results = {}
+        with open(file_path, encoding="utf-8", mode="r") as file:
+            for line in file.readlines():
+                words = line.split()
+                if len(words) > 1:
+                    old_results[words[0][:-1]] = words[1]
+        return old_results
+
+    def compare_results(self, old_results):
+        print("Durchschnittliche Lautstärke:")
+        print("Goldstandart: " + old_results["mean_intensity"] + "\t" + "Ihre Aufnahme: " + str(self.analyzed_values["mean_intensity"]))
+
+        print("Redegeschwindigkeit (Silben pro Sekunde):")
+        print("Goldstandart: " + old_results["rate_of_speech"] + "\t" + "Ihre Aufnahme: " + str(self.analyzed_values["rate_of_speech"]))
+
+        print("Gesamtlänge und Anzahl von Pausen: ")
+        print("Goldstandart: " + old_results["length"] + " Sek, davon  " + old_results["pauses"] + " Pausen"+ "\t" +
+              "Ihre Aufnahme: " + str(self.analyzed_values["length"]) + " Sek, davon  " + str(self.analyzed_values["pauses"]) + " Pausen")
+
+        print("Durchschnittliche Pausenlänge:")
+        print("Goldstandart: " + old_results["mean_pauses"] + " Sek \t" + "Ihre Aufnahme: " + str(self.analyzed_values["mean_pauses"]) + " Sek")
+
+        print("Verhältnis von geprochener Zeit zu der Gesamtzeit: ")
+        print("Goldstandart: " + old_results["balance"] + "\t" + "Ihre Aufnahme: " + str(self.analyzed_values["balance"]))
+
+        print("Verhältnis von Füllwörtern zu allen Wörtern: ")
+        print("Goldstandart: " + old_results["filler_rate"] + "\t" + "Ihre Aufnahme: " + str(self.analyzed_values["filler_rate"]))
+
+        print("Stil der gesamten Rede: ")
+        print("Goldstandart: " + old_results["mood"] + "\t" + "Ihre Aufnahme: " + str(self.analyzed_values["mood"]))
