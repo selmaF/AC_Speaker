@@ -1,11 +1,15 @@
 langsam_denkend
 length_in_sec, 51
-mean_intensity, 47.03973493908246
+mean_intensity, 47.03973493908244
 pauses, 18
 mean_of_pauses, 1.0521265067430488
 rate_of_speech, 1
 balance, 0.6
 mood, showing no emotion
 filled_pauses, 0
+<<<<<<< Updated upstream
 filler_rate, 17.72151898734177
+=======
+filler_rate, 16.455696202531644
+>>>>>>> Stashed changes
 most_used_fillers, {'auch': 2, 'davon': 2, 'so': 1, 'aber': 1, 'mal': 1}
