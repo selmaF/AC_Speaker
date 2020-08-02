@@ -6,3 +6,6 @@ mean_of_pauses, 0.7476363636363645
 rate_of_speech, 4
 balance, 0.7
 mood, speaking passionately
+filled_pauses, 2
+filler_rate, 21.180555555555554
+most_used_fillers, {'der': 9, 'bei': 7, 'in': 4, 'oder': 4, 'und': 4}
