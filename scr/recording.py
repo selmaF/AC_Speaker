@@ -6,13 +6,10 @@ from datetime import datetime
 import cv2
 import sounddevice as sd
 import soundfile as sf
-#import msvcrt
-from scipy.io.wavfile import write
-from PyQt5.QtCore import pyqtSignal, QObject
 import threading
 
 from PyQt5 import QtCore, QtWidgets
-import statistics_window
+
 
 class recording_window(QtWidgets.QWidget):
 
@@ -40,7 +37,7 @@ class recording_window(QtWidgets.QWidget):
 
         self.play_button.clicked.connect(self.start)
 
-
+        self.video_recorded = False
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
         self.show()
@@ -48,9 +45,6 @@ class recording_window(QtWidgets.QWidget):
     def retranslateUi(self, recording_window):
         _translate = QtCore.QCoreApplication.translate
         self.play_button.setText(_translate("recording_window", "Play"))
-        self.stop_button.setText(_translate("recording_window", "Stop"))
-        self.quit_button.setText(_translate("recording_window", "Quit"))
-
 
     def start(self):
         now = datetime.now()
@@ -58,77 +52,64 @@ class recording_window(QtWidgets.QWidget):
         filename = "recording" + timestamp
         self.label.setText("Aufnahme gestartet ...")
         self.recording_started = True
-        audio_thread = threading.Thread(target=record_audio)
+        audio_thread = threading.Thread(target=self.record_audio)
         audio_thread.start()
-        record_video()
+        self.record_video()
+
         self.label.setText("Aufnahme beendet ...")
+        if self.video_recorded:
+            audio_thread.join(timeout=0.1)
 
+    def record_video(self, filename="test2.avi"):
 
+        frames_per_second = 24.0
 
+        cap = cv2.VideoCapture(0)
+        fourcc = cv2.VideoWriter_fourcc(*'XVID')
+        out = cv2.VideoWriter(filename, fourcc, frames_per_second, (640,  480))
 
-def record_audio(filename="test2.wav"):
-    q = queue.Queue()
-    parser = argparse.ArgumentParser(add_help=False)
+        while True:
+            ret, frame = cap.read()
+            out.write(frame)
+            cv2.imshow('frame', frame)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+        # Release everything if job is finished
+        cap.release()
+        out.release()
+        self.video_recorded = True
+        cv2.destroyAllWindows()
 
-    def callback(indata, frames, time, status):
-        """This is called (from a separate thread) for each audio block."""
-        if status:
-            print(status, file=sys.stderr)
-        q.put(indata.copy())
+    def record_audio(self, filename="test2.wav"):
+        q = queue.Queue()
+        parser = argparse.ArgumentParser(add_help=False)
 
-    try:
+        def callback(indata, frames, time, status):
+            """This is called (from a separate thread) for each audio block."""
+            if status:
+                print(status, file=sys.stderr)
+            q.put(indata.copy())
 
-        # Make sure the file is opened before recording anything:
-        with sf.SoundFile(filename, mode='x', samplerate=44100,
-                          channels=1) as file:
-            with sd.InputStream(samplerate=44100,
-                                channels=1, callback=callback):
-                print("Recording...")
-                while True:
-                    #if msvcrt.kbhit():
-                    #    key_stroke = msvcrt.getch()
-                    #    if key_stroke.decode("utf-8") == "q":
-                    #        parser.exit(0)
-                    file.write(q.get())
+        try:
+            # Make sure the file is opened before recording anything:
+            with sf.SoundFile(filename, mode='x', samplerate=44100,
+                              channels=1) as file:
+                with sd.InputStream(samplerate=44100,
+                                    channels=1, callback=callback):
+                    print("Recording...")
+                    while True:
+                        if self.video_recorded:
+                            parser.exit(0)
+                        file.write(q.get())
 
-    except KeyboardInterrupt:
-        print('\nRecording finished')
-        parser.exit(0)
-    except Exception as e:
-        parser.exit(type(e).__name__ + ': ' + str(e))
-
-def record_video(filename="test2.avi"):
-
-    frames_per_second = 24.0
-
-    cap = cv2.VideoCapture(0)
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    out = cv2.VideoWriter(filename, fourcc, frames_per_second, (640,  480))
-
-    while True:
-        ret, frame = cap.read()
-        out.write(frame)
-        cv2.imshow('frame', frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-    # Release everything if job is finished
-    cap.release()
-    out.release()
-    cv2.destroyAllWindows()
-
-def start(self):
-
-    audio_thread = threading.Thread(target=record_audio)
-    audio_thread.start()
-    #video_thread = threading.Thread(target=record_video)
-    #video_thread.start()
-    record_video()
+        except KeyboardInterrupt:
+            print('\nRecording finished')
+            parser.exit(0)
+        except Exception as e:
+            parser.exit(type(e).__name__ + ': ' + str(e))
 
 
 def start_gui_recording():
     app = QtWidgets.QApplication(sys.argv)
     ui = recording_window()
     sys.exit(app.exec_())
-
-#start_gui_recording()
-
