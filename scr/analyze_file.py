@@ -142,15 +142,6 @@ def get_results_from_text_file(nameTextFile="standard.txt"):
     return read_results
 
 
-
-
-
-
-
-
-
-
-
 def convert_stereo_to_mono(audiofile):
     """
     Convert stereo to mono

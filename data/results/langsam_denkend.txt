@@ -6,3 +6,6 @@ mean_of_pauses, 1.0521265067430488
 rate_of_speech, 1
 balance, 0.6
 mood, showing no emotion
+filled_pauses, 0
+filler_rate, 17.72151898734177
+most_used_fillers, {'auch': 2, 'davon': 2, 'so': 1, 'aber': 1, 'mal': 1}

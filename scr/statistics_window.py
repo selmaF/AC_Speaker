@@ -27,6 +27,7 @@ class PlotCanvas(FigureCanvas):
         FigureCanvas.updateGeometry(self)
 
     def plot(self, title, x_data, y_data, x_label, y_label, ylim, add=False, style='bo--'):
+        FigureCanvas.updateGeometry(self)
         ax = self.figure.add_subplot(111)
         if not add:
             self.axes.cla()
@@ -38,6 +39,7 @@ class PlotCanvas(FigureCanvas):
         self.draw()
 
     def plot_pie(self, labels, sizes):
+        FigureCanvas.updateGeometry(self)
         ax = self.figure.add_subplot(111)
         self.axes.cla()
         ax.pie(sizes, labels=labels, shadow=True, autopct='%1.1f%%',  startangle=90)
@@ -144,7 +146,7 @@ class Ui_statistics_window(QtWidgets.QDialog):
     def retranslateUi(self, statistics_window):
         _translate = QtCore.QCoreApplication.translate
         statistics_window.setWindowTitle(_translate("statistics_window", self.name))
-        self.button_pauses_num.setText(_translate("statistics_window", "stille Pausen"))
+        self.button_pauses_num.setText(_translate("statistics_window", "Pausen"))
         self.button_pauses_len.setText(_translate("statistics_window", "Länge stille Pausen"))
         self.button_rate_of_speech.setText(_translate("statistics_window", "Geschwindigkeitslevel"))
         self.button_balance.setText(_translate("statistics_window", "Balance"))
@@ -163,14 +165,15 @@ class Ui_statistics_window(QtWidgets.QDialog):
         pauses_sections = []
         # mean_pauses_sections = []
         sections = []
+        end_section = 0
         for i, section_parameter in enumerate(self.sections):
             section = i + 1
+            end_section = end_section + section_parameter["length_in_sec"]
             pauses_sections.append(section_parameter["pauses"])
-            #    mean_pauses_sections.append(section_parameter["mean_of_pauses"])
             sections.append(section)
 
         self.canvasStatistik.plot("stille Pausen", sections, pauses_sections,
-                                  ("Abschnitte mit der Länge " + str(self.section_size) + " sec") , "Anzahl Pausen",
+                                  "Abschnitte" , "Anzahl Pausen",
                                   (0, max(pauses_sections) + 1), False)
 
     def show_pause_len_statistic(self):
@@ -178,41 +181,43 @@ class Ui_statistics_window(QtWidgets.QDialog):
                                    % (self.whole["mean_of_pauses"]))
         mean_pauses_sections = []
         sections = []
+        end_section = 0
         for i, section_parameter in enumerate(self.sections):
             section = i + 1
+            end_section = end_section + section_parameter["length_in_sec"]
             mean_pauses_sections.append(section_parameter["mean_of_pauses"])
             sections.append(section)
         self.canvasStatistik.plot("Pausenlänge", sections, mean_pauses_sections,
-                                  ("Abschnitte mit der Länge " + str(self.section_size) + " sec"), "Länge der Pausen [s]",
+                                  "Abschnitte", "Länge der Pausen [s]",
                                   (0.2, max(mean_pauses_sections) + 0.2))
 
     def show_rate_of_speech_statistic(self):
         self.textStatistic.setText("Geschwindigkeitslever der gesamten Rede: " + str(self.whole["rate_of_speech"]))
         rate_sections = []
         sections = []
+        end_section = 0
         for i, section_parameter in enumerate(self.sections):
             section = i + 1
+            end_section = end_section + section_parameter["length_in_sec"]
             rate_sections.append(section_parameter["rate_of_speech"])
             sections.append(section)
 
-        #self.textStatistic.append("Mit einer Geschwindigkeit von " + str(min(rate_sections)) + " ist Abschnitt "
-        #                          + str(sections[rate_sections.index(min(rate_sections))]) + " der langsamste")
-
         self.canvasStatistik.plot("Geschwindigkeit", sections, rate_sections,
-                                  ("Abschnitte mit der Länge " + str(self.section_size) + " sec"), "Silben pro Sekunde", (0,9))
+                                  "Abschnitte", "Silben pro Sekunde", (0,9))
 
     def show_balance_statistic(self):
         self.textStatistic.setText("Balance der gesamten Rede: " + str(self.whole["balance"]))
         # gib plot an self.graphicsStatistik
         balance_sections = []
         sections = []
+        end_section = 0
         for i, section_parameter in enumerate(self.sections):
             section = i + 1
+            end_section = end_section + section_parameter["length_in_sec"]
             balance_sections.append(section_parameter["balance"])
-            sections.append(section)
+            sections.append(str(section) + "\nEnde bei " + str(end_section) + " sec")
 
-        self.canvasStatistik.plot("Balance", sections, balance_sections,
-                                  ("Abschnitte mit der Länge " + str(self.section_size) + " sec"),
+        self.canvasStatistik.plot("Balance", sections, balance_sections, "Abschnitte",
                                   "Gesprochene Zeit/ Gesammte Zeit", (0, 1))
 
     def show_intensity_statistic(self):
@@ -221,13 +226,14 @@ class Ui_statistics_window(QtWidgets.QDialog):
         # gib plot an self.graphicsStatistik
         mean_intensity = []
         sections = []
+        end_section = 0
         for i, section_parameter in enumerate(self.sections):
-            section = i + 1
+            section = i+1
+            end_section = end_section + section_parameter["length_in_sec"]
             mean_intensity.append(section_parameter["mean_intensity"])
-            sections.append(section)
 
-        self.canvasStatistik.plot("Lautstärke", sections, mean_intensity,
-                                  ("Abschnitte mit der Länge " + str(self.section_size) + " sec"),
+
+        self.canvasStatistik.plot("Lautstärke", sections, mean_intensity, "Abschnitt",
                                   "Lautstärke [dB]", (min(mean_intensity) - 1, max(mean_intensity) + 1), False)
 
     def show_fillers_statistic(self):
