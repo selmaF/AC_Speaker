@@ -119,3 +119,16 @@ def delete_folder_content(path_to_folder):
                 shutil.rmtree(file_path)
         except Exception as e:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+
+def convert_stereo_to_mono(audiofile):
+    """
+    Convert stereo to mono
+    :param audiofile: path to audio file
+    :return: mono sound
+    """
+    sound = AudioSegment.from_wav(audiofile)
+    sound = sound.set_channels(1)
+    name = str(audiofile[:-4]) + "_mono"
+    sound.export(name + ".wav", format="wav")
+    return sound
