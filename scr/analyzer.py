@@ -50,15 +50,6 @@ class AudioAnalyzer:
         else:
             print("Noch keine Werte analysiert, daher gibt es keine Werte zu speichern")
 
-    def saveAsStandard(self, path):
-        if self.analysis_done:
-            f = open(path + "/" + "standard.txt", 'w')
-            f.write(self.name + '\n')
-            for key in self.analyzed_values.keys():
-                f.write("%s, %s\n" % (key, self.analyzed_values[key]))
-        else:
-            print("Noch keine Werte analysiert, daher gibt es keine Werte als Standard zu speichern")
-
     def printResults(self):
         if self.analysis_done:
             length = str(self.analyzed_values["length_in_sec"])

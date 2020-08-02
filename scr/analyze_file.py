@@ -8,14 +8,17 @@ from pydub import AudioSegment
 import analyzer as a
 
 
-def open_and_analyse_file():
+def open_and_analyse_file(section_size):
     """
     Open file and analyze whole file plus sections
     :return:
     """
-    name, path_to_files = open_file()
-    results = analyze_whole_and_sections(name, path_to_files)
-    return results, name
+    name, path_to_files, is_video_file = open_file()
+    results = analyze_whole_and_sections(name, path_to_files, section_size)
+    if is_video_file:
+        # todo füge Jakobs Analyse ein
+        pass
+    return results, name, path_to_files
 
 
 def open_file():
@@ -27,17 +30,20 @@ def open_file():
     file = path[0].split("/")[-1]
     name = file.split(".")[0]
     file_extension = file.split(".")[1]
-    # todo verbinde audio und video-analyse
+    path_to_files = path[0].split("/" + name)[0]
+    is_video_file = False
     if file_extension == "wav":
         # do audio analysis
+        is_video_file = False
         pass
-    elif file_extension == "avi" or file_extension == "mp4":
+    elif file_extension == "avi" or file_extension == "mp4" or file_extension == "mov":
         # exctract audio from video
-        extract_audio_file(path[0])
+        name = extract_audio_file(path[0])
+        is_video_file = True
     else:
         print("Format nicht analysierbar")
-    path_to_files = path[0].split("/" + name)[0]
-    return name, path_to_files
+
+    return name, path_to_files, is_video_file
 
 
 def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last_second, section_size=15):
@@ -48,8 +54,13 @@ def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last
         section_speech = []
         section_start = section*1000
         section_end = (section+section_size)*1000-1
-        if section_end > (last_second - 7)*1000:
-            section_end = last_second*1000
+        if (last_second*1000) < (section_end + 7000):
+            end = last_second*1000
+            section_speech = speech[section_start:end]
+            section_speech.export((section_folder + "/" + audio_file + "_section" + str(number_section + 1) + ".wav"),
+                                  format="wav", bitrate="44.1k")
+            return number_section+1
+
         section_speech = speech[section_start:section_end]
 
         section_speech.export((section_folder + "/" + audio_file + "_section" + str(number_section+1) + ".wav"),
@@ -63,14 +74,16 @@ def extract_audio_file(video_file):
     :param video_file: path to video file
     :return: extracted audio file
     """
-    first_audio = "{}_audio".format(video_file)
+    name = video_file.split('/')[-1].split('.')[0]
+    audio_name = "{}_audio".format(name)
+    path_audio = video_file.split('/' + name)[0]
+    if not os.path.isfile(path_audio + '/' + audio_name + '.wav'):
+        command = "ffmpeg -i " + video_file + " -ab 160k -ac 2 -ar 44100 -vn {}.wav".format(path_audio + '/' + audio_name)
+        subprocess.call(command, shell=True)
+    return audio_name
 
-    command = "ffmpeg -i " + video_file + " -ab 160k -ac 2 -ar 44100 -vn {}.wav".format(first_audio)
-    subprocess.call(command, shell=True)
-    return str(video_file + "_audio.wav")
 
-
-def analyze_whole_and_sections(audio_file_name, audio_files_path):
+def analyze_whole_and_sections(audio_file_name, audio_files_path, sections_size):
 
     results_path = "../data/results"
 
@@ -85,10 +98,6 @@ def analyze_whole_and_sections(audio_file_name, audio_files_path):
     except ImportError:
         print("die Ergebnisse der Analyse konnten nicht abgerufen werden")
 
-    # save_as_gold = input("\n Wollen Sie die Werte als Goldstandard speichern? Geben Sie ein j wenn ja " + "\n")
-    # if save_as_gold == "j":
-    #    analyzer.setStandard("data")
-
     # split sections and save to data/audioFiles/sections:
     # 1. delete old sections
     section_folder = audio_files_path + "/sections"
@@ -99,7 +108,7 @@ def analyze_whole_and_sections(audio_file_name, audio_files_path):
         delete_folder_content(section_folder)
     # 2. save new sections
     number_of_sections = split_and_save_audio_file(audio_file_name, audio_files_path, section_folder,
-                                                   data_whole["length_in_sec"])
+                                                   data_whole["length_in_sec"], section_size=sections_size)
     sections_results = []
     for i in range(number_of_sections):
         analyzer_section = a.AudioAnalyzer(audio_file_name + "_section" + str(i + 1), section_folder)
@@ -119,6 +128,27 @@ def delete_folder_content(path_to_folder):
                 shutil.rmtree(file_path)
         except Exception as e:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
+
+def get_results_from_text_file(nameTextFile="standard.txt"):
+    results_path = "../data/results"
+    f = open((results_path + '/' + nameTextFile), 'r')
+    read_results = {}
+    read_results["name"] = f.readline()
+    for line in f.readlines():
+        key = line.split(',')[0]
+        value = line.split(',')[1]
+        read_results[key] = value
+    print(read_results)
+    return read_results
+
+
+
+
+
+
+
+
+
 
 
 def convert_stereo_to_mono(audiofile):

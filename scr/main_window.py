@@ -1,5 +1,6 @@
 
 import statistics_window
+import recording
 
 from PyQt5 import QtCore, QtWidgets
 import sys
@@ -10,11 +11,18 @@ class Ui_MainWindow(object):
     def open_statistic_window(self):
         self.window = QtWidgets.QMainWindow()
         self.ui = statistics_window.Ui_statistics_window()
-        self.ui.setupUi()
+        sections = self.horizontalSlider.value()
+        self.ui.setupUi(sections)
+
+    def open_recording(self):
+        self.window = QtWidgets.QMainWindow()
+        self.uiRec = recording.recording_window()
+        self.uiRec.initUI()
+
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(702, 369)
+        MainWindow.resize(702, 200)
 
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -34,10 +42,23 @@ class Ui_MainWindow(object):
         self.recordButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.recordButton.setObjectName("recordButton")
         self.verticalLayout.addWidget(self.recordButton)
+        self.recordButton.clicked.connect(self.open_recording)
 
-        self.compareButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.compareButton.setObjectName("compareButton")
-        self.verticalLayout.addWidget(self.compareButton)
+        self.label_sec_per_section = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.label_sec_per_section.setObjectName("sec_per_section_label")
+        self.verticalLayout.addWidget(self.label_sec_per_section)
+
+        self.horizontalSlider = QtWidgets.QSlider(self.verticalLayoutWidget)
+        self.horizontalSlider.setMinimum(10)
+        self.horizontalSlider.setMaximum(30)
+        self.horizontalSlider.setValue(20)
+        self.horizontalSlider.setObjectName("horizontalSlider")
+        self.horizontalSlider.setOrientation(QtCore.Qt.Horizontal)
+        self.verticalLayout.addWidget(self.horizontalSlider)
+
+        self.lcdNumber = QtWidgets.QLCDNumber(self.verticalLayoutWidget)
+        self.lcdNumber.setProperty("value", 20.0)
+        self.verticalLayout.addWidget(self.lcdNumber)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -51,13 +72,15 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.horizontalSlider.sliderMoved['int'].connect(self.lcdNumber.display)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Reden analyiseren"))
         self.savedButton.setText(_translate("MainWindow", "Analysiere gespeichertes Video"))
         self.recordButton.setText(_translate("MainWindow", "Nehme Video zum Analysieren auf"))
-        self.compareButton.setText(_translate("MainWindow", "Vergleiche ältere Ergebnisse"))
+        self.label_sec_per_section.setText(_translate("MainWindow", "Sekunden pro Abschnitt"))
+
 
 
 if __name__ == "__main__":
