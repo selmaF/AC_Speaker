@@ -7,7 +7,7 @@ pydub~=0.24.1
 numpy>=1.15.2
 pyqt5~=5.15.0
 matplotlib~=3.2.1
-opencv-python~=4.3.0.36
+opencv-python~=4.2.0.34
 
 scipy~=1.4.1
 sounddevice~=0.3.15

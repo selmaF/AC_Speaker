@@ -9,15 +9,23 @@ import soundfile as sf
 import threading
 
 from PyQt5 import QtCore, QtWidgets
-
+import statistics_window
 
 class recording_window(QtWidgets.QWidget):
 
-    def initUI(self):
+    def open_statistic_window(self):
+        self.ui = statistics_window.Ui_statistics_window()
+        self.ui.setupUi(self.sections, self.recording_name)
+
+    def initUI(self, sections):
         self.recording_started = False
         self.setObjectName("recording_window")
         self.setWindowTitle("Aufnahme")
         self.resize(250, 170)
+
+        self.recording_name = "recording" + datetime.now().strftime("_%y%m%d_%H%M")
+        self.recording_folder = "../data/audioFiles/recording"
+        self.sections = sections
 
         self.verticalLayoutWidget = QtWidgets.QWidget(self)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(30, 10, 170, 140))
@@ -44,31 +52,33 @@ class recording_window(QtWidgets.QWidget):
 
     def retranslateUi(self, recording_window):
         _translate = QtCore.QCoreApplication.translate
-        self.play_button.setText(_translate("recording_window", "Play"))
+        self.play_button.setText(_translate("recording_window", "Aufnehmen"))
 
     def start(self):
-        now = datetime.now()
-        timestamp = now.strftime("_%y%m%d_%H:%M")
-        filename = "recording" + timestamp
-        self.label.setText("Aufnahme gestartet ...")
+
+        self.label.setText("Aufnahme gestartet ...\nbeende mit \'q\'")
         self.recording_started = True
         audio_thread = threading.Thread(target=self.record_audio)
         audio_thread.start()
         self.record_video()
 
-        self.label.setText("Aufnahme beendet ...")
+        self.label.setText("Aufnahme beendet \nanalysiere Aufnahme ...")
         if self.video_recorded:
             audio_thread.join(timeout=0.1)
+        self.close()
+        self.open_statistic_window()
 
-    def record_video(self, filename="test2.avi"):
+
+    def record_video(self):
         """
         Record a video file in avi format. Stop recording with q press.
         :param filename: Name of the recorded file
         :return: None
         """
-
+        filename = self.recording_folder + '/' + self.recording_name + ".avi"
         frames_per_second = 24.0
 
+        cv2.namedWindow('frame')
         cap = cv2.VideoCapture(0)
         fourcc = cv2.VideoWriter_fourcc(*'XVID')
         out = cv2.VideoWriter(filename, fourcc, frames_per_second, (640,  480))
@@ -85,12 +95,13 @@ class recording_window(QtWidgets.QWidget):
         self.video_recorded = True
         cv2.destroyAllWindows()
 
-    def record_audio(self, filename="test2.wav"):
+    def record_audio(self):
         """
         Record a mono audio file. Done when video file is recorded.
         :param filename: name of the recorded file
         :return: None
         """
+        filename = self.recording_folder + '/' + self.recording_name + ".wav"
         q = queue.Queue()
         parser = argparse.ArgumentParser(add_help=False)
 
@@ -122,5 +133,5 @@ class recording_window(QtWidgets.QWidget):
 def start_gui_recording():
     app = QtWidgets.QApplication(sys.argv)
     ui = recording_window()
-    ui.initUI()
     sys.exit(app.exec_())
+

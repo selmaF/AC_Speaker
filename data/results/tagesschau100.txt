@@ -6,6 +6,3 @@ mean_of_pauses, 0.7507310225677586
 rate_of_speech, 4
 balance, 0.9
 mood, reading
-filled_pauses, 14
-filler_rate, 13.26530612244898
-most_used_fillers, {'ja': 3, 'und': 3, 'nicht': 3, 'der': 2, 'schon': 2}
