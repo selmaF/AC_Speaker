@@ -48,6 +48,9 @@ def open_file():
 
 def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last_second, section_size=15):
     speech = AudioSegment.from_wav(audio_files_path + "/" + audio_file + ".wav")
+    # convert stereo to mono
+    if speech.channels == 2:
+        speech = convert_stereo_to_mono(audio_files_path + "/" + audio_file + ".wav")
     number_section = 0
     # todo slice bei einer stillen Pause
     for number_section, section in enumerate(range(0, last_second, section_size)):
@@ -90,7 +93,7 @@ def analyze_whole_and_sections(audio_file_name, audio_files_path, sections_size)
     # analyze whole File
     analyzer = a.AudioAnalyzer(audio_file_name, audio_files_path)
     analyzer.analyzeWavFile()
-    analyzer.analyze_recognizer()
+ #   analyzer.analyze_recognizer()
 
     try:
         analyzer.saveResults(results_path)
@@ -106,9 +109,11 @@ def analyze_whole_and_sections(audio_file_name, audio_files_path, sections_size)
     except FileExistsError:
         print("Old sections will be deleted")
         delete_folder_content(section_folder)
+
     # 2. save new sections
     number_of_sections = split_and_save_audio_file(audio_file_name, audio_files_path, section_folder,
                                                    data_whole["length_in_sec"], section_size=sections_size)
+    # analyze sections
     sections_results = []
     for i in range(number_of_sections):
         analyzer_section = a.AudioAnalyzer(audio_file_name + "_section" + str(i + 1), section_folder)
@@ -118,6 +123,11 @@ def analyze_whole_and_sections(audio_file_name, audio_files_path, sections_size)
 
 
 def delete_folder_content(path_to_folder):
+    """
+    Delete folder with sections
+    :param path_to_folder: path to folder containing sections
+    :return: None
+    """
 
     for filename in os.listdir(path_to_folder):
         file_path = os.path.join(path_to_folder, filename)

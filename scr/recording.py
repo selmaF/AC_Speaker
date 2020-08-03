@@ -61,6 +61,11 @@ class recording_window(QtWidgets.QWidget):
             audio_thread.join(timeout=0.1)
 
     def record_video(self, filename="test2.avi"):
+        """
+        Record a video file in avi format. Stop recording with q press.
+        :param filename: Name of the recorded file
+        :return: None
+        """
 
         frames_per_second = 24.0
 
@@ -81,6 +86,11 @@ class recording_window(QtWidgets.QWidget):
         cv2.destroyAllWindows()
 
     def record_audio(self, filename="test2.wav"):
+        """
+        Record a mono audio file. Done when video file is recorded.
+        :param filename: name of the recorded file
+        :return: None
+        """
         q = queue.Queue()
         parser = argparse.ArgumentParser(add_help=False)
 
@@ -96,7 +106,7 @@ class recording_window(QtWidgets.QWidget):
                               channels=1) as file:
                 with sd.InputStream(samplerate=44100,
                                     channels=1, callback=callback):
-                    print("Recording...")
+                    print("Wird aufgenommen...")
                     while True:
                         if self.video_recorded:
                             parser.exit(0)

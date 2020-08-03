@@ -42,6 +42,11 @@ class AudioAnalyzer:
             raise ImportError
 
     def saveResults(self, path):
+        """
+        Save results of analysis in a text file
+        :param path: path to folder to store the text file
+        :return: None
+        """
         if self.analysis_done:
             f = open(path + "/" + self.name + ".txt", 'w')
             f.write(self.name + '\n')
@@ -69,6 +74,10 @@ class AudioAnalyzer:
             print("Keine Werte analysiert")
 
     def runMyspsolutionPraatFile(self):
+        """
+        Run praat file
+        :return: results of praat script
+        """
         # added from myspsolution.py
         sound = self.audio_files_path + "/" + self.audio_file
         sourcerun = "myspsolution.praat"
@@ -142,11 +151,15 @@ class AudioAnalyzer:
 
     @staticmethod
     def analyze_num_pauses(parsel_object):
+        """
+        Count number of pauses
+        :param parsel_object: parselmouth.Data object
+        :return: number of silent pauses
+        """
         # mysp.mysppaus(p,c)
-        # count number of pauses
         z1 = str(parsel_object[1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
         z2 = z1.strip().split()
-        z3 = int(z2[1])  # will be the integer number 10
+        z3 = int(z2[1])
         return z3
 
     @staticmethod
@@ -168,6 +181,11 @@ class AudioAnalyzer:
 
     @staticmethod
     def analyze_rate_of_speech(parsel_object):
+        """
+        Analyze rate of speech
+        :param parsel_object: parselmouth.Data object
+        :return: syllables per second
+        """
 
         z1 = str(parsel_object[1])
         z2 = z1.strip().split()
@@ -177,11 +195,16 @@ class AudioAnalyzer:
 
     @staticmethod
     def analyze_balance(parsel_object):
+        """
+        Analyze ratio of spoken speech to total speech
+        :param parsel_object: parselmouth.Data object
+        :return: ratio
+        """
         # mysp.myspbala(p,c)
 
         z1 = str(parsel_object[1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
         z2 = z1.strip().split()
-        z4 = float(z2[6])  # will be the floating point number 8.3
+        z4 = float(z2[6])
         return z4
 
     @staticmethod
