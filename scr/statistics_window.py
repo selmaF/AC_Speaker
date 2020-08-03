@@ -182,7 +182,7 @@ class Ui_statistics_window(QtWidgets.QDialog):
 
             self.canvasStatistik.plot("stille Pausen", sections, pauses_sections,
                                       "Abschnitte" , "Anzahl Pausen",
-                                      (0, max(pauses_sections) + 1), False)
+                                      (0, 10), False)
         except:
             self.textStatistic.setText("keine Analysedaten vorhanden")
 
@@ -203,7 +203,7 @@ class Ui_statistics_window(QtWidgets.QDialog):
 
             self.canvasStatistik.plot("Pausenlänge", sections, mean_pauses_sections,
                                       "Abschnitte", "Länge der Pausen [s]",
-                                      (0.2, max(mean_pauses_sections) + 0.2))
+                                      (0.2, 1.8))
         except:
             self.textStatistic.setText("keine Analysedaten vorhanden")
 
@@ -261,9 +261,14 @@ class Ui_statistics_window(QtWidgets.QDialog):
                 mean_intensity.append(section_parameter["mean_intensity"])
                 sections.append(str(section) + "\n" + str(start_section) + " sec - " + str(end_section) + " sec")
                 start_section = end_section
-
+            try:
+                min_int =  min(mean_intensity) - 1
+                max_int =  max(mean_intensity) + 1
+            except:
+                min_int = 55
+                max_int = 75
             self.canvasStatistik.plot("Lautstärke", sections, mean_intensity, "Abschnitt",
-                                      "Lautstärke [dB]", (min(mean_intensity) - 1, max(mean_intensity) + 1), False)
+                                      "Lautstärke [dB]", (min_int, max_int), False)
         except:
             self.textStatistic.setText("keine Analysedaten vorhanden")
 

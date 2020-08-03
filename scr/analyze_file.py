@@ -64,11 +64,12 @@ def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last
 
     number_section = 0
     # todo slice bei einer stillen Pause
+    min_size_section = 10 * 1000
     for number_section, section in enumerate(range(0, last_second, section_size)):
         section_speech = []
         section_start = section*1000
         section_end = (section+section_size)*1000-1
-        if (last_second*1000) < (section_end + 7000):
+        if (last_second*1000) < (section_end + min_size_section):
             end = last_second*1000
             section_speech = speech[section_start:end]
             section_speech.export((section_folder + "/" + audio_file + "_section" + str(number_section + 1) + ".wav"),
