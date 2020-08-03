@@ -50,13 +50,16 @@ class PlotCanvas(FigureCanvas):
 
 class Ui_statistics_window(QtWidgets.QDialog):
 
-    def setupUi(self, section_size):
+    def setupUi(self, section_size, name = None):
         self.section_size = section_size
         self.width = 531
         self.hight = 700
 
-        results, self.name, self.path_directory = af.open_and_analyse_file(self.section_size)
-        # save results of the analsis of the whole file in whole
+        if name == None:
+            results, self.name, self.path_directory = af.open_and_analyse_file(self.section_size)
+        else:
+            results, self.name, self.path_directory = af.analyze_recorded(self.section_size, name)
+        # save results of the analysis of the whole file in whole
         self.whole = results[0]
         # save results of the analysis of the sections
         self.sections = results[1]

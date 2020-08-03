@@ -17,17 +17,17 @@ class Ui_MainWindow(object):
     def open_recording(self):
         self.window = QtWidgets.QMainWindow()
         self.uiRec = recording.recording_window()
-        self.uiRec.initUI()
+        self.uiRec.initUI(self.horizontalSlider.value())
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(702, 200)     # Größe vom Fenster
+        MainWindow.resize(702, 250)     # Größe vom Fenster
 
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(90, 40, 481, 101))   #
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(90, 40, 481, 141))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)

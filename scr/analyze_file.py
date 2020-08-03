@@ -7,18 +7,29 @@ from pydub import AudioSegment
 
 import analyzer as a
 import recognizer
+#import wrapper
 
+
+def analyze_recorded(section_size, name):
+    name_video = name + ".avi"
+    path_to_files = "../data/audioFiles/recording"
+    results = analyze_whole_and_sections(name, path_to_files, section_size)
+#       video_array, video_labels = wrapper.analyze_gestures(name_video)
+
+    return results, name, path_to_files
 
 def open_and_analyse_file(section_size):
     """
     Open file and analyze whole file plus sections
     :return:
     """
-    name, path_to_files, is_video_file = open_file()
+    name, path_to_files, is_video_file, file_extension = open_file()
     results = analyze_whole_and_sections(name, path_to_files, section_size)
     if is_video_file:
-        # todo füge Jakobs Analyse ein
-        pass
+        print("analysiere " + name.split('_')[0] + '.' + file_extension)
+        name_video = path_to_files + '/' + name.split('_')[0] + '.' + file_extension
+ #       video_array, video_labels = wrapper.analyze_gestures(name_video)
+
     return results, name, path_to_files
 
 
@@ -44,7 +55,8 @@ def open_file():
     else:
         print("Format nicht analysierbar")
 
-    return name, path_to_files, is_video_file
+    return name, path_to_files, is_video_file, file_extension
+
 
 
 def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last_second, section_size=15):
@@ -95,7 +107,7 @@ def analyze_whole_and_sections(audio_file_name, audio_files_path, sections_size)
     speech = AudioSegment.from_wav(audio_files_path + "/" + audio_file_name + ".wav")
     if speech.channels == 2:
         audio = convert_stereo_to_mono(audio_files_path + "/" + audio_file_name + ".wav")[:-4]
-    audio_file_name = audio_file_name + "_mono"
+        audio_file_name = audio_file_name + "_mono"
     # analyze whole File
     analyzer = a.AudioAnalyzer(audio_file_name, audio_files_path)
     analyzer.analyzeWavFile()
