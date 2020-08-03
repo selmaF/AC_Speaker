@@ -241,16 +241,6 @@ class AudioAnalyzer:
             print("Voice not recognized")
             return "Voice not recognized"
 
-    @staticmethod
-    def load_old_results(file_path):
-        old_results = {}
-        with open(file_path, encoding="utf-8", mode="r") as file:
-            for line in file.readlines():
-                words = line.split()
-                if len(words) > 1:
-                    old_results[words[0][:-1]] = words[1]
-        return old_results
-
     def compare_results(self, old_results):
         print("Durchschnittliche Lautstärke:")
         print("Goldstandart: " + old_results["mean_intensity"] + "\t" + "Ihre Aufnahme: " + str(self.analyzed_values["mean_intensity"]))
@@ -273,3 +263,13 @@ class AudioAnalyzer:
 
         print("Stil der gesamten Rede: ")
         print("Goldstandart: " + old_results["mood"] + "\t" + "Ihre Aufnahme: " + str(self.analyzed_values["mood"]))
+
+
+def load_old_results(file_path):
+    old_results = {}
+    with open(file_path, encoding="utf8", mode="r") as file:
+        for line in file.readlines():
+            words = line.split()
+            if len(words) > 1:
+                old_results[words[0][:-1]] = words[1]
+    return old_results

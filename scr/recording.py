@@ -122,4 +122,7 @@ class recording_window(QtWidgets.QWidget):
 def start_gui_recording():
     app = QtWidgets.QApplication(sys.argv)
     ui = recording_window()
+    ui.initUI()
     sys.exit(app.exec_())
+
+start_gui_recording()
