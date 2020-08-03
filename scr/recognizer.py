@@ -40,6 +40,11 @@ def count_fillers(path_to_filler_file, words):
 
 
 def read_file(file_path):
+    """
+    Read and store information from an output of the speech recognizer.
+    :param file_path: path to the text file containing the output
+    :return: lists -> recognized words, timestamps of words end, timestamps of words beginning
+    """
     words = []
     end_timestamps = []
     start_timestamps = []
@@ -63,6 +68,12 @@ def read_file(file_path):
 
 
 def detect_filled_pauses(end_timestamps, start_timestamps):
+    """
+    Check if there was a pause between 2 words.
+    :param end_timestamps: list -> timestamps of words end
+    :param start_timestamps: list -> timestamps of words beginning
+    :return: list -> timestamps of pauses
+    """
     pause_time = []
     for i, (end_time, start_time) in enumerate(zip(end_timestamps, start_timestamps)):
         if i+1 < len(end_timestamps):         # avoid error "index out of range"

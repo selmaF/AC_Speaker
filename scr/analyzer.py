@@ -75,10 +75,9 @@ class AudioAnalyzer:
 
     def runMyspsolutionPraatFile(self):
         """
-        Run praat file
+        Run praat file. Added from myspsolution.py
         :return: results of praat script
         """
-        # added from myspsolution.py
         sound = self.audio_files_path + "/" + self.audio_file
         sourcerun = "myspsolution.praat"
         path = self.audio_files_path + "/"
@@ -110,9 +109,8 @@ class AudioAnalyzer:
         words, end_timestamps, start_timestamps = recognizer.read_file(path_to_rec_text)
         timestamps = recognizer.detect_filled_pauses(end_timestamps, start_timestamps)
         self.analyze_filled_pauses(self.audio_files_path + "/" + self.audio_file, timestamps)
-        filler_rate, most_used_fillers = recognizer.count_fillers("Fuellwoerter.txt", words)
-        self.analyzed_values["filler_rate"] = filler_rate
-        self.analyzed_values["most_used_fillers"] = most_used_fillers
+
+        return words
 
     def analyze_length(self):
         # length of the .wav file nach https://stackoverflow.com/questions/40651891/get-length-of-wav-file-in-samples-with-python
@@ -146,7 +144,7 @@ class AudioAnalyzer:
                 mean = np.mean(intensity_points)
                 if mean > 50:
                     pauses_number += 1
-                    time_filled_pauses.append((timestamp[0],timestamp[1]))
+                    time_filled_pauses.append((timestamp[0], timestamp[1]))
         self.analyzed_values["filled_pauses"] = pauses_number
 
     @staticmethod

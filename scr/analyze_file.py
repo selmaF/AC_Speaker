@@ -6,6 +6,7 @@ from PyQt5 import QtWidgets
 from pydub import AudioSegment
 
 import analyzer as a
+import recognizer
 
 
 def open_and_analyse_file(section_size):
@@ -93,7 +94,6 @@ def analyze_whole_and_sections(audio_file_name, audio_files_path, sections_size)
     # analyze whole File
     analyzer = a.AudioAnalyzer(audio_file_name, audio_files_path)
     analyzer.analyzeWavFile()
- #   analyzer.analyze_recognizer()
 
     try:
         analyzer.saveResults(results_path)
@@ -115,10 +115,20 @@ def analyze_whole_and_sections(audio_file_name, audio_files_path, sections_size)
                                                    data_whole["length_in_sec"], section_size=sections_size)
     # analyze sections
     sections_results = []
+    rec_words = []
+    filled_pauses = 0
     for i in range(number_of_sections):
         analyzer_section = a.AudioAnalyzer(audio_file_name + "_section" + str(i + 1), section_folder)
         analyzer_section.analyzeWavFile()
+        words = analyzer.analyze_recognizer()
+        for word in words:
+            rec_words.append(word)
+        filled_pauses = analyzer.analyzed_values["filled_pauses"] + filled_pauses
         sections_results.append(analyzer_section.getResults())
+    filler_rate, most_used_fillers = recognizer.count_fillers("Fuellwoerter.txt", rec_words)
+    data_whole["filled_pauses"] = filled_pauses
+    data_whole["most_used_fillers"] = most_used_fillers
+    data_whole["filler_rate"] = filler_rate
     return data_whole, sections_results
 
 
