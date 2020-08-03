@@ -55,4 +55,3 @@ def start_gui_compare():
     ui.initUI()
     sys.exit(app.exec_())
 
-start_gui_compare()

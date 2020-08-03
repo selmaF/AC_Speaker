@@ -51,7 +51,7 @@ def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last
     speech = AudioSegment.from_wav(audio_files_path + "/" + audio_file + ".wav")
     # convert stereo to mono
     if speech.channels == 2:
-        speech = convert_stereo_to_mono(audio_files_path + "/" + audio_file + "_mono" + ".wav")[:-4]
+        speech = convert_stereo_to_mono(audio_files_path + "/" + audio_file + ".wav")[:-4]
         audio_file = audio_file + "_mono"
 
     number_section = 0
@@ -65,7 +65,7 @@ def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last
             section_speech = speech[section_start:end]
             section_speech.export((section_folder + "/" + audio_file + "_section" + str(number_section + 1) + ".wav"),
                                   format="wav", bitrate="44.1k")
-            return number_section+1
+            return number_section+1, audio_file
 
         section_speech = speech[section_start:section_end]
 
@@ -118,7 +118,7 @@ def analyze_whole_and_sections(audio_file_name, audio_files_path, sections_size,
         delete_folder_content(section_folder)
 
     # 2. save new sections
-    number_of_sections = split_and_save_audio_file(audio_file_name, audio_files_path, section_folder,
+    number_of_sections, audio_file_name = split_and_save_audio_file(audio_file_name, audio_files_path, section_folder,
                                                    data_whole["length_in_sec"], section_size=sections_size)
     # analyze sections
     sections_results = []

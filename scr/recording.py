@@ -124,5 +124,3 @@ def start_gui_recording():
     ui = recording_window()
     ui.initUI()
     sys.exit(app.exec_())
-
-start_gui_recording()
