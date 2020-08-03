@@ -75,26 +75,29 @@ with tf.Session() as sess:
                 break
         
         print('Keypoints identified for each frame')
-                
+        
+        # create special dataframe containing information on movement
+        data=nose_as_origin(data)
+        df_prev=data.copy()
+        df_prev['frame_count']=df_prev['frame_count']+1
+        df_prev=df_prev.drop(['pose_score','keypoint_score'],axis=1)
+        df_prev.rename(columns={"x": "x_dist_to_nose_in_prev_frame", "y": "y_dist_to_nose_in_prev_frame"},inplace=True)
+        df_prev=data.merge(df_prev, on=['frame_count','part_names'])
+        df_prev['x_movement']=df_prev['x']-df_prev['x_dist_to_nose_in_prev_frame']
+        df_prev['y_movement']=df_prev['y']-df_prev['y_dist_to_nose_in_prev_frame']
+        df_prev['movement_vector_length']=((df_prev['x_movement']**2)+(df_prev['y_movement']**2))**(1/2)
+        
+        
+        
+        #analysefunktionen für verschiedene posen
         #new_coords=table_transforms.nose_as_origin(data)
         arme_angewinkelt=pose_checks.check_angewinkelt(data)
         arme_verschränkt=pose_checks.check_verschränkt(data)
         handgelenke_umfasst=pose_checks.check_handgelenkgriff(data)
         
-        
+        #diese arrays enthalten informationen, die in den plot funktionen der gui weiter verwendet werden
         bool_array_for_plot=pd.concat([arme_angewinkelt,arme_verschränkt,handgelenke_umfasst],axis=1).to_numpy().transpose()
         labels_for_plot=["Arme angewinkelt", "Arme verschränkt", "Handgelenke umfasst"]
     
     
-        blocks=util_functions.get_blocks(arme_angewinkelt)
-        
-        frame_to_second=data[['frame_count','timestamp']]
-        avg_fps=frame_to_second.iloc[-1][0]/frame_to_second.iloc[-1][1]
-        prev=-1
-        for element in blocks:
-            second=frame_to_second[frame_to_second['frame_count']== element[2]].iloc[0][1]
-            if (prev!=second):
-                print("Beidseitig in die Hüften gestützte Arme ab Sekunde ", second, ". Dauer: Etwa", int(element[1]/avg_fps)+1, "Sekunden.")
-            prev=second        
-        
-        
+       
