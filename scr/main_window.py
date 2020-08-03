@@ -1,6 +1,7 @@
 
 import statistics_window
 import recording
+import ui_compare_window
 
 from PyQt5 import QtCore, QtWidgets
 import sys
@@ -17,17 +18,22 @@ class Ui_MainWindow(object):
     def open_recording(self):
         self.window = QtWidgets.QMainWindow()
         self.uiRec = recording.recording_window()
-        self.uiRec.initUI(self.horizontalSlider.value())
+        self.uiRec.initUI()
+
+    def open_compare_window(self):
+        self.window = QtWidgets.QMainWindow()
+        self.uiComp = ui_compare_window.Ui_compare_window()
+        self.uiComp.initUI()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(702, 250)     # Größe vom Fenster
+        MainWindow.resize(702, 200)     # Größe vom Fenster
 
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(90, 40, 481, 141))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(90, 40, 481, 150))   #
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -37,6 +43,11 @@ class Ui_MainWindow(object):
         self.savedButton.setObjectName("savedButton")
         self.verticalLayout.addWidget(self.savedButton)
         self.savedButton.clicked.connect(self.open_statistic_window)
+
+        self.compareButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.savedButton.setObjectName("compareButton")
+        self.verticalLayout.addWidget(self.compareButton)
+        self.compareButton.clicked.connect(self.open_compare_window)
 
         self.recordButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.recordButton.setObjectName("recordButton")
@@ -79,6 +90,7 @@ class Ui_MainWindow(object):
         self.savedButton.setText(_translate("MainWindow", "Analysiere gespeichertes Video"))
         self.recordButton.setText(_translate("MainWindow", "Nehme Video zum Analysieren auf"))
         self.label_sec_per_section.setText(_translate("MainWindow", "Sekunden pro Abschnitt"))
+        self.compareButton.setText(_translate("MainWindow", "Vergleiche mit älteren Ergebnissen"))
 
 
 if __name__ == "__main__":

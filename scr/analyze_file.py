@@ -7,29 +7,18 @@ from pydub import AudioSegment
 
 import analyzer as a
 import recognizer
-#import wrapper
 
 
-def analyze_recorded(section_size, name):
-    name_video = name + ".avi"
-    path_to_files = "../data/audioFiles/recording"
-    results = analyze_whole_and_sections(name, path_to_files, section_size)
-#       video_array, video_labels = wrapper.analyze_gestures(name_video)
-
-    return results, name, path_to_files
-
-def open_and_analyse_file(section_size):
+def open_and_analyse_file(section_size, only_whole=False):
     """
     Open file and analyze whole file plus sections
     :return:
     """
-    name, path_to_files, is_video_file, file_extension = open_file()
-    results = analyze_whole_and_sections(name, path_to_files, section_size)
+    name, path_to_files, is_video_file = open_file()
+    results = analyze_whole_and_sections(name, path_to_files, section_size, only_whole)
     if is_video_file:
-        print("analysiere " + name.split('_')[0] + '.' + file_extension)
-        name_video = path_to_files + '/' + name.split('_')[0] + '.' + file_extension
- #       video_array, video_labels = wrapper.analyze_gestures(name_video)
-
+        # todo füge Jakobs Analyse ein
+        pass
     return results, name, path_to_files
 
 
@@ -55,12 +44,15 @@ def open_file():
     else:
         print("Format nicht analysierbar")
 
-    return name, path_to_files, is_video_file, file_extension
-
+    return name, path_to_files, is_video_file
 
 
 def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last_second, section_size=15):
     speech = AudioSegment.from_wav(audio_files_path + "/" + audio_file + ".wav")
+    # convert stereo to mono
+    if speech.channels == 2:
+        speech = convert_stereo_to_mono(audio_files_path + "/" + audio_file + "_mono" + ".wav")[:-4]
+        audio_file = audio_file + "_mono"
 
     number_section = 0
     # todo slice bei einer stillen Pause
@@ -92,22 +84,18 @@ def extract_audio_file(video_file):
     audio_name = "{}_audio".format(name)
     path_audio = video_file.split('/' + name)[0]
     if not os.path.isfile(path_audio + '/' + audio_name + '.wav'):
+        # FIXME: für Linux und Mac auskommentieren!
  #       command = "ffmpeg -i " + video_file + " -ab 160k -ac 2 -ar 44100 -vn {}.wav".format(path_audio + '/' + audio_name)
  #       subprocess.call(command, shell=True)
     # for windows
-        command = "ffmpeg -i " + video_file + " -ab 160k -ac 2 -ar 44100 -vn {}.wav".format(path_audio + '/' + audio_name)
+        command = "D:\\download\\ffmpeg-20200730-134a48a-win64-static\\bin\\ffmpeg -i " + video_file + " -ab 160k -ac 2 -ar 44100 -vn {}.wav".format(path_audio + '/' + audio_name)
         subprocess.check_output(command, shell=True)
     return audio_name
 
 
-def analyze_whole_and_sections(audio_file_name, audio_files_path, sections_size):
+def analyze_whole_and_sections(audio_file_name, audio_files_path, sections_size, only_whole):
 
     results_path = "../data/results"
-    # convert stereo to mono
-    speech = AudioSegment.from_wav(audio_files_path + "/" + audio_file_name + ".wav")
-    if speech.channels == 2:
-        audio = convert_stereo_to_mono(audio_files_path + "/" + audio_file_name + ".wav")[:-4]
-        audio_file_name = audio_file_name + "_mono"
     # analyze whole File
     analyzer = a.AudioAnalyzer(audio_file_name, audio_files_path)
     analyzer.analyzeWavFile()
@@ -118,6 +106,8 @@ def analyze_whole_and_sections(audio_file_name, audio_files_path, sections_size)
     except ImportError:
         print("die Ergebnisse der Analyse konnten nicht abgerufen werden")
 
+    if only_whole:
+        return data_whole
     # split sections and save to data/audioFiles/sections:
     # 1. delete old sections
     section_folder = audio_files_path + "/sections"
