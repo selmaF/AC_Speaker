@@ -49,9 +49,7 @@ def open_file():
 
 def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last_second, section_size=15):
     speech = AudioSegment.from_wav(audio_files_path + "/" + audio_file + ".wav")
-    # convert stereo to mono
-    if speech.channels == 2:
-        speech = convert_stereo_to_mono(audio_files_path + "/" + audio_file + ".wav")
+
     number_section = 0
     # todo slice bei einer stillen Pause
     for number_section, section in enumerate(range(0, last_second, section_size)):
@@ -82,15 +80,22 @@ def extract_audio_file(video_file):
     audio_name = "{}_audio".format(name)
     path_audio = video_file.split('/' + name)[0]
     if not os.path.isfile(path_audio + '/' + audio_name + '.wav'):
+ #       command = "ffmpeg -i " + video_file + " -ab 160k -ac 2 -ar 44100 -vn {}.wav".format(path_audio + '/' + audio_name)
+ #       subprocess.call(command, shell=True)
+    # for windows
         command = "ffmpeg -i " + video_file + " -ab 160k -ac 2 -ar 44100 -vn {}.wav".format(path_audio + '/' + audio_name)
-        subprocess.call(command, shell=True)
+        subprocess.check_output(command, shell=True)
     return audio_name
 
 
 def analyze_whole_and_sections(audio_file_name, audio_files_path, sections_size):
 
     results_path = "../data/results"
-
+    # convert stereo to mono
+    speech = AudioSegment.from_wav(audio_files_path + "/" + audio_file_name + ".wav")
+    if speech.channels == 2:
+        audio = convert_stereo_to_mono(audio_files_path + "/" + audio_file_name + ".wav")[:-4]
+    audio_file_name = audio_file_name + "_mono"
     # analyze whole File
     analyzer = a.AudioAnalyzer(audio_file_name, audio_files_path)
     analyzer.analyzeWavFile()

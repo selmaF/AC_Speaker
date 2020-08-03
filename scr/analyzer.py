@@ -157,7 +157,10 @@ class AudioAnalyzer:
         # mysp.mysppaus(p,c)
         z1 = str(parsel_object[1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
         z2 = z1.strip().split()
-        z3 = int(z2[1])
+        try:
+            z3 = int(z2[1])
+        except:
+            return 0
         return z3
 
     @staticmethod
@@ -188,6 +191,10 @@ class AudioAnalyzer:
         z1 = str(parsel_object[1])
         z2 = z1.strip().split()
         z3 = z2[2]
+        try:
+            float(z3)
+        except:
+            return 0
         # syllables/sec original duration
         return z3
 
@@ -202,7 +209,10 @@ class AudioAnalyzer:
 
         z1 = str(parsel_object[1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
         z2 = z1.strip().split()
-        z4 = float(z2[6])
+        try:
+            z4 = float(z2[6])
+        except:
+            return 0
         return z4
 
     @staticmethod
@@ -211,8 +221,10 @@ class AudioAnalyzer:
 
         z1 = str(parsel_object[1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
         z2 = z1.strip().split()
-        z4 = float(z2[7])  # will be the floating point number 8.3
-
+        try:
+            z4 = float(z2[7])  # will be the floating point number 8.3
+        except:
+            return "nicht erkannt"
         if 97 < z4 <= 114:
             return "showing no emotion"
         elif 114 < z4 <= 135:
