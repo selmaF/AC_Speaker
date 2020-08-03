@@ -9,6 +9,14 @@ import analyzer as a
 import recognizer
 
 
+def analyze_recorded(section_size, name):
+    name_video = name + ".avi"
+    path_to_files = "../data/audioFiles/recording"
+    results = analyze_whole_and_sections(name, path_to_files, section_size, False)
+#       video_array, video_labels = wrapper.analyze_gestures(name_video)
+
+    return results, name, path_to_files
+
 def open_and_analyse_file(section_size, only_whole=False):
     """
     Open file and analyze whole file plus sections
@@ -85,11 +93,11 @@ def extract_audio_file(video_file):
     path_audio = video_file.split('/' + name)[0]
     if not os.path.isfile(path_audio + '/' + audio_name + '.wav'):
         # FIXME: für Linux und Mac auskommentieren!
- #       command = "ffmpeg -i " + video_file + " -ab 160k -ac 2 -ar 44100 -vn {}.wav".format(path_audio + '/' + audio_name)
- #       subprocess.call(command, shell=True)
+        command = "ffmpeg -i " + video_file + " -ab 160k -ac 2 -ar 44100 -vn {}.wav".format(path_audio + '/' + audio_name)
+        subprocess.call(command, shell=True)
     # for windows
-        command = "D:\\download\\ffmpeg-20200730-134a48a-win64-static\\bin\\ffmpeg -i " + video_file + " -ab 160k -ac 2 -ar 44100 -vn {}.wav".format(path_audio + '/' + audio_name)
-        subprocess.check_output(command, shell=True)
+    #    command = "D:\\download\\ffmpeg-20200730-134a48a-win64-static\\bin\\ffmpeg -i " + video_file + " -ab 160k -ac 2 -ar 44100 -vn {}.wav".format(path_audio + '/' + audio_name)
+    #    subprocess.check_output(command, shell=True)
     return audio_name
 
 
