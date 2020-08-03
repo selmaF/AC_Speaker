@@ -7,6 +7,9 @@ from PyQt5 import QtCore, QtWidgets
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
+import matplotlib.colors
+import numpy as np
 
 from pydub import AudioSegment
 from pydub.playback import play
@@ -47,6 +50,26 @@ class PlotCanvas(FigureCanvas):
     def plot_clear(self):
         self.axes.clear()
 
+    def plot_poses(self, array, labels, df):
+        maxframe=df['frame_count'].max()
+        maxsec=df['timestamp_x'].max()
+        secs=df['timestamp_x'].unique()
+
+        ax = self.figure.add_subplot(111)
+        self.axes.clear()
+        colmap = matplotlib.colors.ListedColormap(np.random.random((21,3)))
+        colmap.colors[0] = [0,0,0]
+        data_color = (1 + np.arange(array.shape[0]))[:, None] * array
+        ax.imshow(data_color, aspect='auto', cmap=colmap)
+        ax.set_yticks(np.arange(len(labels)))
+        ax.set_yticklabels(labels)
+        
+        ax.set_xticks(np.arange(0,maxframe,int(maxframe/maxsec)), minor=False)
+        ax.set_xticklabels(secs, fontdict=None, minor=False)
+        self.draw()
+    
+
+
 
 class Ui_statistics_window(QtWidgets.QDialog):
 
@@ -55,11 +78,15 @@ class Ui_statistics_window(QtWidgets.QDialog):
         self.width = 531
         self.hight = 700
 
-        results, self.name, self.path_directory = af.open_and_analyse_file(self.section_size)
+        results, self.name, self.path_directory, array_for_plot, labels_for_plot, df_for_mvm_plot = af.open_and_analyse_file(self.section_size)
         # save results of the analsis of the whole file in whole
         self.whole = results[0]
         # save results of the analysis of the sections
         self.sections = results[1]
+        self.array_for_plot=array_for_plot
+        self.labels_for_plot=labels_for_plot
+        self.df_for_mvm_plot=df_for_mvm_plot
+        
 
         # read standard.txt and save results
    #     self.standard = af.get_results_from_text_file()
@@ -103,8 +130,8 @@ class Ui_statistics_window(QtWidgets.QDialog):
         self.button_fillers = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.button_fillers.setObjectName("button_fillers")
         self.horizontalLayoutPauses.addWidget(self.button_fillers)
-        self.button_fillers.clicked.connect(self.show_fillers_statistic)
-
+        #self.button_fillers.clicked.connect(self.show_fillers_statistic)
+        
         self.verticalLayout.addLayout(self.horizontalLayoutPauses)
         self.horizonalLayoutRest = QtWidgets.QHBoxLayout()
         self.horizonalLayoutRest.setObjectName("horizontalLayoutRest")
@@ -129,6 +156,20 @@ class Ui_statistics_window(QtWidgets.QDialog):
         self.horizonalLayoutRest.addWidget(self.button_mood)
         self.button_mood.clicked.connect(self.show_mood_statistic)
 
+        self.verticalLayout.addLayout(self.horizonalLayoutRest)
+        self.horizonalLayoutVideo = QtWidgets.QHBoxLayout()
+        self.horizonalLayoutVideo.setObjectName("horizonalLayoutVideo")
+
+        self.button_visual = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.button_visual.setObjectName("button_visual")
+        self.horizonalLayoutVideo.addWidget(self.button_visual)
+        self.button_visual.clicked.connect(self.show_visual_statistic)
+
+        self.button_visual = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.button_visual.setObjectName("button_movement")
+        self.horizonalLayoutVideo.addWidget(self.button_visual)
+ #       self.button_visual.clicked.connect(self.show_visual_statistic)
+
         self.button_sections = QtWidgets.QPushButton(self)
         self.button_sections.setObjectName("button_section")
         self.button_sections.setGeometry(QtCore.QRect(self.width-150, self.hight-30, 130, 20))
@@ -140,6 +181,8 @@ class Ui_statistics_window(QtWidgets.QDialog):
         self.button_standard.clicked.connect(self.save_standard)
 
         self.verticalLayout.addLayout(self.horizonalLayoutRest)
+
+        
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
@@ -157,6 +200,7 @@ class Ui_statistics_window(QtWidgets.QDialog):
         self.button_fillers.setText(_translate("statistics_window", "Füllwörter"))
         self.button_sections.setText(_translate("statistics_window", "öffne Abschnitte"))
         self.button_standard.setText(_translate("statistics_window", "speichere als Standard"))
+        self.button_visual.setText(_translate("statistics_window", "Zeige die verschiedenen Posen im zeitlichen Verlauf"))
 
     def show_pause_num_statistic(self):
         self.textStatistic.setText("Die gesamte Anzahl der stillen Pausen: " + str(self.whole["pauses"]))
@@ -250,14 +294,14 @@ class Ui_statistics_window(QtWidgets.QDialog):
         self.canvasStatistik.plot("Lautstärke", sections, mean_intensity, "Abschnitt",
                                   "Lautstärke [dB]", (min(mean_intensity) - 1, max(mean_intensity) + 1), False)
 
-    def show_fillers_statistic(self):
-        self.textStatistic.setText(
-            "Verhältnis von Füllwörtern zu allen Wörtern::  %.2f " % self.whole["filler_rate"])
-        for key, value in self.whole["most_used_fillers"].items():
-            self.textStatistic.append(
-                "Das Füllwort \"{0}\" wurde {1} mal verwendet".format(key, value))
+    #def show_fillers_statistic(self):
+        #self.textStatistic.setText(
+            #"Verhältnis von Füllwörtern zu allen Wörtern::  %.2f " % self.whole["filler_rate"])
+        #for key, value in self.whole["most_used_fillers"].items():
+            #self.textStatistic.append(
+                #"Das Füllwort \"{0}\" wurde {1} mal verwendet".format(key, value))
 
-        self.canvasStatistik.plot_clear()
+        #self.canvasStatistik.plot_clear()
 
     def show_mood_statistic(self):
         self.textStatistic.setText("Stimmung der gesamten Rede: " + str(self.whole["mood"]))
@@ -296,6 +340,11 @@ class Ui_statistics_window(QtWidgets.QDialog):
     def save_standard(self):
         results_path = "../data/results"
         copyfile(results_path + "/" + self.name + ".txt", results_path + "/standard.txt")
+
+    def show_visual_statistic(self):
+        self.textStatistic.setText("Stimmung der gesamten Rede: " + str(self.whole["mood"]))
+        self.textStatistic.append("Die gesamte Anzahl der gefüllten Pausen: " + str(self.whole["filled_pauses"]))
+        self.canvasStatistik.plot_poses(self.array_for_plot, self.labels_for_plot, self.df_for_mvm_plot)
 
 
 def start_gui_statistics():

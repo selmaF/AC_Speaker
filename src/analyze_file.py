@@ -6,19 +6,21 @@ from PyQt5 import QtWidgets
 from pydub import AudioSegment
 
 import analyzer as a
-
+import wrapper
+import posenet
 
 def open_and_analyse_file(section_size):
     """
     Open file and analyze whole file plus sections
     :return:
     """
-    name, path_to_files, is_video_file = open_file()
+    name, path_to_files, is_video_file, file_extension = open_file()
     results = analyze_whole_and_sections(name, path_to_files, section_size)
     if is_video_file:
-        # todo füge Jakobs Analyse ein
+        filename=path_to_files + "/" + name.split("_")[0] + "." + file_extension
+        array_for_plot,labels_for_plot,df_for_movement_plot=wrapper.analyzeVideo(filename)
         pass
-    return results, name, path_to_files
+    return results, name, path_to_files, array_for_plot, labels_for_plot, df_for_movement_plot
 
 
 def open_file():
@@ -43,7 +45,7 @@ def open_file():
     else:
         print("Format nicht analysierbar")
 
-    return name, path_to_files, is_video_file
+    return name, path_to_files, is_video_file, file_extension
 
 
 def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last_second, section_size=15):
@@ -90,7 +92,7 @@ def analyze_whole_and_sections(audio_file_name, audio_files_path, sections_size)
     # analyze whole File
     analyzer = a.AudioAnalyzer(audio_file_name, audio_files_path)
     analyzer.analyzeWavFile()
-    analyzer.analyze_recognizer()
+    #analyzer.analyze_recognizer()
 
     try:
         analyzer.saveResults(results_path)

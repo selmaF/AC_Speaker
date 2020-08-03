@@ -7,7 +7,7 @@ import math
 
 
 import statistics
-import recognizer
+#import recognizer
 
 
 class AudioAnalyzer:
