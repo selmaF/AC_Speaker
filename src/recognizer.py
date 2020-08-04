@@ -33,7 +33,11 @@ def count_fillers(path_to_filler_file, words):
                 if word not in filler_counter:
                     filler_counter[word] = 0
                 filler_counter[word] += 1
-    rate = sum(filler_counter.values()) / len(words) * 100
+    if len(words) > 0:
+        rate = sum(filler_counter.values()) / len(words) * 100
+    else:
+        print("keine Wörter erkannt")
+        rate = -1
     sorted_counter = {k: v for k, v in sorted(filler_counter.items(), key=lambda item: item[1], reverse=True)[:5]}
 
     return rate, sorted_counter

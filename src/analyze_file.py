@@ -17,11 +17,12 @@ def analyze_recorded(section_size, name):
     results = analyze_whole_and_sections(name, path_to_files, section_size, False)
     array_for_plot, labels_for_plot, df_for_movement_plot = wrapper.analyzeVideo(path_to_files + '/' + name_video)
 
-    results[0]["array_for_poses"] = array_for_plot
-    results[0]["labels_for_poses"] = labels_for_plot
-    results[0]["df_for_movement"] = df_for_movement_plot
+    results_video = {}
+    results_video["array_for_poses"] = array_for_plot
+    results_video["labels_for_poses"] = labels_for_plot
+    results_video["df_for_movement"] = df_for_movement_plot
 
-    return results, name, path_to_files
+    return results, results_video, name, path_to_files
 
 def open_and_analyse_file(section_size, only_whole=False):
     """
@@ -30,14 +31,18 @@ def open_and_analyse_file(section_size, only_whole=False):
     """
     name, path_to_files, is_video_file, file_extension = open_file()
     results = analyze_whole_and_sections(name, path_to_files, section_size, only_whole)
-    if is_video_file:
-        filename = path_to_files + "/" + name.split("_")[0] + "." + file_extension
-        array_for_plot, labels_for_plot, df_for_movement_plot = wrapper.analyzeVideo(filename)
-        results[0]["array_for_poses"] = array_for_plot
-        results[0]["labels_for_poses"] = labels_for_plot
-        results[0]["df_for_movement"] = df_for_movement_plot
 
-    return results, name, path_to_files
+    if is_video_file:
+        filename = path_to_files + "/" + name.split("_audio")[0] + "." + file_extension
+
+        array_for_plot, labels_for_plot, df_for_movement_plot = wrapper.analyzeVideo(filename)
+
+        results_video = {}
+        results_video["array_for_poses"] = array_for_plot
+        results_video["labels_for_poses"] = labels_for_plot
+        results_video["df_for_movement"] = df_for_movement_plot
+
+    return results, results_video, name, path_to_files
 
 
 def open_file():

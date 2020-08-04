@@ -10,7 +10,6 @@ from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 import matplotlib.colors
 import numpy as np
-import os
 
 from pydub import AudioSegment
 from pydub.playback import play
@@ -52,9 +51,9 @@ class PlotCanvas(FigureCanvas):
         maxframe = df['frame_count'].max()
         maxsec = df['timestamp_x'].max()
         secs = df['timestamp_x'].unique()
-
+        print( " in plot_poses ", maxframe,  maxsec, secs)
         ax = self.figure.add_subplot(111)
-        self.ax.clear()
+        self.axes.clear()
         colmap = matplotlib.colors.ListedColormap(np.random.random((21, 3)))
         colmap.colors[0] = [0, 0, 0]
         data_color = (1 + np.arange(array.shape[0]))[:, None] * array
@@ -65,7 +64,7 @@ class PlotCanvas(FigureCanvas):
         ax.set_xticks(np.arange(0, maxframe, int(maxframe / maxsec)), minor=False)
         ax.set_xticklabels(secs, fontdict=None, minor=False)
         ax.set_xlabel('Sekunde')
-
+        print("plot_poses_beendet")
         self.draw()
         
     def plot_movement(self, dv_prev):
@@ -74,19 +73,19 @@ class PlotCanvas(FigureCanvas):
         secs = dv_prev['timestamp_x'].unique()
 
         ax = self.figure.add_subplot(111)
-        self.ax.clear()
+        self.axes.clear()
 
         #informationen für den ersten und zweiten teilgraphen
-        leftwrist=df_prev[df_prev['part_names']=='leftWrist']
+        leftwrist=dv_prev[dv_prev['part_names']=='leftWrist']
         leftwrist=leftwrist.set_index('frame_count')
         leftwrist=leftwrist['movement_vector_length']
 
-        rightwrist=df_prev[df_prev['part_names']=='rightWrist']
+        rightwrist=dv_prev[dv_prev['part_names']=='rightWrist']
         rightwrist=rightwrist.set_index('frame_count')
         rightwrist=rightwrist['movement_vector_length']
 
         #plotten der beiden teilgraphen
-        ax = leftwrist.plot(legend=True,label="Links")
+        leftwrist.plot(ax=ax, legend=True,label="Links")
         rightwrist.plot(ax=ax, legend=True,label="Rechts")
 
         #x-achsen beschriftung: zuerst wird die position der ticks, dann ihr inhalt festgelegt
@@ -120,14 +119,15 @@ class Ui_statistics_window(QtWidgets.QDialog):
         self.hight_text = int(self.hight/5)
 
         if name == None:
-            results, self.name, self.path_directory = af.open_and_analyse_file(self.section_size)
+            results, self.results_video, self.name, self.path_directory = af.open_and_analyse_file(self.section_size)
         else:
-            results, self.name, self.path_directory = af.analyze_recorded(self.section_size, name)
+            results, self.results_video, self.name, self.path_directory = af.analyze_recorded(self.section_size, name)
 
         # save results of the analsis of the whole file in whole
-        self.whole = results[0]
-        # save results of the analysis of the sections
-        self.sections = results[1]
+        if results != None:
+            self.whole = results[0]
+            # save results of the analysis of the sections
+            self.sections = results[1]
 
 
         self.setWindowTitle("Analysis")
@@ -421,10 +421,12 @@ class Ui_statistics_window(QtWidgets.QDialog):
             self.textStatistic.setText("keine Analysedaten vorhanden")
 
     def show_visual_statistic(self):
+
         try:
             self.textStatistic.setText("Analyse der Posen: Angewinkelte Arme, verschränkte Arme, einseitig herunterhängender Arm, nach vorn gestreckter Arm, mittig gefaltete Hände")
-            self.canvasStatistik.plot_poses(self.whole["array_for_poses"], self.whole["labels_for_poses"],
-                                            self.whole["df_for_movement"])
+            print("versuche plot_poses")
+            self.canvasStatistik.plot_poses(self.results_video["array_for_poses"], self.results_video["labels_for_poses"],
+                                            self.results_video["df_for_movement"])
         except:
             self.textStatistic.setText("keine Analysedaten vorhanden")
 
@@ -432,7 +434,8 @@ class Ui_statistics_window(QtWidgets.QDialog):
     def show_movement_statistic(self):
         try:
             self.textStatistic.setText("Analyse der Bewegungsintensität des linken und rechten Arms")
-            self.canvasStatistik.plot_movement(self.whole["df_for_movement"])
+            print("versuche plot_movement")
+            self.canvasStatistik.plot_movement(self.results_video["df_for_movement"])
         except:
             self.textStatistic.setText("keine Analysedaten vorhanden")
 
