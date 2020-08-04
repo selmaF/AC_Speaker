@@ -54,7 +54,7 @@ class PlotCanvas(FigureCanvas):
         secs = df['timestamp_x'].unique()
 
         ax = self.figure.add_subplot(111)
-        self.axes.clear()
+        self.ax.clear()
         colmap = matplotlib.colors.ListedColormap(np.random.random((21, 3)))
         colmap.colors[0] = [0, 0, 0]
         data_color = (1 + np.arange(array.shape[0]))[:, None] * array
@@ -64,7 +64,43 @@ class PlotCanvas(FigureCanvas):
 
         ax.set_xticks(np.arange(0, maxframe, int(maxframe / maxsec)), minor=False)
         ax.set_xticklabels(secs, fontdict=None, minor=False)
+        ax.set_xlabel('Sekunde')
+
         self.draw()
+        
+    def plot_movement(self, dv_prev):
+        maxframe = dv_prev['frame_count'].max()
+        maxsec = dv_prev['timestamp_x'].max()
+        secs = dv_prev['timestamp_x'].unique()
+
+        ax = self.figure.add_subplot(111)
+        self.ax.clear()
+
+        #informationen für den ersten und zweiten teilgraphen
+        leftwrist=df_prev[df_prev['part_names']=='leftWrist']
+        leftwrist=leftwrist.set_index('frame_count')
+        leftwrist=leftwrist['movement_vector_length']
+
+        rightwrist=df_prev[df_prev['part_names']=='rightWrist']
+        rightwrist=rightwrist.set_index('frame_count')
+        rightwrist=rightwrist['movement_vector_length']
+
+        #plotten der beiden teilgraphen
+        ax = leftwrist.plot(legend=True,label="Links")
+        rightwrist.plot(ax=ax, legend=True,label="Rechts")
+
+        #x-achsen beschriftung: zuerst wird die position der ticks, dann ihr inhalt festgelegt
+        ax.set_xticks(np.arange(0,maxframe,int(maxframe/maxsec)), minor=False)
+        ax.set_xticklabels(secs, fontdict=None, minor=False)
+
+        #keine beschriftung an der y achse
+        ax.set_yticks([], minor=False)
+
+        ax.set_xlabel('Sekunde')
+        ax.set_ylabel('Bewegungsheftigkeit')
+
+        self.draw()
+
 
     def plot_clear(self):
         self.axes.clear()
@@ -386,7 +422,7 @@ class Ui_statistics_window(QtWidgets.QDialog):
 
     def show_visual_statistic(self):
         try:
-            self.textStatistic.setText("Die Analyse der Posen nach angewinkelte Arme, verschränkte Arme und umfasster Ellebogen")
+            self.textStatistic.setText("Analyse der Posen: Angewinkelte Arme, verschränkte Arme, einseitig herunterhängender Arm, nach vorn gestreckter Arm, mittig gefaltete Hände")
             self.canvasStatistik.plot_poses(self.whole["array_for_poses"], self.whole["labels_for_poses"],
                                             self.whole["df_for_movement"])
         except:
@@ -394,7 +430,11 @@ class Ui_statistics_window(QtWidgets.QDialog):
 
 
     def show_movement_statistic(self):
-        pass
+        try:
+            self.textStatistic.setText("Analyse der Bewegungsintensität des linken und rechten Arms")
+            self.canvasStatistik.plot_movement(self.whole["df_for_movement"])
+        except:
+            self.textStatistic.setText("keine Analysedaten vorhanden")
 
 
     def open_sections(self):
