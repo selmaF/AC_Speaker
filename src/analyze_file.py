@@ -73,7 +73,7 @@ def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last
         audio_file = audio_file + "_mono"
 
     number_section = 0
-    # todo slice bei einer stillen Pause
+    # nice to have: slice at silent pause
     min_size_section = 10 * 1000
     for number_section, section in enumerate(range(0, last_second, section_size)):
         section_speech = []

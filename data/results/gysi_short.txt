@@ -6,6 +6,3 @@ mean_of_pauses, 0.6913505483826196
 rate_of_speech, 4
 balance, 0.8
 mood, speaking passionately
-filled_pauses, 19
-filler_rate, 10.256410256410255
-most_used_fillers, {'schon': 3, 'da': 2, 'nicht': 2, 'gleich': 1, 'lassen': 1}

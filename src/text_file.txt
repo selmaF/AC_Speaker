@@ -1,82 +1,237 @@
 {
-  "text" : ""
-}{
-  "text" : ""
-}{
-  "text" : ""
-}{
-  "text" : ""
-}{
-  "text" : ""
-}{
   "result" : [{
-      "conf" : 0,999974,
-      "end" : 31,290000,
-      "start" : 25,200000,
-      "word" : "durch"
-    }],
-  "text" : "durch"
-}{
-  "result" : [{
-      "conf" : 0,766207,
-      "end" : 36,330000,
-      "start" : 31,290000,
-      "word" : "ruf"
-    }],
-  "text" : "ruf"
-}{
-  "text" : ""
-}{
-  "result" : [{
-      "conf" : 0,998164,
-      "end" : 41,370000,
-      "start" : 41,370000,
-      "word" : "hm"
+      "conf" : 1.000000,
+      "end" : 1.830000,
+      "start" : 0.000000,
+      "word" : "okay"
     }, {
-      "conf" : 1,000000,
-      "end" : 41,370000,
-      "start" : 41,370000,
-      "word" : "hm"
+      "conf" : 1.000000,
+      "end" : 2.430000,
+      "start" : 1.830000,
+      "word" : "test"
     }, {
-      "conf" : 1,000000,
-      "end" : 44,514218,
-      "start" : 41,370000,
-      "word" : "hm"
-    }],
-  "text" : "hm hm hm"
-}{
-  "text" : ""
-}{
-  "text" : ""
-}{
-  "result" : [{
-      "conf" : 0,982881,
-      "end" : 60,480000,
-      "start" : 55,860000,
-      "word" : "wien"
-    }],
-  "text" : "wien"
-}{
-  "result" : [{
-      "conf" : 0,562464,
-      "end" : 62,469258,
-      "start" : 60,480000,
-      "word" : "sie"
+      "conf" : 1.000000,
+      "end" : 2.970000,
+      "start" : 2.430000,
+      "word" : "ehm"
     }, {
-      "conf" : 0,576130,
-      "end" : 64,890000,
-      "start" : 62,469258,
-      "word" : "sprach"
+      "conf" : 1.000000,
+      "end" : 3.390000,
+      "start" : 2.970000,
+      "word" : "jetzt"
+    }, {
+      "conf" : 0.999909,
+      "end" : 3.780000,
+      "start" : 3.390000,
+      "word" : "seit"
+    }, {
+      "conf" : 1.000000,
+      "end" : 4.680000,
+      "start" : 3.780016,
+      "word" : "ungefähr"
+    }, {
+      "conf" : 1.000000,
+      "end" : 4.920000,
+      "start" : 4.680000,
+      "word" : "dreißig"
+    }, {
+      "conf" : 1.000000,
+      "end" : 5.640000,
+      "start" : 4.920000,
+      "word" : "sekunden"
+    }, {
+      "conf" : 1.000000,
+      "end" : 5.760000,
+      "start" : 5.640000,
+      "word" : "sollte"
+    }, {
+      "conf" : 1.000000,
+      "end" : 6.120000,
+      "start" : 5.760000,
+      "word" : "bislang"
+    }, {
+      "conf" : 0.998592,
+      "end" : 6.449989,
+      "start" : 6.120000,
+      "word" : "seinen"
+    }, {
+      "conf" : 0.999793,
+      "end" : 6.930000,
+      "start" : 6.449989,
+      "word" : "zärtlich"
+    }, {
+      "conf" : 1.000000,
+      "end" : 7.020000,
+      "start" : 6.930000,
+      "word" : "mal"
+    }, {
+      "conf" : 1.000000,
+      "end" : 7.800000,
+      "start" : 7.020000,
+      "word" : "hin"
+    }, {
+      "conf" : 1.000000,
+      "end" : 8.490000,
+      "start" : 7.800000,
+      "word" : "timer"
+    }, {
+      "conf" : 1.000000,
+      "end" : 8.580000,
+      "start" : 8.490000,
+      "word" : "gerne"
+    }, {
+      "conf" : 0.999545,
+      "end" : 8.730000,
+      "start" : 8.580000,
+      "word" : "aber"
+    }, {
+      "conf" : 0.997341,
+      "end" : 9.060000,
+      "start" : 8.730000,
+      "word" : "wir"
+    }, {
+      "conf" : 0.997341,
+      "end" : 9.750000,
+      "start" : 9.060000,
+      "word" : "sollten"
+    }, {
+      "conf" : 0.999982,
+      "end" : 10.260000,
+      "start" : 9.750000,
+      "word" : "ehm"
     }],
-  "text" : "sie sprach"
+  "text" : "okay test ehm jetzt seit ungefähr dreißig sekunden sollte bislang seinen zärtlich mal hin timer gerne aber wir sollten ehm"
 }{
   "result" : [{
-      "conf" : 1,000000,
-      "end" : 65,250000,
-      "start" : 64,890000,
-      "word" : "ja"
+      "conf" : 1.000000,
+      "end" : 10.740000,
+      "start" : 10.290000,
+      "word" : "wir"
+    }, {
+      "conf" : 1.000000,
+      "end" : 11.040000,
+      "start" : 10.740000,
+      "word" : "aber"
+    }, {
+      "conf" : 1.000000,
+      "end" : 11.160000,
+      "start" : 11.040000,
+      "word" : "ich"
+    }, {
+      "conf" : 1.000000,
+      "end" : 11.310000,
+      "start" : 11.160000,
+      "word" : "weiß"
+    }, {
+      "conf" : 1.000000,
+      "end" : 11.490000,
+      "start" : 11.310000,
+      "word" : "nicht"
+    }, {
+      "conf" : 1.000000,
+      "end" : 11.610000,
+      "start" : 11.490000,
+      "word" : "was"
+    }, {
+      "conf" : 1.000000,
+      "end" : 11.760000,
+      "start" : 11.610000,
+      "word" : "soll"
+    }, {
+      "conf" : 1.000000,
+      "end" : 11.880000,
+      "start" : 11.760000,
+      "word" : "ich"
+    }, {
+      "conf" : 1.000000,
+      "end" : 12.120000,
+      "start" : 11.880000,
+      "word" : "tun"
+    }, {
+      "conf" : 0.997406,
+      "end" : 12.389744,
+      "start" : 12.120000,
+      "word" : "ich"
+    }, {
+      "conf" : 1.000000,
+      "end" : 12.450000,
+      "start" : 12.389744,
+      "word" : "kann"
+    }, {
+      "conf" : 0.997731,
+      "end" : 12.450000,
+      "start" : 12.450000,
+      "word" : "hier"
+    }, {
+      "conf" : 0.997732,
+      "end" : 12.689819,
+      "start" : 12.450000,
+      "word" : "um"
+    }, {
+      "conf" : 1.000000,
+      "end" : 12.809728,
+      "start" : 12.689819,
+      "word" : "ein"
+    }, {
+      "conf" : 1.000000,
+      "end" : 12.990000,
+      "start" : 12.809728,
+      "word" : "paar"
+    }, {
+      "conf" : 1.000000,
+      "end" : 13.470000,
+      "start" : 12.990000,
+      "word" : "gesten"
+    }, {
+      "conf" : 1.000000,
+      "end" : 14.310000,
+      "start" : 13.470000,
+      "word" : "machen"
+    }, {
+      "conf" : 1.000000,
+      "end" : 14.580000,
+      "start" : 14.310000,
+      "word" : "so"
+    }, {
+      "conf" : 1.000000,
+      "end" : 14.790000,
+      "start" : 14.580000,
+      "word" : "ich"
+    }, {
+      "conf" : 1.000000,
+      "end" : 14.910000,
+      "start" : 14.790000,
+      "word" : "glaube"
+    }, {
+      "conf" : 0.988193,
+      "end" : 15.090000,
+      "start" : 14.910000,
+      "word" : "die"
+    }, {
+      "conf" : 1.000000,
+      "end" : 15.330000,
+      "start" : 15.091771,
+      "word" : "war"
+    }, {
+      "conf" : 1.000000,
+      "end" : 15.990000,
+      "start" : 15.330000,
+      "word" : "dabei"
+    }, {
+      "conf" : 1.000000,
+      "end" : 16.470002,
+      "start" : 15.990004,
+      "word" : "die"
+    }, {
+      "conf" : 1.000000,
+      "end" : 16.770000,
+      "start" : 16.470002,
+      "word" : "war"
+    }, {
+      "conf" : 1.000000,
+      "end" : 18.000000,
+      "start" : 16.770000,
+      "word" : "dabei"
     }],
-  "text" : "ja"
-}{
-  "text" : ""
+  "text" : "wir aber ich weiß nicht was soll ich tun ich kann hier um ein paar gesten machen so ich glaube die war dabei die war dabei"
 }
