@@ -7,6 +7,10 @@ from PyQt5 import QtCore, QtWidgets
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
+import matplotlib.colors
+import numpy as np
+import os
 
 from pydub import AudioSegment
 from pydub.playback import play
@@ -36,12 +40,32 @@ class PlotCanvas(FigureCanvas):
         ax.set_xlabel(x_label)
         ax.set_ylabel(y_label)
         ax.set_title(title)
+        if not os.isfile("../data/results/title" + ".png"):
+            plt.savefig(title + ".png")
         self.draw()
 
     def plot_pie(self, labels, sizes):
         ax = self.figure.add_subplot(111)
         self.axes.clear()
         ax.pie(sizes, labels=labels, shadow=True, autopct='%1.1f%%',  startangle=90)
+        self.draw()
+
+    def plot_poses(self, array, labels, df):
+        maxframe = df['frame_count'].max()
+        maxsec = df['timestamp_x'].max()
+        secs = df['timestamp_x'].unique()
+
+        ax = self.figure.add_subplot(111)
+        self.axes.clear()
+        colmap = matplotlib.colors.ListedColormap(np.random.random((21, 3)))
+        colmap.colors[0] = [0, 0, 0]
+        data_color = (1 + np.arange(array.shape[0]))[:, None] * array
+        ax.imshow(data_color, aspect='auto', cmap=colmap)
+        ax.set_yticks(np.arange(len(labels)))
+        ax.set_yticklabels(labels)
+
+        ax.set_xticks(np.arange(0, maxframe, int(maxframe / maxsec)), minor=False)
+        ax.set_xticklabels(secs, fontdict=None, minor=False)
         self.draw()
 
     def plot_clear(self):
@@ -51,28 +75,33 @@ class PlotCanvas(FigureCanvas):
 class Ui_statistics_window(QtWidgets.QDialog):
 
     def setupUi(self, section_size, name = None):
+
         self.section_size = section_size
-        self.width = 531
+        self.width = 550
         self.hight = 700
+        self.width_canvas = self.width - 30
+        self.hight_canvas = int(self.hight/2)
+        self.width_text = self.width_canvas
+        self.hight_text = int(self.hight/5)
 
         if name == None:
             results, self.name, self.path_directory = af.open_and_analyse_file(self.section_size)
         else:
             results, self.name, self.path_directory = af.analyze_recorded(self.section_size, name)
-        # save results of the analysis of the whole file in whole
+
+        # save results of the analsis of the whole file in whole
         self.whole = results[0]
         # save results of the analysis of the sections
         self.sections = results[1]
 
-        # read standard.txt and save results
-   #     self.standard = af.get_results_from_text_file()
 
         self.setWindowTitle("Analysis")
         self.setObjectName("statistics_window")
         self.resize(self.width, self.hight)
 
         self.frame = QtWidgets.QFrame(self)
-        self.frame.setGeometry(QtCore.QRect(20, 260, 491, 400))
+        self.frame.setGeometry(QtCore.QRect(20, 260, self.width_canvas, self.width_canvas))
+        #self.frame.setGeometry(QtCore.QRect(left,top,width,height))
         self.frame.setObjectName("frame")
 
         # setup Matplotlib-Widget
@@ -80,11 +109,11 @@ class Ui_statistics_window(QtWidgets.QDialog):
         self.canvasStatistik.move(0, 0)
 
         self.textStatistic = QtWidgets.QTextBrowser(self)
-        self.textStatistic.setGeometry(QtCore.QRect(20, 90, 491, 151))
+        self.textStatistic.setGeometry(QtCore.QRect(20, 100, self.width_text, self.hight_text))
         self.textStatistic.setObjectName("textStatistic")
 
         self.verticalLayoutWidget = QtWidgets.QWidget(self)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 10, 491, 70))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 10, self.width_text, 80))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -96,53 +125,84 @@ class Ui_statistics_window(QtWidgets.QDialog):
         self.button_pauses_num = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.button_pauses_num.setObjectName("button_pauses_num")
         self.horizontalLayoutPauses.addWidget(self.button_pauses_num)
-        self.button_pauses_num.clicked.connect(self.show_pause_num_statistic)
+
 
         self.button_pauses_len = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.button_pauses_len.setObjectName("button_pauses_len")
         self.horizontalLayoutPauses.addWidget(self.button_pauses_len)
-        self.button_pauses_len.clicked.connect(self.show_pause_len_statistic)
+
 
         self.button_fillers = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.button_fillers.setObjectName("button_fillers")
         self.horizontalLayoutPauses.addWidget(self.button_fillers)
-        self.button_fillers.clicked.connect(self.show_fillers_statistic)
 
         self.verticalLayout.addLayout(self.horizontalLayoutPauses)
-        self.horizonalLayoutRest = QtWidgets.QHBoxLayout()
-        self.horizonalLayoutRest.setObjectName("horizontalLayoutRest")
+
+
+        self.horizontalLayoutRest = QtWidgets.QHBoxLayout()
+        self.horizontalLayoutRest.setObjectName("horizontalLayoutRest")
 
         self.button_rate_of_speech = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.button_rate_of_speech.setObjectName("button_rate_of_speech")
-        self.horizonalLayoutRest.addWidget(self.button_rate_of_speech)
-        self.button_rate_of_speech.clicked.connect(self.show_rate_of_speech_statistic)
+        self.horizontalLayoutRest.addWidget(self.button_rate_of_speech)
+
 
         self.button_balance = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.button_balance.setObjectName("button_balance")
-        self.horizonalLayoutRest.addWidget(self.button_balance)
-        self.button_balance.clicked.connect(self.show_balance_statistic)
+        self.horizontalLayoutRest.addWidget(self.button_balance)
+
 
         self.button_intensity = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.button_intensity.setObjectName("button_intensity")
-        self.horizonalLayoutRest.addWidget(self.button_intensity)
-        self.button_intensity.clicked.connect(self.show_intensity_statistic)
+        self.horizontalLayoutRest.addWidget(self.button_intensity)
+
 
         self.button_mood = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.button_mood.setObjectName("button_mood")
-        self.horizonalLayoutRest.addWidget(self.button_mood)
-        self.button_mood.clicked.connect(self.show_mood_statistic)
+        self.horizontalLayoutRest.addWidget(self.button_mood)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayoutRest)
+
+        self.horizontalLayoutVideo = QtWidgets.QHBoxLayout()
+        self.horizontalLayoutVideo.setObjectName("horizontalLayoutVideo")
+
+        self.button_visual = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.button_visual.setObjectName("button_visual")
+        self.horizontalLayoutVideo.addWidget(self.button_visual)
+
+
+        self.button_visual2 = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.button_visual2.setObjectName("button_movement")
+        self.horizontalLayoutVideo.addWidget(self.button_visual2)
+
+        self.verticalLayout.addLayout(self.horizontalLayoutVideo)
 
         self.button_sections = QtWidgets.QPushButton(self)
         self.button_sections.setObjectName("button_section")
         self.button_sections.setGeometry(QtCore.QRect(self.width-150, self.hight-30, 130, 20))
-        self.button_sections.clicked.connect(self.open_sections)
+
 
         self.button_standard = QtWidgets.QPushButton(self)
         self.button_standard.setObjectName("button_standard")
         self.button_standard.setGeometry(QtCore.QRect(20, self.hight - 30, 160, 20))
+
+
+
+        self.button_pauses_num.clicked.connect(self.show_pause_num_statistic)
+        self.button_pauses_len.clicked.connect(self.show_pause_len_statistic)
+        # self.button_fillers.clicked.connect(self.show_fillers_statistic)
+        self.button_rate_of_speech.clicked.connect(self.show_rate_of_speech_statistic)
+        self.button_balance.clicked.connect(self.show_balance_statistic)
+        self.button_intensity.clicked.connect(self.show_intensity_statistic)
+        self.button_mood.clicked.connect(self.show_mood_statistic)
+        self.button_visual.clicked.connect(self.show_visual_statistic)
+        self.button_visual2.clicked.connect(self.show_movement_statistic)
+
+        self.button_sections.clicked.connect(self.open_sections)
         self.button_standard.clicked.connect(self.save_standard)
 
-        self.verticalLayout.addLayout(self.horizonalLayoutRest)
+
 
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
@@ -150,7 +210,7 @@ class Ui_statistics_window(QtWidgets.QDialog):
 
     def retranslateUi(self, statistics_window):
         _translate = QtCore.QCoreApplication.translate
-        statistics_window.setWindowTitle(_translate("statistics_window", self.name))
+        #        statistics_window.setWindowTitle(_translate("statistics_window", self.name))
         self.button_pauses_num.setText(_translate("statistics_window", "Pausen"))
         self.button_pauses_len.setText(_translate("statistics_window", "Länge stille Pausen"))
         self.button_rate_of_speech.setText(_translate("statistics_window", "Geschwindigkeitslevel"))
@@ -158,8 +218,12 @@ class Ui_statistics_window(QtWidgets.QDialog):
         self.button_mood.setText(_translate("statistics_window", "Stimmung"))
         self.button_intensity.setText(_translate("statistics_window", "Lautstärke"))
         self.button_fillers.setText(_translate("statistics_window", "Füllwörter"))
+        self.button_visual.setText(_translate("statistics_window", "Posen"))
+        self.button_visual2.setText(_translate("statistics_window", "Bewegung"))
         self.button_sections.setText(_translate("statistics_window", "öffne Abschnitte"))
         self.button_standard.setText(_translate("statistics_window", "speichere als Standard"))
+
+
 
     def show_pause_num_statistic(self):
         try:
@@ -201,9 +265,13 @@ class Ui_statistics_window(QtWidgets.QDialog):
                 sections.append(str(section) + "\n" + str(start_section) + " sec - " + str(end_section) + " sec")
                 start_section = end_section
 
+            try:
+                max_len = max(mean_pauses_sections) + 0.2
+            except:
+                max_len = 1.6
             self.canvasStatistik.plot("Pausenlänge", sections, mean_pauses_sections,
                                       "Abschnitte", "Länge der Pausen [s]",
-                                      (0.2, 1.8))
+                                      (0.2, max_len))
         except:
             self.textStatistic.setText("keine Analysedaten vorhanden")
 
@@ -311,6 +379,18 @@ class Ui_statistics_window(QtWidgets.QDialog):
                 self.canvasStatistik.plot_clear()
         except:
             self.textStatistic.setText("keine Analysedaten vorhanden")
+
+    def show_visual_statistic(self):
+        try:
+            self.canvasStatistik.plot_poses(self.whole["array_for_poses"], self.whole["labels_for_poses"],
+                                            self.whole["df_for_movement"])
+        except:
+            self.textStatistic.setText("keine Analysedaten vorhanden")
+
+
+    def show_movement_statistic(self):
+        pass
+
 
     def open_sections(self):
         path_sections = self.path_directory + "/sections"

@@ -1,0 +1,82 @@
+{
+  "text" : ""
+}{
+  "text" : ""
+}{
+  "text" : ""
+}{
+  "text" : ""
+}{
+  "text" : ""
+}{
+  "result" : [{
+      "conf" : 0,999974,
+      "end" : 31,290000,
+      "start" : 25,200000,
+      "word" : "durch"
+    }],
+  "text" : "durch"
+}{
+  "result" : [{
+      "conf" : 0,766207,
+      "end" : 36,330000,
+      "start" : 31,290000,
+      "word" : "ruf"
+    }],
+  "text" : "ruf"
+}{
+  "text" : ""
+}{
+  "result" : [{
+      "conf" : 0,998164,
+      "end" : 41,370000,
+      "start" : 41,370000,
+      "word" : "hm"
+    }, {
+      "conf" : 1,000000,
+      "end" : 41,370000,
+      "start" : 41,370000,
+      "word" : "hm"
+    }, {
+      "conf" : 1,000000,
+      "end" : 44,514218,
+      "start" : 41,370000,
+      "word" : "hm"
+    }],
+  "text" : "hm hm hm"
+}{
+  "text" : ""
+}{
+  "text" : ""
+}{
+  "result" : [{
+      "conf" : 0,982881,
+      "end" : 60,480000,
+      "start" : 55,860000,
+      "word" : "wien"
+    }],
+  "text" : "wien"
+}{
+  "result" : [{
+      "conf" : 0,562464,
+      "end" : 62,469258,
+      "start" : 60,480000,
+      "word" : "sie"
+    }, {
+      "conf" : 0,576130,
+      "end" : 64,890000,
+      "start" : 62,469258,
+      "word" : "sprach"
+    }],
+  "text" : "sie sprach"
+}{
+  "result" : [{
+      "conf" : 1,000000,
+      "end" : 65,250000,
+      "start" : 64,890000,
+      "word" : "ja"
+    }],
+  "text" : "ja"
+}{
+  "text" : ""
+}

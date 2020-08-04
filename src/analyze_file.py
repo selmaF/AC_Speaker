@@ -7,13 +7,19 @@ from pydub import AudioSegment
 
 import analyzer as a
 import recognizer
+import wrapper
 
 
 def analyze_recorded(section_size, name):
     name_video = name + ".avi"
     path_to_files = "../data/audioFiles/recording"
+
     results = analyze_whole_and_sections(name, path_to_files, section_size, False)
-#       video_array, video_labels = wrapper.analyze_gestures(name_video)
+    array_for_plot, labels_for_plot, df_for_movement_plot = wrapper.analyzeVideo(path_to_files + '/' + name_video)
+
+    results[0]["array_for_poses"] = array_for_plot
+    results[0]["labels_for_poses"] = labels_for_plot
+    results[0]["df_for_movement"] = df_for_movement_plot
 
     return results, name, path_to_files
 
@@ -22,11 +28,15 @@ def open_and_analyse_file(section_size, only_whole=False):
     Open file and analyze whole file plus sections
     :return:
     """
-    name, path_to_files, is_video_file = open_file()
+    name, path_to_files, is_video_file, file_extension = open_file()
     results = analyze_whole_and_sections(name, path_to_files, section_size, only_whole)
     if is_video_file:
-        # todo füge Jakobs Analyse ein
-        pass
+        filename = path_to_files + "/" + name.split("_")[0] + "." + file_extension
+        array_for_plot, labels_for_plot, df_for_movement_plot = wrapper.analyzeVideo(filename)
+        results[0]["array_for_poses"] = array_for_plot
+        results[0]["labels_for_poses"] = labels_for_plot
+        results[0]["df_for_movement"] = df_for_movement_plot
+
     return results, name, path_to_files
 
 
@@ -52,7 +62,7 @@ def open_file():
     else:
         print("Format nicht analysierbar")
 
-    return name, path_to_files, is_video_file
+    return name, path_to_files, is_video_file, file_extension
 
 
 def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last_second, section_size=15):
@@ -114,6 +124,7 @@ def analyze_whole_and_sections(audio_file_name, audio_files_path, sections_size,
         data_whole = analyzer.getResults()
     except ImportError:
         print("die Ergebnisse der Analyse konnten nicht abgerufen werden")
+        return
 
     if only_whole:
         return data_whole

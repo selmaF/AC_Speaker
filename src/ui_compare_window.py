@@ -37,6 +37,7 @@ class Ui_compare_window(QtWidgets.QWidget):
     def open_file(self):
         try:
             file = QtWidgets.QFileDialog.getOpenFileName(directory=os.path.dirname(os.path.abspath(__file__)))
+            #file = QtWidgets.QFileDialog.getOpenFileName(directory="../data/results")
             self.old_results = analyzer.load_old_results(file[0])
         except:
             print("Die Datei konnte nicht analysiert werden")
