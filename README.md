@@ -1,7 +1,7 @@
 # AC_Speaker
 Daria, Maike and Jakob
 
-Neue Ordnerstruktur: Das Model muss jetzt in den Hauptordner, also auf dieselbe Ebene wie der scr Ordner
+Das akustische Model muss leicht verändert in den Hauptordner, also auf dieselbe Ebene wie der src Ordner
 
 
 Tools:
