@@ -92,10 +92,13 @@ def analyzeVideo(filepath):
             arme_angewinkelt=pose_checks.check_angewinkelt(data)
             arme_verschränkt=pose_checks.check_verschränkt(data)
             handgelenke_umfasst=pose_checks.check_handgelenkgriff(data)
+            ein_arm_haengt=pose_checks.check_einarmhaengt(data)
+            arm_gestreckt=pose_checks.check_armgestreckt(data)
+            gesicht_verdeckt=pose_checks.check_gesichtverdeckt(data)
             
             #diese arrays enthalten informationen, die in den plot funktionen der gui weiter verwendet werden
-            bool_array_for_plot=pd.concat([arme_angewinkelt,arme_verschränkt,handgelenke_umfasst],axis=1).to_numpy().transpose()
-            labels_for_plot=["Arme angewinkelt", "Arme verschränkt", "Handgelenke umfasst"]
+            bool_array_for_plot=pd.concat([arme_angewinkelt,arme_verschränkt,handgelenke_umfasst,ein_arm_haengt,arm_gestreckt,gesicht_verdeckt],axis=1).to_numpy().transpose()
+            labels_for_plot=["Arme angewinkelt", "Arme verschränkt", "Handgelenke umfasst", "Ein Arm hängt", "Arm ausgestreckt", "Gesicht verdeckt"]
         
     return (bool_array_for_plot, labels_for_plot, df_prev)
        
