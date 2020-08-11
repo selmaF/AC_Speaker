@@ -100,8 +100,8 @@ def analyzeVideo(filepath):
             bool_array_for_plot = pd.concat(
                 [arme_angewinkelt, arme_verschränkt, handgelenke_umfasst, ein_arm_haengt, arm_gestreckt,
                  gesicht_verdeckt], axis=1).to_numpy().transpose()
-            labels_for_plot = ["Arme \nangew.", "Arme \nverschr.", "Handge. \numfasst", "Arm \nhängt",
-                               "Arm \nausgestr.", "Gesicht \nverdeckt"]
+            labels_for_plot = ["Arme \nangew.", "Arme \nversch.", "Handg. \numf.", "Arm \nhängt",
+                               "Arm \nausge.", "Ges. \nverd."]
 
     return (bool_array_for_plot, labels_for_plot, df_prev)
        

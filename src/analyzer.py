@@ -4,7 +4,8 @@ import numpy as np
 import os
 import scipy.io.wavfile as wav
 import math
-
+from scipy.stats import ks_2samp
+from scipy.stats import ttest_ind
 
 import statistics
 import recognizer
@@ -217,31 +218,80 @@ class AudioAnalyzer:
 
     @staticmethod
     def analyze_mood(parsel_object):
-        # mysp.myspgend(p,c)
 
-        z1 = str(parsel_object[1])  # This will print the info from the textgrid object, and objects[1] is a parselmouth.Data object with a TextGrid inside
-        z2 = z1.strip().split()
         try:
-            z4 = float(z2[7])  # will be the floating point number 8.3
-        except:
-            return "nicht erkannt"
-        if 97 < z4 <= 114:
-            return "showing no emotion"
-        elif 114 < z4 <= 135:
-            return "reading"
-        elif 135 < z4 <= 163:
-            return "speaking passionately"
-        elif 163 < z4 <= 197:
-            return "showing no emotion"
-        elif 197 < z4 <= 226:
-            return "reading"
-        elif 226 < z4 <= 245:
-            return "speaking passionately"
-        else:
-            print("Voice not recognized")
-            return "Voice not recognized"
+            z1 = str(parsel_object[1])
+            z2 = z1.strip().split()
+            z3 = float(z2[8])
+            z4 = float(z2[7])
+            if z4 <= 114:
+                g = 101
+                j = 3.4
+            elif 114 < z4 <= 135:
+                g = 128
+                j = 4.35
+            elif 135 < z4 <= 163:
+                g = 142
+                j = 4.85
+            elif 163 < z4 <= 197:
+                g = 182
+                j = 2.7
+            elif 197 < z4 <= 226:
+                g = 213
+                j = 4.5
+            elif z4 > 226:
+                g = 239
+                j = 5.3
+            else:
+                print("Voice not recognized")
+                exit()
 
-    def compare_results(self, old_results):
+            def teset(a, b, c, d):
+                d1 = np.random.wald(a, 1, 1000)
+                d2 = np.random.wald(b, 1, 1000)
+                d3 = ks_2samp(d1, d2)
+                c1 = np.random.normal(a, c, 1000)
+                c2 = np.random.normal(b, d, 1000)
+                c3 = ttest_ind(c1, c2)
+                y = ([d3[0], d3[1], abs(c3[0]), c3[1]])
+                return y
+
+            nn = 0
+            mm = teset(g, j, z4, z3)
+            while mm[3] > 0.05 and mm[0] > 0.04 or nn < 5:
+                mm = teset(g, j, z4, z3)
+                nn = nn + 1
+            nnn = nn
+            if mm[3] <= 0.09:
+                mmm = mm[3]
+            else:
+                mmm = 0.35
+            if 97 < z4 <= 114:
+                # print("a Male, mood of speech: Showing no emotion, normal")
+                return "showing no emotion"
+            elif 114 < z4 <= 135:
+                # print("a Male, mood of speech: Reading")
+                return "reading"
+            elif 135 < z4 <= 163:
+                # print("a Male, mood of speech: speaking passionately")
+                return "speaking passionately"
+            elif 163 < z4 <= 197:
+                # print("a female, mood of speech: Showing no emotion, normal")
+                return "showing no emotion"
+            elif 197 < z4 <= 226:
+                # print("a female, mood of speech: Reading")
+                return "reading"
+            elif 226 < z4 <= 245:
+                # print("a female, mood of speech: speaking passionately")
+                return "speaking passionately"
+            else:
+                print("Voice not recognized")
+                return  "Stimmung nicht erkannt"
+        except:
+            print("Try again the sound of the audio was not clear")
+
+
+def compare_results(self, old_results):
         print("Durchschnittliche Lautstärke:")
         print("Goldstandart: " + old_results["mean_intensity"] + "\t" + "Ihre Aufnahme: " + str(self.analyzed_values["mean_intensity"]))
 
@@ -271,5 +321,5 @@ def load_old_results(file_path):
         for line in file.readlines():
             words = line.split()
             if len(words) > 1:
-                old_results[words[0][:-1]] = words[1]
+                old_results[words[0][:-1]] = words[1:]
     return old_results

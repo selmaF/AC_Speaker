@@ -6,6 +6,3 @@ mean_of_pauses, 0.8086650469711685
 rate_of_speech, 4
 balance, 0.8
 mood, showing no emotion
-filled_pauses, 12
-filler_rate, 15.702479338842975
-most_used_fillers, {'ein': 8, 'in': 2, 'schon': 2, 'diesem': 1, 'wenngleich': 1}

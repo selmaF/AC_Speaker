@@ -32,12 +32,13 @@ def open_and_analyse_file(section_size, only_whole=False):
     name, path_to_files, is_video_file, file_extension = open_file()
     results = analyze_whole_and_sections(name, path_to_files, section_size, only_whole)
 
+    results_video = {}
     if is_video_file:
         filename = path_to_files + "/" + name.split("_audio")[0] + "." + file_extension
 
         array_for_plot, labels_for_plot, df_for_movement_plot = wrapper.analyzeVideo(filename)
 
-        results_video = {}
+
         results_video["array_for_poses"] = array_for_plot
         results_video["labels_for_poses"] = labels_for_plot
         results_video["df_for_movement"] = df_for_movement_plot

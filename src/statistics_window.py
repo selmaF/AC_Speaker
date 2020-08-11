@@ -51,7 +51,7 @@ class PlotCanvas(FigureCanvas):
         maxframe = df['frame_count'].max()
         maxsec = df['timestamp_x'].max()
         secs = df['timestamp_x'].unique()
-        print( " in plot_poses ", maxframe,  maxsec, secs)
+
         ax = self.figure.add_subplot(111)
         self.axes.clear()
         colmap = matplotlib.colors.ListedColormap(np.random.random((21, 3)))
@@ -64,7 +64,6 @@ class PlotCanvas(FigureCanvas):
         ax.set_xticks(np.arange(0, maxframe, int(maxframe / maxsec)), minor=False)
         ax.set_xticklabels(secs, fontdict=None, minor=False)
         ax.set_xlabel('Sekunde')
-        print("plot_poses_beendet")
         self.draw()
         
     def plot_movement(self, dv_prev):
@@ -383,7 +382,7 @@ class Ui_statistics_window(QtWidgets.QDialog):
             print("anfang filler")
             print(self.whole["filler_rate"])
             self.textStatistic.setText(
-                "Verhältnis von Füllwörtern zu allen Wörtern::  %.2f " % self.whole["filler_rate"])
+                "Verhältnis von Füllwörtern zu allen Wörtern:  %.2f " % self.whole["filler_rate"])
             for key, value in self.whole["most_used_fillers"].items():
                 self.textStatistic.append(
                     "Das Füllwort \"{0}\" wurde {1} mal verwendet".format(key, value))
@@ -422,9 +421,14 @@ class Ui_statistics_window(QtWidgets.QDialog):
 
     def show_visual_statistic(self):
 
+        self.textStatistic.setText("Analyse der Posen: "
+                                   "\nAngewinkelte Arme (Arme angew.)"
+                                   "\nVerschränkte Arme (Arme versch.)"
+                                   "\nDie Hände werden vor dem Körper mittig gefaltet (Handg. umf.)" 
+                                   "\nEinseitig herunterhängender Arm (Arm hängt)"
+                                   "\nNach vorn gestreckter Arm (Arm ausge.)"
+                                   "\nDas Gesicht wird verdeckt (Ges. verd.)")
         try:
-            self.textStatistic.setText("Analyse der Posen: Angewinkelte Arme, verschränkte Arme, einseitig herunterhängender Arm, nach vorn gestreckter Arm, mittig gefaltete Hände")
-            print("versuche plot_poses")
             self.canvasStatistik.plot_poses(self.results_video["array_for_poses"], self.results_video["labels_for_poses"],
                                             self.results_video["df_for_movement"])
         except:

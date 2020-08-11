@@ -1,6 +1,6 @@
 gysi_short
 length_in_sec, 153
-mean_intensity, 61.816860159258084
+mean_intensity, 61.82
 pauses, 48
 mean_of_pauses, 0.6913505483826196
 rate_of_speech, 4

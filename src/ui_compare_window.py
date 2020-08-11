@@ -19,16 +19,26 @@ class statistik_window(QtWidgets.QWidget):
         self.textStatistic.setGeometry(QtCore.QRect(20, 90, 600, 400))
         self.textStatistic.setObjectName("textStatistic")
 
-        self.textStatistic.setText("Durchschnittliche Lautstärke:" + "\n" + "Goldstandart: " + self.old_results["mean_intensity"] + "\n" + "Ihre Aufnahme: " + str(
-            self.analyzed_values["mean_intensity"]) + "\n" + " "+"\n" +
-             "Redegeschwindigkeit (Silben pro Sekunde):"+ "\n" + "Goldstandart: " + self.old_results["rate_of_speech"] + "\n" + "Ihre Aufnahme: " + str(self.analyzed_values["rate_of_speech"])
-                                   + "\n" + " " + "\n" + "Gesamtlänge und Anzahl von Pausen: " + "\n" + "Goldstandart: " + self.old_results["length_in_sec"] + " Sek, davon  " + self.old_results["pauses"] + " Pausen" + "\n" +
-               "Ihre Aufnahme: " + str(self.analyzed_values["length_in_sec"]) + " Sek, davon  " + str(self.analyzed_values["pauses"]) + " Pausen" + "\n" + " "+"\n"
-                                   + "Durchschnittliche Pausenlänge:" + "\n" + "Goldstandart: " + self.old_results["mean_of_pauses"] + "\n" + "Ihre Aufnahme: " + str(
-             self.analyzed_values["mean_of_pauses"]) + " Sek" + "\n" + " "+"\n" + "Verhältnis von geprochener Zeit zu der Gesamtzeit: " + "\n" +
-                                   "Goldstandart: " + self.old_results["balance"] + "\n" + "Ihre Aufnahme: " + str(self.analyzed_values["balance"]) + "\n" + " "+"\n" +
-                                   "Stil der gesamten Rede: " + "\n" + "Goldstandart: " + old_results["mood"] + "\n" + "Ihre Aufnahme: " + str(self.analyzed_values["mood"])
-                                   )
+        self.textStatistic.setText("Durchschnittliche Lautstärke:" + "\n" +
+                                   "Goldstandart: %.2f dB \nIhre Aufnahme: %.2f dB \n" % (float(self.old_results["mean_intensity"][0]),
+                                                                                     self.analyzed_values["mean_intensity"]))
+        self.textStatistic.append("Redegeschwindigkeit (Silben pro Sekunde):\n" +
+                                  "Goldstandart: {} \nIhre Aufnahme: {}\n".format(self.old_results["rate_of_speech"][0],
+                                                                                   self.analyzed_values["rate_of_speech"]))
+        self.textStatistic.append("Gesamtlänge und Anzahl von Pausen: " + "\n" +
+                                  "Goldstandart: %s Sek, davon %s Pausen \n" % (self.old_results["length_in_sec"][0],
+                                                                                   self.old_results["pauses"][0]) +
+                                  "Ihre Aufnahme: %s Sek, davon %i Pausen\n" % (self.analyzed_values["length_in_sec"],
+                                                                                    self.analyzed_values["pauses"]))
+        self.textStatistic.append("Durchschnittliche Pausenlänge:" + "\n" +
+                                  "Goldstandart: %.2f Sek\nIhre Aufnahme: %.2f Sek\n" %(float(self.old_results["mean_of_pauses"][0]),
+                                                                                          self.analyzed_values["mean_of_pauses"]))
+        self.textStatistic.append("Verhältnis von geprochener Zeit zu der Gesamtzeit: " + "\n" +
+                                   "Goldstandart: {} \nIhre Aufnahme: {}\n".format(self.old_results["balance"][0],
+                                                                                   self.analyzed_values["balance"]))
+        self.textStatistic.append("Stil der gesamten Rede: " + "\n" +
+                                  "Goldstandart: {}\nIhre Aufnahme: {}\n".format(' '.join(old_results["mood"]),
+                                                                                 ''.join(self.analyzed_values["mood"])))
 
         self.show()
 
@@ -80,7 +90,7 @@ class Ui_compare_window(QtWidgets.QWidget):
             print("Die Datei konnte nicht analysiert werden")
 
     def analyze_audio(self):
-        self.results, self.name, self.path_directory = af.open_and_analyse_file(0, True)
+        self.results, _, self.name, self.path_directory = af.open_and_analyse_file(0, True)
         print("Analyse fertig")
 
     def show_statistik(self):
