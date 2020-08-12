@@ -9,3 +9,4 @@ Tools:
  
 
 Link zum akustischen Model: https://goofy.zamia.org/zamia-speech/asr-models/kaldi-generic-de-tdnn_f-r20190328.tar.xz
+Link zum zu Vosk angepassten Model: https://drive.google.com/drive/folders/1uyFgpRtVMQ7wmH8DXGLrrXKAdz8bE2n2?usp=sharing
