@@ -5,6 +5,12 @@ import wave
 
 
 def recognize_speech(audio_path, ac_model_path):
+    """
+    Run speech recognizer
+    :param audio_path: path to audio file
+    :param ac_model_path: path to the acoustic model
+    :return: path to the recognized txt file
+    """
     model = Model(ac_model_path)
     wf = wave.open(audio_path, "rb")
     rec = KaldiRecognizer(model, wf.getframerate())
@@ -22,6 +28,12 @@ def recognize_speech(audio_path, ac_model_path):
 
 
 def count_fillers(path_to_filler_file, words):
+    """
+    Detect and count filler words
+    :param path_to_filler_file: path to the file where are listed
+    :param words: list of recognized words
+    :return: filler rate and dictionary with most used filler words
+    """
     filler_counter = {}
     filler_words = []
     with open(path_to_filler_file, encoding="utf-8", mode="r") as fp:

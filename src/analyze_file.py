@@ -11,6 +11,12 @@ import wrapper
 
 
 def analyze_recorded(section_size, name):
+    """
+    Analyze directly recorded files
+    :param section_size: selected size of the sections
+    :param name: name of the audio and video files
+    :return: results of analyzing audio and video, name of the files and path to the files
+    """
     name_video = name + ".avi"
     path_to_files = "../data/audioFiles/recording"
 
@@ -27,7 +33,9 @@ def analyze_recorded(section_size, name):
 def open_and_analyse_file(section_size, only_whole=False):
     """
     Open file and analyze whole file plus sections
-    :return:
+    :param section_size: selected size of the sections
+    :param only_whole: True if only the whole audio is analyzed
+    :return: results of analyzing audio and video, name of the files and path to the files
     """
     name, path_to_files, is_video_file, file_extension = open_file()
     results = analyze_whole_and_sections(name, path_to_files, section_size, only_whole)
@@ -49,7 +57,7 @@ def open_and_analyse_file(section_size, only_whole=False):
 def open_file():
     """
     Choose file to analyze
-    :return: file name and file path
+    :return: file name and file path, boolean value is_video_file and file extension
     """
     path = QtWidgets.QFileDialog.getOpenFileName(directory="../data/audioFiles")
     file = path[0].split("/")[-1]
@@ -72,6 +80,15 @@ def open_file():
 
 
 def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last_second, section_size=15):
+    """
+    Split audio file and save sections in sections folder
+    :param audio_file: name of the file
+    :param audio_files_path: path to the files
+    :param section_folder: path to section folder
+    :param last_second: length of audio file
+    :param section_size: selected section size
+    :return: number of sliced and saved sections
+    """
     speech = AudioSegment.from_wav(audio_files_path + "/" + audio_file + ".wav")
     # convert stereo to mono
     if speech.channels == 2:
@@ -79,7 +96,7 @@ def split_and_save_audio_file(audio_file, audio_files_path, section_folder, last
         audio_file = audio_file + "_mono"
 
     number_section = 0
-    # nice to have: slice at silent pause
+    # todo nice to have: slice at silent pause
     min_size_section = 10 * 1000
     for number_section, section in enumerate(range(0, last_second, section_size)):
         section_speech = []
@@ -109,16 +126,24 @@ def extract_audio_file(video_file):
     audio_name = "{}_audio".format(name)
     path_audio = video_file.split('/' + name)[0]
     if not os.path.isfile(path_audio + '/' + audio_name + '.wav'):
-        # FIXME: für Linux und Mac auskommentieren!
+        # FIXME: für Windows auskommentieren!
         command = "ffmpeg -i " + video_file + " -ab 160k -ac 2 -ar 44100 -vn {}.wav".format(path_audio + '/' + audio_name)
         subprocess.call(command, shell=True)
     # for windows
-    #    command = "D:\\download\\ffmpeg-20200730-134a48a-win64-static\\bin\\ffmpeg -i " + video_file + " -ab 160k -ac 2 -ar 44100 -vn {}.wav".format(path_audio + '/' + audio_name)
+    #    command = "bin\\ffmpeg -i " + video_file + " -ab 160k -ac 2 -ar 44100 -vn {}.wav".format(path_audio + '/' + audio_name)
     #    subprocess.check_output(command, shell=True)
     return audio_name
 
 
 def analyze_whole_and_sections(audio_file_name, audio_files_path, sections_size, only_whole):
+    """
+    Analyze audio file and sections
+    :param audio_file_name: name of the file
+    :param audio_files_path: path to the files
+    :param sections_size: selected size of section
+    :param only_whole: true if only whole audio is analyzed
+    :return: results of analyzing of whole audio file and the sections
+    """
 
     results_path = "../data/results"
     # analyze whole File
@@ -181,18 +206,6 @@ def delete_folder_content(path_to_folder):
                 shutil.rmtree(file_path)
         except Exception as e:
             print('Failed to delete %s. Reason: %s' % (file_path, e))
-
-
-def get_results_from_text_file(nameTextFile="standard.txt"):
-    results_path = "../data/results"
-    f = open((results_path + '/' + nameTextFile), 'r')
-    read_results = {"name": f.readline()}
-    for line in f.readlines():
-        key = line.split(',')[0]
-        value = line.split(',')[1]
-        read_results[key] = value
-    print(read_results)
-    return read_results
 
 
 def convert_stereo_to_mono(audiofile):

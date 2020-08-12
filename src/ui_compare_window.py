@@ -80,7 +80,12 @@ class Ui_compare_window(QtWidgets.QWidget):
         self.show()
 
     def open_file(self):
+        """
+        Open result txt file to read and save results from previous analysis
+        :return: None
+        """
         try:
+            # if there is no data/results folder please use path from FIXME
             #FIXME change with file = QtWidgets.QFileDialog.getOpenFileName(directory=os.path.dirname(os.path.abspath(__file__))
             result_path = "../data/results"
             file = QtWidgets.QFileDialog.getOpenFileName(directory=result_path)
@@ -90,10 +95,18 @@ class Ui_compare_window(QtWidgets.QWidget):
             print("Die Datei konnte nicht analysiert werden")
 
     def analyze_audio(self):
+        """
+        Open and anlyze audio file
+        :return: None
+        """
         self.results, _, self.name, self.path_directory = af.open_and_analyse_file(0, True)
         print("Analyse fertig")
 
     def show_statistik(self):
+        """
+        Show compare statistik window
+        :return: None
+        """
         if self.old_results is not None and self.results is not None:
             self.window = QtWidgets.QMainWindow()
             self.uiRec = statistik_window()

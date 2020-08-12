@@ -30,7 +30,18 @@ class PlotCanvas(FigureCanvas):
         FigureCanvas.updateGeometry(self)
 
     def plot(self, title, x_data, y_data, x_label, y_label, ylim, add=False, style='bo--'):
-
+        """
+        Plot results of section analysis
+        :param title: Title of Plot
+        :param x_data: data for x axes (sections)
+        :param y_data: data for y axes (results of analysis)
+        :param x_label: label for x axes (number of section and end of section)
+        :param y_label: label for y axes (depending on analyzed category)
+        :param ylim: dimension of y axes
+        :param add: True if graph should be added to plot
+        :param style: style of plot
+        :return: None
+        """
         ax = self.figure.add_subplot(111)
         if not add:
             self.axes.clear()
@@ -42,6 +53,12 @@ class PlotCanvas(FigureCanvas):
         self.draw()
 
     def plot_pie(self, labels, sizes):
+        """
+        Plot pie diagram for mood analysis
+        :param labels: label for mood analysis
+        :param sizes: distribution of the mood classification
+        :return: None
+        """
         ax = self.figure.add_subplot(111)
         self.axes.clear()
         ax.pie(sizes, labels=labels, shadow=True, autopct='%1.1f%%',  startangle=90)
@@ -257,9 +274,11 @@ class Ui_statistics_window(QtWidgets.QDialog):
         self.button_sections.setText(_translate("statistics_window", "öffne Abschnitte"))
         self.button_standard.setText(_translate("statistics_window", "speichere als Standard"))
 
-
-
     def show_pause_num_statistic(self):
+        """
+        Show statistic of pauses
+        :return: None
+        """
         try:
             self.textStatistic.setText("Die gesamte Anzahl der stillen Pausen: " + str(self.whole["pauses"]))
             self.textStatistic.append("Die gesamte Anzahl der gefüllten Pausen: " + str(self.whole["filled_pauses"]))
@@ -284,6 +303,10 @@ class Ui_statistics_window(QtWidgets.QDialog):
             self.textStatistic.setText("keine Analysedaten vorhanden")
 
     def show_pause_len_statistic(self):
+        """
+        Show statistic of length of pauses
+        :return: None
+        """
         try:
             self.textStatistic.setText("Die durchschnittliche Länge der stillen Pausen: " + "%.2f secs"
                                        % (self.whole["mean_of_pauses"]))
@@ -308,6 +331,10 @@ class Ui_statistics_window(QtWidgets.QDialog):
             self.textStatistic.setText("keine Analysedaten vorhanden")
 
     def show_rate_of_speech_statistic(self):
+        """
+        Show statistic of speech rate
+        :return: None
+        """
         print("anfang_rate")
         try:
             self.textStatistic.setText("Das Geschwindigkeitslevel der gesamten Rede: "+str(self.whole["rate_of_speech"]))
@@ -334,6 +361,10 @@ class Ui_statistics_window(QtWidgets.QDialog):
             self.canvasStatistik.plot_clear()
 
     def show_balance_statistic(self):
+        """
+        Show statistic of balance
+        :return: None
+        """
         try:
             self.textStatistic.setText("Balance der gesamten Rede: " + str(self.whole["balance"]))
             # gib plot an self.graphicsStatistik
@@ -353,6 +384,10 @@ class Ui_statistics_window(QtWidgets.QDialog):
             self.textStatistic.setText("keine Analysedaten vorhanden")
 
     def show_intensity_statistic(self):
+        """
+        Show statistic of intensity
+        :return: None
+        """
         try:
             self.textStatistic.setText(
                 "Die durchschnittliche Lautstärke der gesprochenen Rede war: %.2f dB" % self.whole["mean_intensity"])
@@ -378,6 +413,10 @@ class Ui_statistics_window(QtWidgets.QDialog):
             self.textStatistic.setText("keine Analysedaten vorhanden")
 
     def show_fillers_statistic(self):
+        """
+        Show statistic of filler rate and filler words
+        :return: None
+        """
         try:
             print("anfang filler")
             print(self.whole["filler_rate"])
@@ -392,6 +431,10 @@ class Ui_statistics_window(QtWidgets.QDialog):
             self.textStatistic.setText("keine Analysedaten vorhanden")
 
     def show_mood_statistic(self):
+        """
+        Show statistic of mood classification
+        :return: None
+        """
         try:
             self.textStatistic.setText("Stimmung der gesamten Rede: " + str(self.whole["mood"]))
             min_length = 19
@@ -420,7 +463,10 @@ class Ui_statistics_window(QtWidgets.QDialog):
             self.textStatistic.setText("keine Analysedaten vorhanden")
 
     def show_visual_statistic(self):
-
+        """
+        Show statistic of used poses
+        :return: None
+        """
         self.textStatistic.setText("Analyse der Posen: "
                                    "\nAngewinkelte Arme (Arme angew.)"
                                    "\nVerschränkte Arme (Arme versch.)"
@@ -436,6 +482,10 @@ class Ui_statistics_window(QtWidgets.QDialog):
 
 
     def show_movement_statistic(self):
+        """
+        Show statistic of arm movements
+        :return: None
+        """
         try:
             self.textStatistic.setText("Analyse der Bewegungsintensität des linken und rechten Arms")
             print("versuche plot_movement")
@@ -445,6 +495,10 @@ class Ui_statistics_window(QtWidgets.QDialog):
 
 
     def open_sections(self):
+        """
+        Open and listen to audio sections
+        :return: None
+        """
         path_sections = self.path_directory + "/sections"
         try:
             file = QtWidgets.QFileDialog.getOpenFileName(directory= path_sections)
@@ -454,31 +508,10 @@ class Ui_statistics_window(QtWidgets.QDialog):
             print("kein Abschnitt ausgewählt")
 
     def save_standard(self):
+        """
+        Save results to standard.txt file
+        :return: None
+        """
         results_path = "../data/results"
         copyfile(results_path + "/" + self.name + ".txt", results_path + "/standard.txt")
 
-
-def start_gui_statistics():
-    app = QtWidgets.QApplication(sys.argv)
-    ui = Ui_statistics_window()
-    ui.setupUi(15)
-    sys.exit(app.exec_())
-
-
-#start_gui_statistics()
-
-#if __name__ == '__main__':
- #   start_gui_statistics()
-    # app = QtWidgets.QApplication(sys.argv)
-    # ex = App()
-    # sys.exit(app.exec_())
-
-def save_plot(self, title, x_data, y_data, x_label, y_label, ylim, add=False, style='bo--'):
-    figure = plt.figure()
-    ax = figure.add_subplot(111)
-    ax.set_ylim(ylim)
-    ax.plot(x_data, y_data, style)
-    ax.set_xlabel(x_label)
-    ax.set_ylabel(y_label)
-    ax.set_title(title)
-    plt.savefig("..data/results/test.png")

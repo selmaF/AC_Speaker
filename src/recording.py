@@ -55,7 +55,10 @@ class recording_window(QtWidgets.QWidget):
         self.play_button.setText(_translate("recording_window", "Aufnehmen"))
 
     def start(self):
-
+        """
+        Start audio and video recording
+        :return: None
+        """
         self.label.setText("Aufnahme gestartet ...\nbeende mit \'q\'")
         self.recording_started = True
         audio_thread = threading.Thread(target=self.record_audio)
@@ -67,7 +70,6 @@ class recording_window(QtWidgets.QWidget):
             audio_thread.join(timeout=0.1)
         self.close()
         self.open_statistic_window()
-
 
     def record_video(self):
         """

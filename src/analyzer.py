@@ -56,28 +56,10 @@ class AudioAnalyzer:
         else:
             print("Noch keine Werte analysiert, daher gibt es keine Werte zu speichern")
 
-    def printResults(self):
-        if self.analysis_done:
-            length = str(self.analyzed_values["length_in_sec"])
-            pauses = str(self.analyzed_values["pauses"])
-            mean_pauses = self.analyzed_values["mean_of_pauses"]
-            print("\n")
-            print(self.name)
-            print("Die durchschnittliche Lautstärke beträgt %.2f dB" % self.analyzed_values["mean_intensity"])
-            print("Bei einer Gesamtlänge von " + length + " Sekunden wurden " + pauses + " Pausen mit einer durchschnittlichen Länge von %.2f sec gemacht" % mean_pauses)
-            print("Die durchschnittlich gesprochenen Silben pro Sekunde betragen " + str(self.analyzed_values["rate_of_speech"]))
-            print("Das Verhältnis von geprochener Zeit zu der Gesamtzeit ist " + str(self.analyzed_values["balance"]))
-            print("Die semantische Analyse ergab:  " + self.analyzed_values["mood"])
-            print("Filler rate: " + str(self.analyzed_values["filler_rate"]))
-            print("Meist gebrauchte Füllwörter: " + str(self.analyzed_values["most_used_fillers"]))
-            print("Anzahl von gefüllten Pausen: " + str(self.analyzed_values["filled_pauses"]))
-        else:
-            print("Keine Werte analysiert")
-
     def runMyspsolutionPraatFile(self):
         """
         Run praat file. Added from myspsolution.py
-        :return: results of praat script
+        :return: results of praat script as parselmouth object
         """
         sound = self.audio_files_path + "/" + self.audio_file
         sourcerun = "myspsolution.praat"
@@ -106,6 +88,10 @@ class AudioAnalyzer:
             print("analyzeWavFile hat nicht vollständig funktioniert")
 
     def analyze_recognizer(self):
+        """
+        Run speechrecognition and detect filled pauses
+        :return: list of recognised words
+        """
         path_to_rec_text = recognizer.recognize_speech(self.audio_files_path + "/" + self.audio_file, self.path_to_model)
         words, end_timestamps, start_timestamps = recognizer.read_file(path_to_rec_text)
         timestamps = recognizer.detect_filled_pauses(end_timestamps, start_timestamps)
@@ -114,6 +100,10 @@ class AudioAnalyzer:
         return words
 
     def analyze_length(self):
+        """
+        Analyze length of the audio file
+        :return: file duration in seconds
+        """
         # length of the .wav file nach https://stackoverflow.com/questions/40651891/get-length-of-wav-file-in-samples-with-python
         sound = self.audio_files_path + "/" + self.audio_file
         if os.path.isfile(sound):
@@ -124,6 +114,10 @@ class AudioAnalyzer:
             print("Couldn't find path to file")
 
     def analyze_intensity(self):
+        """
+        Analyze mean intensity of the spoken parts
+        :return: mean intensity of the spoken parts
+        """
         snd = parselmouth.Sound(self.audio_files_path + "/" + self.audio_file)
         intensity = snd.to_intensity(minimum_pitch=50)
         intensity_points = intensity.values.T
@@ -133,6 +127,12 @@ class AudioAnalyzer:
         return mean
 
     def analyze_filled_pauses(self, sound, timestamps):
+        """
+        Detect and count filled pauses in sound file
+        :param sound: audio file path
+        :param timestamps: beginning and end of the silent part
+        :return: None
+        """
         snd = parselmouth.Sound(sound)
         pauses_number = 0
         time_filled_pauses = []
@@ -166,6 +166,11 @@ class AudioAnalyzer:
 
     @staticmethod
     def compute_pause_length(path_to_textGrid):
+        """
+        Compute mean length of silent pauses
+        :param path_to_textGrid: Path to textGrid file
+        :return: mean length of silent pauses
+        """
         pauses_intervall = []
         length_of_pause = []
         with open(path_to_textGrid) as textGrid:
@@ -218,6 +223,11 @@ class AudioAnalyzer:
 
     @staticmethod
     def analyze_mood(parsel_object):
+        """
+        Classify the audio file by "reading", "showing no emotion" and "speaking passionately"
+        :param parsel_object: parselmouth.Data object
+        :return: Classification of mood
+        """
 
         try:
             z1 = str(parsel_object[1])
@@ -291,31 +301,12 @@ class AudioAnalyzer:
             print("Try again the sound of the audio was not clear")
 
 
-def compare_results(self, old_results):
-        print("Durchschnittliche Lautstärke:")
-        print("Goldstandart: " + old_results["mean_intensity"] + "\t" + "Ihre Aufnahme: " + str(self.analyzed_values["mean_intensity"]))
-
-        print("Redegeschwindigkeit (Silben pro Sekunde):")
-        print("Goldstandart: " + old_results["rate_of_speech"] + "\t" + "Ihre Aufnahme: " + str(self.analyzed_values["rate_of_speech"]))
-
-        print("Gesamtlänge und Anzahl von Pausen: ")
-        print("Goldstandart: " + old_results["length"] + " Sek, davon  " + old_results["pauses"] + " Pausen"+ "\t" +
-              "Ihre Aufnahme: " + str(self.analyzed_values["length"]) + " Sek, davon  " + str(self.analyzed_values["pauses"]) + " Pausen")
-
-        print("Durchschnittliche Pausenlänge:")
-        print("Goldstandart: " + old_results["mean_pauses"] + " Sek \t" + "Ihre Aufnahme: " + str(self.analyzed_values["mean_pauses"]) + " Sek")
-
-        print("Verhältnis von geprochener Zeit zu der Gesamtzeit: ")
-        print("Goldstandart: " + old_results["balance"] + "\t" + "Ihre Aufnahme: " + str(self.analyzed_values["balance"]))
-
-        print("Verhältnis von Füllwörtern zu allen Wörtern: ")
-        print("Goldstandart: " + old_results["filler_rate"] + "\t" + "Ihre Aufnahme: " + str(self.analyzed_values["filler_rate"]))
-
-        print("Stil der gesamten Rede: ")
-        print("Goldstandart: " + old_results["mood"] + "\t" + "Ihre Aufnahme: " + str(self.analyzed_values["mood"]))
-
-
 def load_old_results(file_path):
+    """
+    Load and parse old results from a txt file
+    :param file_path: path to txt file
+    :return: dictionary with old results
+    """
     old_results = {}
     with open(file_path, encoding="utf8", mode="r") as file:
         for line in file.readlines():
