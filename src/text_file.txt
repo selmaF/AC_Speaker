@@ -1,0 +1,417 @@
+{
+  "result" : [{
+      "conf" : 1,000000,
+      "end" : 3,210000,
+      "start" : 0,000000,
+      "word" : "was"
+    }, {
+      "conf" : 1,000000,
+      "end" : 3,270000,
+      "start" : 3,210000,
+      "word" : "würde"
+    }, {
+      "conf" : 1,000000,
+      "end" : 3,840000,
+      "start" : 3,270000,
+      "word" : "ich"
+    }, {
+      "conf" : 1,000000,
+      "end" : 4,020000,
+      "start" : 3,840000,
+      "word" : "tun"
+    }, {
+      "conf" : 1,000000,
+      "end" : 4,110000,
+      "start" : 4,020000,
+      "word" : "um"
+    }, {
+      "conf" : 1,000000,
+      "end" : 4,470000,
+      "start" : 4,110000,
+      "word" : "die"
+    }, {
+      "conf" : 1,000000,
+      "end" : 4,560000,
+      "start" : 4,470000,
+      "word" : "welt"
+    }, {
+      "conf" : 0,999843,
+      "end" : 6,510000,
+      "start" : 4,560000,
+      "word" : "vertreten"
+    }],
+  "text" : "was würde ich tun um die welt vertreten"
+}{
+  "result" : [{
+      "conf" : 1,000000,
+      "end" : 7,110000,
+      "start" : 6,510000,
+      "word" : "das"
+    }, {
+      "conf" : 1,000000,
+      "end" : 7,320000,
+      "start" : 7,110000,
+      "word" : "ist"
+    }, {
+      "conf" : 1,000000,
+      "end" : 7,560000,
+      "start" : 7,320000,
+      "word" : "eine"
+    }, {
+      "conf" : 1,000000,
+      "end" : 7,950000,
+      "start" : 7,560000,
+      "word" : "so"
+    }, {
+      "conf" : 1,000000,
+      "end" : 9,060000,
+      "start" : 7,950000,
+      "word" : "schwere"
+    }, {
+      "conf" : 1,000000,
+      "end" : 10,200000,
+      "start" : 9,060000,
+      "word" : "frage"
+    }, {
+      "conf" : 1,000000,
+      "end" : 10,290000,
+      "start" : 10,200000,
+      "word" : "dass"
+    }, {
+      "conf" : 1,000000,
+      "end" : 10,500000,
+      "start" : 10,290000,
+      "word" : "ich"
+    }, {
+      "conf" : 1,000000,
+      "end" : 11,070000,
+      "start" : 10,500000,
+      "word" : "keine"
+    }, {
+      "conf" : 1,000000,
+      "end" : 11,460000,
+      "start" : 11,070000,
+      "word" : "ahnung"
+    }, {
+      "conf" : 1,000000,
+      "end" : 12,390000,
+      "start" : 11,460000,
+      "word" : "habe"
+    }, {
+      "conf" : 1,000000,
+      "end" : 13,260000,
+      "start" : 12,390000,
+      "word" : "aber"
+    }, {
+      "conf" : 1,000000,
+      "end" : 13,380000,
+      "start" : 13,260000,
+      "word" : "lass"
+    }, {
+      "conf" : 1,000000,
+      "end" : 13,620000,
+      "start" : 13,380000,
+      "word" : "mich"
+    }, {
+      "conf" : 1,000000,
+      "end" : 13,890000,
+      "start" : 13,620000,
+      "word" : "mal"
+    }, {
+      "conf" : 1,000000,
+      "end" : 15,540000,
+      "start" : 13,890000,
+      "word" : "denken"
+    }],
+  "text" : "das ist eine so schwere frage dass ich keine ahnung habe aber lass mich mal denken"
+}{
+  "result" : [{
+      "conf" : 1,000000,
+      "end" : 17,460000,
+      "start" : 15,540000,
+      "word" : "an"
+    }, {
+      "conf" : 1,000000,
+      "end" : 18,210000,
+      "start" : 17,460000,
+      "word" : "das"
+    }, {
+      "conf" : 1,000000,
+      "end" : 18,330000,
+      "start" : 18,210000,
+      "word" : "erste"
+    }, {
+      "conf" : 1,000000,
+      "end" : 18,570000,
+      "start" : 18,330000,
+      "word" : "was"
+    }, {
+      "conf" : 1,000000,
+      "end" : 18,720000,
+      "start" : 18,570000,
+      "word" : "mir"
+    }, {
+      "conf" : 1,000000,
+      "end" : 19,530000,
+      "start" : 18,720000,
+      "word" : "einfällt"
+    }, {
+      "conf" : 1,000000,
+      "end" : 21,210000,
+      "start" : 19,530000,
+      "word" : "ist"
+    }],
+  "text" : "an das erste was mir einfällt ist"
+}{
+  "result" : [{
+      "conf" : 1,000000,
+      "end" : 22,440000,
+      "start" : 21,210000,
+      "word" : "über"
+    }, {
+      "conf" : 1,000000,
+      "end" : 23,700000,
+      "start" : 22,440000,
+      "word" : "die"
+    }, {
+      "conf" : 1,000000,
+      "end" : 24,630000,
+      "start" : 23,700000,
+      "word" : "kommunikations"
+    }, {
+      "conf" : 1,000000,
+      "end" : 24,900000,
+      "start" : 24,630000,
+      "word" : "möglichkeiten"
+    }, {
+      "conf" : 1,000000,
+      "end" : 26,460000,
+      "start" : 24,900000,
+      "word" : "nachzudenken"
+    }],
+  "text" : "über die kommunikations möglichkeiten nachzudenken"
+}{
+  "result" : [{
+      "conf" : 1,000000,
+      "end" : 27,720000,
+      "start" : 26,460000,
+      "word" : "also"
+    }, {
+      "conf" : 1,000000,
+      "end" : 27,840000,
+      "start" : 27,720000,
+      "word" : "wenn"
+    }, {
+      "conf" : 1,000000,
+      "end" : 27,990000,
+      "start" : 27,840000,
+      "word" : "wir"
+    }, {
+      "conf" : 1,000000,
+      "end" : 28,230000,
+      "start" : 27,990000,
+      "word" : "in"
+    }, {
+      "conf" : 1,000000,
+      "end" : 28,560000,
+      "start" : 28,230000,
+      "word" : "einer"
+    }, {
+      "conf" : 1,000000,
+      "end" : 29,160000,
+      "start" : 28,560000,
+      "word" : "globalisierten"
+    }, {
+      "conf" : 1,000000,
+      "end" : 29,790000,
+      "start" : 29,160000,
+      "word" : "welt"
+    }, {
+      "conf" : 1,000000,
+      "end" : 30,660000,
+      "start" : 29,790000,
+      "word" : "leben"
+    }],
+  "text" : "also wenn wir in einer globalisierten welt leben"
+}{
+  "result" : [{
+      "conf" : 1,000000,
+      "end" : 31,200000,
+      "start" : 30,660000,
+      "word" : "müssen"
+    }, {
+      "conf" : 1,000000,
+      "end" : 31,320000,
+      "start" : 31,200000,
+      "word" : "wir"
+    }, {
+      "conf" : 1,000000,
+      "end" : 31,560000,
+      "start" : 31,320000,
+      "word" : "auch"
+    }, {
+      "conf" : 1,000000,
+      "end" : 32,220000,
+      "start" : 31,560000,
+      "word" : "ermöglichen"
+    }, {
+      "conf" : 0,999892,
+      "end" : 32,340000,
+      "start" : 32,220000,
+      "word" : "dass"
+    }, {
+      "conf" : 1,000000,
+      "end" : 32,460000,
+      "start" : 32,340004,
+      "word" : "die"
+    }, {
+      "conf" : 1,000000,
+      "end" : 33,270000,
+      "start" : 32,460000,
+      "word" : "menschen"
+    }, {
+      "conf" : 1,000000,
+      "end" : 33,870000,
+      "start" : 33,270000,
+      "word" : "untereinander"
+    }, {
+      "conf" : 1,000000,
+      "end" : 35,070000,
+      "start" : 33,870000,
+      "word" : "gut"
+    }, {
+      "conf" : 1,000000,
+      "end" : 35,820000,
+      "start" : 35,070000,
+      "word" : "kommunizieren"
+    }, {
+      "conf" : 1,000000,
+      "end" : 36,750000,
+      "start" : 35,820000,
+      "word" : "können"
+    }],
+  "text" : "müssen wir auch ermöglichen dass die menschen untereinander gut kommunizieren können"
+}{
+  "result" : [{
+      "conf" : 1,000000,
+      "end" : 38,370000,
+      "start" : 36,750000,
+      "word" : "nicht"
+    }, {
+      "conf" : 1,000000,
+      "end" : 38,550000,
+      "start" : 38,370000,
+      "word" : "nur"
+    }, {
+      "conf" : 0,999992,
+      "end" : 38,550000,
+      "start" : 38,550000,
+      "word" : "dass"
+    }, {
+      "conf" : 0,999973,
+      "end" : 38,790000,
+      "start" : 38,550000,
+      "word" : "sie"
+    }, {
+      "conf" : 1,000000,
+      "end" : 39,720000,
+      "start" : 38,790004,
+      "word" : "voneinander"
+    }, {
+      "conf" : 1,000000,
+      "end" : 39,990000,
+      "start" : 39,720000,
+      "word" : "abhängig"
+    }, {
+      "conf" : 1,000000,
+      "end" : 40,530000,
+      "start" : 39,990000,
+      "word" : "sind"
+    }, {
+      "conf" : 0,999917,
+      "end" : 40,740000,
+      "start" : 40,530000,
+      "word" : "und"
+    }, {
+      "conf" : 0,999897,
+      "end" : 41,220000,
+      "start" : 40,740000,
+      "word" : "davon"
+    }, {
+      "conf" : 1,000000,
+      "end" : 42,420000,
+      "start" : 41,220000,
+      "word" : "über"
+    }, {
+      "conf" : 1,000000,
+      "end" : 43,200000,
+      "start" : 42,420000,
+      "word" : "ihre"
+    }, {
+      "conf" : 1,000000,
+      "end" : 43,950000,
+      "start" : 43,200000,
+      "word" : "weltanschauung"
+    }, {
+      "conf" : 1,000000,
+      "end" : 44,370000,
+      "start" : 43,950000,
+      "word" : "davon"
+    }, {
+      "conf" : 1,000000,
+      "end" : 45,150000,
+      "start" : 44,370000,
+      "word" : "abhängen"
+    }, {
+      "conf" : 1,000000,
+      "end" : 45,360000,
+      "start" : 45,150000,
+      "word" : "sondern"
+    }, {
+      "conf" : 1,000000,
+      "end" : 45,450000,
+      "start" : 45,360000,
+      "word" : "dass"
+    }, {
+      "conf" : 1,000000,
+      "end" : 45,570000,
+      "start" : 45,450000,
+      "word" : "sie"
+    }, {
+      "conf" : 1,000000,
+      "end" : 46,050000,
+      "start" : 45,570000,
+      "word" : "eben"
+    }, {
+      "conf" : 1,000000,
+      "end" : 46,230000,
+      "start" : 46,050000,
+      "word" : "auch"
+    }, {
+      "conf" : 1,000000,
+      "end" : 46,500000,
+      "start" : 46,230000,
+      "word" : "mit"
+    }, {
+      "conf" : 1,000000,
+      "end" : 46,710000,
+      "start" : 46,500000,
+      "word" : "den"
+    }, {
+      "conf" : 1,000000,
+      "end" : 47,880000,
+      "start" : 46,710000,
+      "word" : "anderen"
+    }, {
+      "conf" : 1,000000,
+      "end" : 48,300000,
+      "start" : 47,880000,
+      "word" : "kommunizieren"
+    }, {
+      "conf" : 1,000000,
+      "end" : 49,350000,
+      "start" : 48,300000,
+      "word" : "können"
+    }],
+  "text" : "nicht nur dass sie voneinander abhängig sind und davon über ihre weltanschauung davon abhängen sondern dass sie eben auch mit den anderen kommunizieren können"
+}
