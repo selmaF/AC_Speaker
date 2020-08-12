@@ -1,8 +1,7 @@
 # AC_Speaker
 Daria, Maike and Jakob
-
-Die aktuelle Version mit allen funktionierenden Analysen befindet sich auf dem alle_analysen branch. 
-Es sollte eine Pythonversion über Python 3.7 verwendet werden. 
+ 
+Es sollte keine Pythonversion über Python 3.7 verwendet werden. 
 
 Verwendete Github-repositories:
  Shahabks /my-voice-analysis   (Verändert nach den Issues auf Github)
